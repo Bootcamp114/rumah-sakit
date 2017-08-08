@@ -1,1 +1,4 @@
-haiii asaal
+class empty{
+	data dfadf 
+	sat d sdf
+}
