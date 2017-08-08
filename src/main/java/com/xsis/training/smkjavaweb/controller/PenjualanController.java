@@ -15,13 +15,12 @@ import com.xsis.training.smkjavaweb.service.DataMasterServicePenjualan;
 public class PenjualanController {
 
 	@Autowired
-	DataMasterServicePenjualan dataMasterServicePenjualan;
+	private DataMasterServicePenjualan dataMasterServicePenjualan;
 	
 	@RequestMapping
 	public String index(Model model){
 		List<Customer> listCustomer = dataMasterServicePenjualan.getAllCustomer();
-		model.add("listCustomer", listCustomer);
-		
+		model.addAttribute("listCustomer", listCustomer);
 		return "penjualan"; //load penjualan jsp
 	}
 	

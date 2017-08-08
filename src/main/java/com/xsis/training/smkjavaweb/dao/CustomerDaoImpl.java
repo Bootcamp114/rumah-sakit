@@ -1,5 +1,7 @@
 package com.xsis.training.smkjavaweb.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ public class CustomerDaoImpl implements CustomerDao{
 		Session session = sessionFactory.getCurrentSession();
 		session.save(customer);
 		session.flush();
+	}
+
+	public List<Customer> getAllCustomer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
