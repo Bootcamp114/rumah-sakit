@@ -4,25 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "rs_pendaftaran")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public class Pendaftaran {
-
+@Table(name = "rs_obat")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id")
+public class Obat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
-	private int idpasien;
-	private int idpoli;
-	private int idpetugas;
-	private String nodaftar;
-	@OneToOne
-	private Pemeriksaan pemeriksaan;
-
+	private  int id;
+	private String obat;
+	private int harga;
+	private String jenisObat;
+	@ManyToOne
+	private Apoteker apoteker;
+	
 }
