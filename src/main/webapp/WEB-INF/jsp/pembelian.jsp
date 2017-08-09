@@ -6,12 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
+	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <body>
-<select id="resep">
+<h1 align="center">Form Pembelian Obat</h1>
+<hr>
+<div class="container">
+<div class="form-group">
+<select id="resep" class="form-control col-md-4" style="width:auto">
 	<option>No Resep</option>
 	<option>R001</option>
 </select>
-<table>
+<input type="submit" name="pilih" id="pilih" value="PILIH" class="btn btn-default" style="margin-left:10px">
+</div>
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th>NAMA OBAT</th>
@@ -30,6 +39,20 @@
 	</tbody>
 </table>
 
-<input type="text" >
+<table align="right">
+	<tr>
+		<td><input type="text" class="form-control" name="total" placeholder="Total Harga Obat"> </td>
+	</tr>
+	<tr>
+		<td><input type="text" class="form-control" name="bayar" placeholder="Bayar Obat"></td>
+	</tr>
+	<tr>
+		<td><input type="text" class="form-control" name="kembalian" placeholder="Kembalian Uang"> </td>
+	</tr>
+	<tr>
+		<td><input type="submit" value="SELESAI" class="btn btn-default"> </td>
+	</tr>
+</table>
+</div> 
 </body>
 </html>
