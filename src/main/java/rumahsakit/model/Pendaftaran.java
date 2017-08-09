@@ -24,6 +24,7 @@ public class Pendaftaran {
 	private int idpetugas;
 	private String nodaftar;
 	private String tanggal;
+	private String keluhan;
 	@OneToOne
 	private Pemeriksaan pemeriksaan;
 	@OneToOne

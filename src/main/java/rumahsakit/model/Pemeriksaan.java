@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "rs_pemeriksaan")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Pemeriksaan {
 
 	@Id
@@ -26,25 +26,23 @@ public class Pemeriksaan {
 	private JenisPemeriksaan jenisPemeriksaan;
 	@ManyToOne
 	private Dokter dokter;
-	private String keluhan;
 	private String diagnosa;
 	private String tindakan;
 	private int beratBadan;
 	private int tensiDiastolik;
 	private int tensiSistolik;
-	
+
 	public Pemeriksaan() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Pemeriksaan(int id, Pendaftaran pendaftaran, JenisPemeriksaan jenisPemeriksaan, Dokter dokter,
-			String keluhan, String diagnosa, String tindakan, int beratBadan, int tensiDiastolik, int tensiSistolik) {
+		 String diagnosa, String tindakan, int beratBadan, int tensiDiastolik, int tensiSistolik) {
 		super();
 		this.id = id;
 		this.pendaftaran = pendaftaran;
 		this.jenisPemeriksaan = jenisPemeriksaan;
 		this.dokter = dokter;
-		this.keluhan = keluhan;
 		this.diagnosa = diagnosa;
 		this.tindakan = tindakan;
 		this.beratBadan = beratBadan;
@@ -82,14 +80,6 @@ public class Pemeriksaan {
 
 	public void setDokter(Dokter dokter) {
 		this.dokter = dokter;
-	}
-
-	public String getKeluhan() {
-		return keluhan;
-	}
-
-	public void setKeluhan(String keluhan) {
-		this.keluhan = keluhan;
 	}
 
 	public String getDiagnosa() {
@@ -131,7 +121,5 @@ public class Pemeriksaan {
 	public void setTensiSistolik(int tensiSistolik) {
 		this.tensiSistolik = tensiSistolik;
 	}
-	
-	
-	
+
 }
