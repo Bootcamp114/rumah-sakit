@@ -1,9 +1,11 @@
 package rumahsakit.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,5 +31,11 @@ public class Pendaftaran {
 	private Pemeriksaan pemeriksaan;
 	@OneToOne
 	private Resep resep;
+	@OneToOne
+	private Poli poli;
+	@ManyToOne
+	private Pasien pasien;
+	@ManyToOne
+	private Petugas petugas;
 
 }
