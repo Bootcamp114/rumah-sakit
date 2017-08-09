@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "rs_poli")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Poli {
 
 	@Id
@@ -24,7 +24,7 @@ public class Poli {
 	private String poli;
 	private String ruangan;
 	private int biaya;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "poli")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poli")
 	private List<Dokter> dokter;
 
 }

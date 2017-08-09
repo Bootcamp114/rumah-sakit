@@ -24,41 +24,4 @@ public class JenisPemeriksaan {
 	private String jenisPemeriksaan;
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "jenisPemeriksaan")
 	private List<Pemeriksaan> pemeriksaan;
-	
-	public JenisPemeriksaan() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public JenisPemeriksaan(int id, String jenisPemeriksaan, List<Pemeriksaan> pemeriksaan) {
-		super();
-		this.id = id;
-		this.jenisPemeriksaan = jenisPemeriksaan;
-		this.pemeriksaan = pemeriksaan;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getJenisPemeriksaan() {
-		return jenisPemeriksaan;
-	}
-
-	public void setJenisPemeriksaan(String jenisPemeriksaan) {
-		this.jenisPemeriksaan = jenisPemeriksaan;
-	}
-
-	public List<Pemeriksaan> getPemeriksaan() {
-		return pemeriksaan;
-	}
-
-	public void setPemeriksaan(List<Pemeriksaan> pemeriksaan) {
-		this.pemeriksaan = pemeriksaan;
-	}
-	
-	
 }
