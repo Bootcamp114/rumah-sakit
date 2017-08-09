@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-		<context:component-scan base-package="com.xsis.traininig.smkjavaweb"></context:component-scan>
+		<context:component-scan base-package="rumahsakit"></context:component-scan>
 		
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		    <property name="driverClassName" value="${spring.datasource.driverClassName.oracle}" />
@@ -25,11 +25,11 @@
 			<list>
 			<!-- <value>com.xsis.training.smkjavaweb.model.Department</value>
 				<value>com.xsis.training.smkjavaweb.model.Employee</value> -->
-				<value>com.xsis.training.smkjavaweb.model.Customer</value>
+				<!-- <value>com.xsis.training.smkjavaweb.model.Customer</value>
 				<value>com.xsis.training.smkjavaweb.model.Barang</value>
 				<value>com.xsis.training.smkjavaweb.model.Penjualan</value>
 				<value>com.xsis.training.smkjavaweb.model.DetailPenjualan</value>
-				<value>com.xsis.training.smkjavaweb.model.Suplier</value>
+				<value>com.xsis.training.smkjavaweb.model.Suplier</value> -->
 			</list>
 		</property>
 		<property name="hibernateProperties">
