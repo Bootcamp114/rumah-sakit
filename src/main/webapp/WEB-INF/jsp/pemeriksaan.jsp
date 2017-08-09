@@ -45,7 +45,11 @@
 			</div>
 			<div class="form-group">
 				<label>Diagnosa</label>
-				<input type="text" name="diagnosa" id="diagnosa" class="form-control" autofocus placeholder="Diagnosa" required>	
+				<input type="text" name="diagnosa" id="diagnosa" class="form-control" autofocus placeholder="Diagnosa" required readonly>	
+				<br>
+				<button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modalDiagnosa">
+  					Klik Untuk Diagnosa
+				</button>
 			</div>
 			<div class="form-group">
 				<label>Tindakan</label>
