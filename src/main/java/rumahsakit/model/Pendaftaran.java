@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "rs_pendaftaran")
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Pendaftaran {
 
@@ -22,7 +23,10 @@ public class Pendaftaran {
 	private int idpoli;
 	private int idpetugas;
 	private String nodaftar;
+	private String tanggal;
 	@OneToOne
 	private Pemeriksaan pemeriksaan;
+	@OneToOne
+	private Resep resep;
 
 }
