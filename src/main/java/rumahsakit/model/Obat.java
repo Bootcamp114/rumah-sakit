@@ -24,5 +24,55 @@ public class Obat {
 	private Apoteker apoteker;
 	@ManyToOne
 	private Resep resep;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getObat() {
+		return obat;
+	}
+	public void setObat(String obat) {
+		this.obat = obat;
+	}
+	public int getHarga() {
+		return harga;
+	}
+	public void setHarga(int harga) {
+		this.harga = harga;
+	}
+	public String getJenisObat() {
+		return jenisObat;
+	}
+	public void setJenisObat(String jenisObat) {
+		this.jenisObat = jenisObat;
+	}
+	public Apoteker getApoteker() {
+		return apoteker;
+	}
+	public void setApoteker(Apoteker apoteker) {
+		this.apoteker = apoteker;
+	}
+	public Resep getResep() {
+		return resep;
+	}
+	public void setResep(Resep resep) {
+		this.resep = resep;
+	}
+	
+	public Obat(){
+		
+	}
+	public Obat(int id, String obat, int harga, String jenisObat, Apoteker apoteker, Resep resep) {
+		super();
+		this.id = id;
+		this.obat = obat;
+		this.harga = harga;
+		this.jenisObat = jenisObat;
+		this.apoteker = apoteker;
+		this.resep = resep;
+	}
+	
 	
 }
