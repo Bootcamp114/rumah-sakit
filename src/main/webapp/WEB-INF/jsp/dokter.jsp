@@ -87,7 +87,7 @@
         			<table class="table" id="tablePeriksa">
 				<thead>
 					<tr>
-						<th>JenisPemeriksaan</th>
+						<th>Poli</th>
 						<th>Action</th>
 					</tr>
 				</thead>
