@@ -22,5 +22,7 @@ public class Obat {
 	private String jenisObat;
 	@ManyToOne
 	private Apoteker apoteker;
+	@ManyToOne
+	private Resep resep;
 	
 }

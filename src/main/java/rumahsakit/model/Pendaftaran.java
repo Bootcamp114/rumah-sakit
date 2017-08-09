@@ -24,5 +24,7 @@ public class Pendaftaran {
 	private String nodaftar;
 	@OneToOne
 	private Pemeriksaan pemeriksaan;
-
+	@OneToOne
+	private Resep resep;
+	
 }
