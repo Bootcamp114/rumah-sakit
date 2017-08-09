@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,5 +18,7 @@ public class Pendaftaran {
 	private int idpoli;
 	private int idpetugas;
 	private String nodaftar;
+	@OneToOne
+	private Pemeriksaan pemeriksaan;
 
 }
