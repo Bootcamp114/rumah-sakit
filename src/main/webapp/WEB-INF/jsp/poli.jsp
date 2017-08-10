@@ -27,6 +27,7 @@
 <tr>
 <td><input type="text" name="biaya" id="biaya"  class="form-control" placeholder="masukan biaya"/></td>
 </tr>
+<input type="submit" value="SIMPAN" class="btn btn-default" style="margin-left: 10px;">
 <table class="table table-bordered"><br>
 	<thead>
 		<tr>
