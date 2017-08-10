@@ -21,8 +21,6 @@ public class Obat {
 	private int harga;
 	private String jenisObat;
 	@ManyToOne
-	private Apoteker apoteker;
-	@ManyToOne
 	private Resep resep;
 	@ManyToOne
 	private Supplier supplier;
@@ -58,12 +56,6 @@ public class Obat {
 	public void setJenisObat(String jenisObat) {
 		this.jenisObat = jenisObat;
 	}
-	public Apoteker getApoteker() {
-		return apoteker;
-	}
-	public void setApoteker(Apoteker apoteker) {
-		this.apoteker = apoteker;
-	}
 	public Resep getResep() {
 		return resep;
 	}
@@ -74,13 +66,12 @@ public class Obat {
 	public Obat(){
 		
 	}
-	public Obat(int id, String obat, int harga, String jenisObat, Apoteker apoteker, Resep resep, Supplier supplier) {
+	public Obat(int id, String obat, int harga, String jenisObat, Resep resep, Supplier supplier) {
 		super();
 		this.id = id;
 		this.obat = obat;
 		this.harga = harga;
 		this.jenisObat = jenisObat;
-		this.apoteker = apoteker;
 		this.resep = resep;
 		this.supplier = supplier;
 	}
