@@ -39,7 +39,7 @@ public class JenisPemeriksaanController {
 		service.updateJenisPemeriksaan(jenisPemeriksaan);
 	}
 	
-	@RequestMapping(value = "/delete/{id}" , method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void delete(@PathVariable int id){
 		service.deleteJenisPemeriksaan(id);
@@ -53,7 +53,7 @@ public class JenisPemeriksaanController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getAll" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getAll" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<JenisPemeriksaan> getAllJenisPemeriksaan(){
 		return service.getAllJenisPemeriksaan();
