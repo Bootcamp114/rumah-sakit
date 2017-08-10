@@ -11,3 +11,4 @@ public interface SupplierDao {
 	public Supplier getById(int id);
 	public List<Supplier> getAll();
 }
+ 

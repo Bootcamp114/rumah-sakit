@@ -37,18 +37,22 @@ public class SupplierDaoImpl implements SupplierDao{
 		supp.setId(id);
 		session.delete(supp);
 		session.flush();
-	}
+	} 
 
 	@Override
 	public Supplier getById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		Supplier supp = session.get(Supplier.class, id);
+		return supp;
 	}
 
 	@Override
 	public List<Supplier> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		List<Supplier> list = session.createCriteria(Supplier.class).list();
+ 		return list;
 	}
 
 }

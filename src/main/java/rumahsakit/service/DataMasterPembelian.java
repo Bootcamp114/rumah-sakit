@@ -12,7 +12,7 @@ import rumahsakit.model.Supplier;
 @Transactional
 public class DataMasterPembelian {
 	@Autowired
-	SupplierDao supplierDao;
+	SupplierDao supplierDao; 
 	
 	public void saveSupplier(Supplier supp){
 		supplierDao.save(supp);

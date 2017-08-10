@@ -33,7 +33,7 @@ public class SupplierController {
 	public void save(@RequestBody Supplier supp){
 		dtPembelian.saveSupplier(supp);
 	}
-	
+	 
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void update(@RequestBody Supplier supp){
