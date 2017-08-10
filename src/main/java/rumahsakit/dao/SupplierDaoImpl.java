@@ -24,13 +24,19 @@ public class SupplierDaoImpl implements SupplierDao{
 	@Override
 	public void update(Supplier supp) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.update(supp);
+		session.flush();
 	}
 
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		Supplier supp = new Supplier();
+		supp.setId(id);
+		session.delete(supp);
+		session.flush();
 	}
 
 	@Override
