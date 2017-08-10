@@ -45,13 +45,13 @@ public class SupplierController {
 	public void delete(@PathVariable int id){
 		dtPembelian.deleteSupplier(id);
 	}
-	
+	@ResponseBody
 	@RequestMapping(value = "/getall" , method = RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<Supplier> getAll(){
 		return dtPembelian.getAllSupplier();
 	}
-	
+	@ResponseBody
 	@RequestMapping(value = "/edit/{id}" , method = RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
 	public Supplier getSupllierById(@PathVariable int id){
