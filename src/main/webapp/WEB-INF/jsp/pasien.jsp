@@ -53,6 +53,7 @@
 		</tr>
 	</tbody>
 </table>
+<input type="submit" value="SIMPAN" class="btn btn-default" style="margin-left: 10px;">
 </div>
 </body>
 <script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>
