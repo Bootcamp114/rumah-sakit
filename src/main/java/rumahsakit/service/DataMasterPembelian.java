@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import rumahsakit.dao.ApotekerDao;
+import rumahsakit.dao.ObatDao;
 import rumahsakit.dao.SupplierDao;
 import rumahsakit.model.Apoteker;
+import rumahsakit.model.Obat;
 import rumahsakit.model.Supplier;
 @Service
 @Transactional
@@ -17,7 +19,10 @@ public class DataMasterPembelian {
 	SupplierDao supplierDao; 
 	@Autowired 
 	ApotekerDao apotekerDao;
+	@Autowired
+	ObatDao obatDao;
 	
+	//Service Supplier-------------------------------------------------------------
 	public void saveSupplier(Supplier supp){
 		supplierDao.save(supp);
 	}
@@ -42,6 +47,8 @@ public class DataMasterPembelian {
 		return supplierDao.getById(id);
 	}
 	
+	
+	//Service Apoteker--------------------------------------------------------------
 	public void saveApoteker(Apoteker apo){
 		apotekerDao.save(apo);
 	}
@@ -66,4 +73,28 @@ public class DataMasterPembelian {
 		return apotekerDao.getById(id);
 	}
 	
+	//Service Obat------------------------------------------------------
+	public void saveObat(Obat obt){
+		obatDao.save(obt);
+	}
+
+	public void updateObat(Obat obt) {
+		// TODO Auto-generated method stub
+		obatDao.update(obt);
+	}
+
+	public void deleteObat(int id) {
+		// TODO Auto-generated method stub
+		obatDao.delete(id);
+	}
+
+	public List<Obat> getAllObat() {
+		// TODO Auto-generated method stub
+		return obatDao.getAll();
+	}
+
+	public Obat getObatById(int id) {
+		// TODO Auto-generated method stub
+		return obatDao.getById(id);
+	}
 }
