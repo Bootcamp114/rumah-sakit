@@ -27,8 +27,7 @@ public class SupplierController {
 	
 	@RequestMapping(value="/save",method = RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public Supplier save(@RequestBody Supplier supp){
+	public void save(@RequestBody Supplier supp){
 		dtPembelian.saveSupplier(supp);
-		return supp;
 	}
 }
