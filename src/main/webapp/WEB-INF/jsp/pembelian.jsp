@@ -63,7 +63,7 @@
 		</table>
 	</div>
 	
-	<!-- modal diagnosa  -->
+	<!-- modal Resep  -->
 	<div class="modal fade bs-example-modal-lg" id="modalPilih" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   		<div class="modal-dialog modal-lg" role="document">
     		<div class="modal-content">
