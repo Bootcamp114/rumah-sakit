@@ -22,10 +22,9 @@ public class SupplierController {
 	@Autowired
 	private DataMasterPembelian dtPembelian;
 	
-	@ResponseBody
 	@RequestMapping("/index")
 	public String index(){
-		return "supplier";
+		return "Supplier";
 	}
 	
 	@RequestMapping(value="/save",method = RequestMethod.POST)
@@ -46,7 +45,7 @@ public class SupplierController {
 		dtPembelian.deleteSupplier(id);
 	}
 	@ResponseBody
-	@RequestMapping(value = "/getall" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getall" , method = RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<Supplier> getAll(){
 		return dtPembelian.getAllSupplier();
