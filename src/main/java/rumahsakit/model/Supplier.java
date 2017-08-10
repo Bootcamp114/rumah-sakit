@@ -23,7 +23,7 @@ public class Supplier {
 	private String supplier;
 	private String alamat;
 	private String telpon;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "apoteker")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "supplier")
 	private List<Obat> obat;
 	
 	public List<Obat> getObat() {
