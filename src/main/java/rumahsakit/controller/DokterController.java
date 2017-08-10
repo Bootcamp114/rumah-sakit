@@ -27,6 +27,8 @@ public class DokterController {
 	
 	@RequestMapping
 	public String index(Model model){
+		List<Poli> listPoli = service.getAllPoli();
+		model.addAttribute("listPoli", listPoli);
 		return "dokter";
 	}
 	
@@ -62,10 +64,10 @@ public class DokterController {
 		return service.getAllDokter();
 	}
 	
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value = "/getAllPoli" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Poli> getAllPoli(){
 		return service.getAllPoli();
-	}
+	}*/
 }
