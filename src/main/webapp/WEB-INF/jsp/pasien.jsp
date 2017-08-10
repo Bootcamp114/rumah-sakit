@@ -44,7 +44,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
+		<tr> 
 			<td>ZEIN</td>
 			<td>BATUNG</td>
 			<td>1234567891011</td>

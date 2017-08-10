@@ -35,7 +35,7 @@ public class PasienDaoImpl implements PasienDao {
 		session.flush();
 	}
 
-
+ 
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub

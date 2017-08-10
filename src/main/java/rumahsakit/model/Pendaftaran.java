@@ -21,9 +21,6 @@ public class Pendaftaran {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	private int idpasien;
-	private int idpoli;
-	private int idpetugas;
 	private String nodaftar;
 	private String tanggal;
 	private String keluhan;

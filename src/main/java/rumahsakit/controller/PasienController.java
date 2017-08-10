@@ -38,7 +38,7 @@ public class PasienController {
 	public void update(@RequestBody Pasien pas) {
 		dataMasterPasien.updatePasien(pas);
 	}
-
+ 
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void delete(@PathVariable int id) {
