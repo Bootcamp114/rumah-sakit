@@ -33,6 +33,7 @@
 <tr>
 <td><input type="text" name="jeniskelamin" id="jeniskelamin"  class="form-control" placeholder="masukan jenis kelamin"/></td>
 </tr>
+<input type="submit" value="SIMPAN" class="btn btn-default" style="margin-left: 10px;">
 <table class="table table-bordered"><br>
 	<thead>
 		<tr>

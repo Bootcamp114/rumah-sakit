@@ -19,7 +19,7 @@ public class DataMasterPasien {
 	public void savePasien(Pasien pas) {
 		pasienDao.save(pas);
 	}
- 
+
 	public void updatePasien(Pasien pas) {
 		pasienDao.update(pas);
 	}

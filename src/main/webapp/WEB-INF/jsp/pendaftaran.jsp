@@ -62,6 +62,7 @@
 </table>
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Tambah Keluhan</button>
 <input type="submit" value="SIMPAN" class="btn btn-default" style="margin-left: 10px;">
+<input type="submit" value="CETAK" class="btn btn-default" style="margin-left: 10px;">
 
 		
 		<!-- Modal -->
@@ -78,7 +79,7 @@
         <p><textarea placeholder="masukan keluhan" class="form-control" rows="4"></textarea> </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default">Simpan</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Simpan</button>
       </div>
     </div>
 </div>
