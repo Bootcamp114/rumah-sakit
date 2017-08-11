@@ -21,7 +21,6 @@ public class ApotekerController {
 	@Autowired
 	private DataMasterPembelian dtPembelian;
 	
-	@ResponseBody
 	@RequestMapping("/index")
 	public String index(){
 		return "apoteker";
@@ -45,7 +44,7 @@ public class ApotekerController {
 		dtPembelian.deleteApoteker(id);
 	}
 	@ResponseBody
-	@RequestMapping(value = "/getall" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getall" , method = RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<Apoteker> getAll(){
 		return dtPembelian.getAllApoteker();
