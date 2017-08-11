@@ -73,5 +73,9 @@ public class DataMasterPemeriksaan {
 	public List<Poli> getAllPoli(){
 		return poliDao.getAllPoli();
 	}
+	
+	public Poli getPoliById(int id){
+		return poliDao.getById(id);
+	}
 	//end get poli
 }

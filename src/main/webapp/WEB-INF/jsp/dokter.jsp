@@ -15,7 +15,9 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#save").on("click",function(){	
-				save();		
+				save();	
+				showData();	
+				clearForm();
 			});
 			
 			$("#loadData").on("click",function(){
@@ -42,8 +44,22 @@
 				});
 			});
 			
+			$(document).on("click",".pilih",function(){
+				var id = $(this).attr("id_pilih");
+				
+				$.ajax({
+					url : '/dokter/getPoliById/'+id,
+					type : 'GET',
+					success : function(data){
+						pilihPoli(data);
+					}
+				});
+			});
+			
 			$("#update").on("click",function(){
-				update();		
+				update();
+				showData();	
+				clearForm();
 			});
 		});
 	</script>
@@ -303,6 +319,11 @@
 			$('#noHp').val(data.noHp);
 			$('#idPoli').val(data.poli);
 			$('#poli').val(data.poli);
+		}
+		
+		function pilihPoli(data){
+			$('#idPoli').val(data.id);
+			$('#poli').val(data.id);
 		}
 		
 		function clearForm(){

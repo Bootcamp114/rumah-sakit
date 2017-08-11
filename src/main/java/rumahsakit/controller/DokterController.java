@@ -58,6 +58,13 @@ public class DokterController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/getPoliById/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public Poli getPoliById(@PathVariable int id){
+		return service.getPoliById(id);
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/getAll" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Dokter> getAllDokter(){

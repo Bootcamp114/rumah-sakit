@@ -13,7 +13,9 @@
 		$(document).ready(function(){
 			
 			$("#save").on("click",function(){	
-				save();		
+				save();
+				showData();	
+				clearForm();
 			});
 			
 			$("#loadData").on("click",function(){
@@ -37,7 +39,9 @@
 			});
 			
 			$("#update").on("click",function(){
-				update();		
+				update();	
+				showData();	
+				clearForm();
 			});
 			
 		});
