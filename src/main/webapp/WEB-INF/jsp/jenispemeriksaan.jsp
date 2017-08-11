@@ -23,7 +23,10 @@
 			});
 		
 			$(document).on("click",".delete",function(){
-				doDelete(this);
+				var conf = confirm("Apakah yakin menghapus data ini ?");
+				if(conf == true){
+					doDelete(this);	
+				}
 			});
 			
 			$(document).on("click",".update",function(){
@@ -42,6 +45,7 @@
 				update();	
 				showData();	
 				clearForm();
+				alert("Terupdate");
 			});
 			
 		});

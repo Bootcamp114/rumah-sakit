@@ -29,7 +29,10 @@
 			});
 			 */
 			$(document).on("click",".delete",function(){
-				doDelete(this);
+				var conf = confirm("Apakah yakin akan dihapus ? ");
+				if(conf == true){
+					doDelete(this);	
+				}
 			});
 			
 			$(document).on("click",".update",function(){
@@ -60,6 +63,7 @@
 				update();
 				showData();	
 				clearForm();
+				alert("Terupdate");
 			});
 		});
 	</script>
@@ -74,7 +78,7 @@
 				</div>
 				<div class="form-group">
 					<label>NIP</label>
-					<input type="text" name="nip" id="nip" class="form-control" autofocus placeholder="Masukan NIP" required >	
+					<input type="number" name="nip" id="nip" class="form-control" autofocus placeholder="Masukan NIP" required >	
 				</div>
 				<div class="form-group">
 					<label>Nama</label>
@@ -86,7 +90,7 @@
 				</div>
 				<div class="form-group">
 					<label>No HP</label>
-					<input type="text" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" required>	
+					<input type="number" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" required maxlength="13">	
 				</div>
 				<div class="form-group">
 					<label>Jenis Kelamin</label>
@@ -183,10 +187,10 @@
 					nama : nama,
 					jk : jk,
 					alamat : alamat,
-					noHp : noHp/* ,
+					noHp : noHp ,
 					poli : {
 						id : poli
-					} */
+					}
 			}
 			
 			$.ajax({
@@ -323,7 +327,7 @@
 		
 		function pilihPoli(data){
 			$('#idPoli').val(data.id);
-			$('#poli').val(data.id);
+			$('#poli').val(data.poli);
 		}
 		
 		function clearForm(){
@@ -333,6 +337,8 @@
 			$('#jk').val("");
 			$('#alamat').val("");
 			$('#noHp').val("");
+			$('#idPoli').val("");
+			$('#poli').val("");
 			$('#idPoli').val("");
 			$('#poli').val("");
 		}

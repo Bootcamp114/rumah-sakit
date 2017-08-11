@@ -37,11 +37,9 @@
 			</div>
 			<div class="form-group">
 				<label>JenisPemeriksaan</label>
-				<input type="text" name="noPemeriksaan" id="noPemeriksaan" class="form-control" autofocus placeholder="noPemeriksaan" required readonly>	
-				<br>
-				<button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modalJenisPemeriksaan">
-  					pilih jenis pemeriksaan
-				</button>
+				<select name="jenisPemeriksaan" class="form-control">
+					
+				</select>	
 			</div>
 			<div class="form-group">
 				<label>Diagnosa</label>
@@ -143,39 +141,6 @@
   		</div>
 	</div>
 <!-- end modal daftar  -->
-<!-- modal periksa  -->
-	<div class="modal fade" id="modalJenisPemeriksaan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  		<div class="modal-dialog" role="document">
-    		<div class="modal-content">
-      			<div class="modal-header">
-        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-        			<h4 class="modal-title" id="myModalLabel">Data Jenis Pemeriksaan</h4>
-      			</div>
-      			<div class="modal-body">
-        			<table class="table" id="tablePeriksa">
-				<thead>
-					<tr>
-						<th>JenisPemeriksaan</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td></td>
-						<td>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Pilih</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-      			</div>
-      			<div class="modal-footer">
-        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      			</div>
-    		</div>
-  		</div>
-	</div>
-<!-- end modal periksa  -->
 <!-- modal diagnosa  -->
 	<div class="modal fade" id="modalDiagnosa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   		<div class="modal-dialog" role="document">
@@ -185,22 +150,36 @@
         			<h4 class="modal-title" id="myModalLabel">Data Jenis Pemeriksaan</h4>
       			</div>
       			<div class="modal-body">
+      				
+      				<div class="form-group">
+						<label>No Diagnosa</label>
+						<input type="text" name="noDiagnosa" id="noDiagnosa" class="form-control" autofocus placeholder="noDiagnosa" required readonly>	
+					</div>
+					<div class="form-group">
+						<label>Diagnosa</label>
+						<input type="text" name="diagnosa" id="diagnosa" class="form-control" autofocus placeholder="diagnosa" required readonly>	
+					</div>
+					<div class="form-group">
+						<label>Keterangan</label>
+						<input type="text" name="keterangan" id="noPemeriksaan" class="form-control" autofocus placeholder="noPemeriksaan" required readonly>	
+					</div>
+					
         			<table class="table" id="tablePeriksa">
-				<thead>
-					<tr>
-						<th>JenisPemeriksaan</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td></td>
-						<td>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Pilih</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						<thead>
+							<tr>
+								<th>JenisPemeriksaan</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Pilih</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

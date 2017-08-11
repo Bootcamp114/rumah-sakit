@@ -1,10 +1,14 @@
 package rumahsakit.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +30,8 @@ public class Pemeriksaan {
 	private JenisPemeriksaan jenisPemeriksaan;
 	@ManyToOne
 	private Dokter dokter;
-	private String diagnosa;
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "pemeriksaan")
+	private List<Diagnosa> diagnosa;
 	private String tindakan;
 	private int beratBadan;
 	private int tensiDiastolik;
@@ -36,10 +41,12 @@ public class Pemeriksaan {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pemeriksaan(int id, Pendaftaran pendaftaran, JenisPemeriksaan jenisPemeriksaan, Dokter dokter,
-		 String diagnosa, String tindakan, int beratBadan, int tensiDiastolik, int tensiSistolik) {
+	public Pemeriksaan(int id, String noPemeriksaan, Pendaftaran pendaftaran, JenisPemeriksaan jenisPemeriksaan,
+			Dokter dokter, List<Diagnosa> diagnosa, String tindakan, int beratBadan, int tensiDiastolik,
+			int tensiSistolik) {
 		super();
 		this.id = id;
+		this.noPemeriksaan = noPemeriksaan;
 		this.pendaftaran = pendaftaran;
 		this.jenisPemeriksaan = jenisPemeriksaan;
 		this.dokter = dokter;
@@ -48,6 +55,22 @@ public class Pemeriksaan {
 		this.beratBadan = beratBadan;
 		this.tensiDiastolik = tensiDiastolik;
 		this.tensiSistolik = tensiSistolik;
+	}
+
+	public String getNoPemeriksaan() {
+		return noPemeriksaan;
+	}
+
+	public void setNoPemeriksaan(String noPemeriksaan) {
+		this.noPemeriksaan = noPemeriksaan;
+	}
+
+	public List<Diagnosa> getDiagnosa() {
+		return diagnosa;
+	}
+
+	public void setDiagnosa(List<Diagnosa> diagnosa) {
+		this.diagnosa = diagnosa;
 	}
 
 	public int getId() {
@@ -80,14 +103,6 @@ public class Pemeriksaan {
 
 	public void setDokter(Dokter dokter) {
 		this.dokter = dokter;
-	}
-
-	public String getDiagnosa() {
-		return diagnosa;
-	}
-
-	public void setDiagnosa(String diagnosa) {
-		this.diagnosa = diagnosa;
 	}
 
 	public String getTindakan() {
