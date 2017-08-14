@@ -39,7 +39,8 @@ public class Dokter {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Dokter(int id, int nip, String nama, String jk, String alamat, String noHp, List<Pemeriksaan> pemeriksaan) {
+	public Dokter(int id, int nip, String nama, String jk, String alamat, String noHp, Poli poli,
+			List<Pemeriksaan> pemeriksaan) {
 		super();
 		this.id = id;
 		this.nip = nip;
@@ -47,8 +48,23 @@ public class Dokter {
 		this.jk = jk;
 		this.alamat = alamat;
 		this.noHp = noHp;
+		this.poli = poli;
 		this.pemeriksaan = pemeriksaan;
 	}
+
+
+
+	public Poli getPoli() {
+		return poli;
+	}
+
+
+
+	public void setPoli(Poli poli) {
+		this.poli = poli;
+	}
+
+
 
 	public List<Pemeriksaan> getPemeriksaan() {
 		return pemeriksaan;
