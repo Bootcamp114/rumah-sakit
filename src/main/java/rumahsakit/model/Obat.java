@@ -60,23 +60,16 @@ public class Obat {
 	public void setJenisObat(String jenisObat) {
 		this.jenisObat = jenisObat;
 	}
-	public Resep getResep() {
-		return resep;
-	}
-	public void setResep(Resep resep) {
-		this.resep = resep;
-	}
 	
 	public Obat(){
 		
 	}
-	public Obat(int id, String obat, int harga, String jenisObat, Resep resep, Supplier supplier) {
+	public Obat(int id, String obat, int harga, String jenisObat,  Supplier supplier) {
 		super();
 		this.id = id;
 		this.obat = obat;
 		this.harga = harga;
 		this.jenisObat = jenisObat;
-		this.resep = resep;
 		this.supplier = supplier;
 	}
 	

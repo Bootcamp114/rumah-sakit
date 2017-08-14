@@ -21,7 +21,6 @@ public class ObatController {
 	@Autowired
 	private DataMasterPembelian dtPembelian;
 	
-	@ResponseBody
 	@RequestMapping("/index")
 	public String index(){
 		return "obat";
