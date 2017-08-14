@@ -230,7 +230,7 @@
 						trString += "<td>" + listDokter.jk + "</td>";
 						trString += "<td>" + listDokter.alamat + "</td>";
 						trString += "<td>" + listDokter.noHp + "</td>";
-						trString += "<td>" + listDokter.poli + "</td>";
+						trString += "<td>" + listDokter.poli.poli + "</td>";
 						trString += "<td><a href='#' class='delete' id_delete='" + listDokter.id + "'>delete</a></td>";
 						trString += "<td><a href='#' class='update' id_update='" + listDokter.id + "'>edit</a></td>";
 					trString +="</tr>";

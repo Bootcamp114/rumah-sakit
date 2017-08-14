@@ -15,6 +15,8 @@
 			
 		});
 	</script>
+	<script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'textarea'});</script>  
 <body>
 <div class="container">
 	<h1>Form Pemeriksaan Pasien</h1>
@@ -158,11 +160,13 @@
 					</div>
 					<div class="form-group">
 						<label>Diagnosa</label>
-						<input type="text" name="diagnosa" id="diagnosa" class="form-control" autofocus placeholder="diagnosa" required readonly>	
+						<input type="text" name="diagnosa" id="diagnosa" class="form-control" autofocus placeholder="diagnosa" required >	
 					</div>
 					<div class="form-group">
 						<label>Keterangan</label>
-						<input type="text" name="keterangan" id="noPemeriksaan" class="form-control" autofocus placeholder="noPemeriksaan" required readonly>	
+						<textarea name="keterangan" id="keterangan" class="form-control">
+						
+						</textarea>
 					</div>
 					
         			<table class="table" id="tablePeriksa">
