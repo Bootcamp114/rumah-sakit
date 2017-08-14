@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import rumahsakit.dao.DiagnosaDao;
 import rumahsakit.dao.DokterDao;
 import rumahsakit.dao.JenisPemeriksaanDao;
 import rumahsakit.dao.PoliDao;
+import rumahsakit.model.Diagnosa;
 import rumahsakit.model.Dokter;
 import rumahsakit.model.JenisPemeriksaan;
 import rumahsakit.model.Poli;
@@ -23,6 +25,8 @@ public class DataMasterPemeriksaan {
 	private DokterDao dokterDao;
 	@Autowired
 	private PoliDao poliDao;
+	@Autowired
+	private DiagnosaDao diagnosaDao;
 	
 	//jenis pemeriksaan service
 	public void saveJenisPemeriksaan(JenisPemeriksaan jenisPemeriksaan){
@@ -78,4 +82,27 @@ public class DataMasterPemeriksaan {
 		return poliDao.getById(id);
 	}
 	//end get poli
+	
+	//diagnosa
+	
+	public void saveDiagnosa(Diagnosa diagnosa){
+		diagnosaDao.save(diagnosa);
+	}
+	
+	public void deleteDiagnosa(int id){
+		diagnosaDao.delete(id);
+	}
+	
+	public void updateDiagnosa(Diagnosa diagnosa){
+		diagnosaDao.update(diagnosa);
+	}
+	
+	public List<Diagnosa> getAllDiagnosaByNoDiagnosa(String noDiagnosa){
+		return diagnosaDao.getAllDiagnosaByNoDiagnosa(noDiagnosa);
+	}
+	
+	public Diagnosa getDiagnosaById(int id){
+		return diagnosaDao.getDiagnosaById(id);
+	}
+	//end diagnosa
 }

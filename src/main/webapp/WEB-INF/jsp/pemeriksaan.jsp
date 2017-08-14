@@ -13,6 +13,39 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
+			showDataDiagnosa();
+			
+			$('#saveDiagnosa').on('click' , function(){
+				saveDiagnosa();
+				showDataDiagnosa();
+				clearFormDiagnosa();
+			});
+			
+			$(document).on("click",".deleteDiagnosa",function(){
+				var conf = confirm("Apakah yakin akan dihapus ? ");
+				if(conf == true){
+					doDeleteDiagnosa(this);	
+				}
+			});
+			
+			$(document).on("click",".updateDiagnosa",function(){
+				var id = $(this).attr("idUpdateDiagnosa");
+				
+				$.ajax({
+					url : '/pemeriksaan/getDiagnosaById/'+id,
+					type : 'GET',
+					success : function(data){
+						updateColumnDiagnosa(data);
+					}
+				});
+			});
+			
+			$("#updateDiagnosa").on("click",function(){
+				updateDiagnosa();
+				showDataDiagnosa();	
+				clearFormDiagnosa();
+				alert("Terupdate");
+			});
 		});
 	</script>
 	<script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
@@ -150,13 +183,14 @@
     		<div class="modal-content">
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-        			<h4 class="modal-title" id="myModalLabel">Data Jenis Pemeriksaan</h4>
+        			<h4 class="modal-title" id="myModalLabel">Diagnosa</h4>
       			</div>
       			<div class="modal-body">
-      				
+      		
       				<div class="form-group">
 						<label>No Diagnosa</label>
-						<input type="text" name="noDiagnosa" id="noDiagnosa" class="form-control" autofocus placeholder="noDiagnosa" required readonly>	
+						<input type="hidden" name="noDiagnosa" id="idDiagnosa" class="form-control" autofocus placeholder="noDiagnosa"  >	
+						<input type="text" name="noDiagnosa" id="noDiagnosa" class="form-control" autofocus placeholder="noDiagnosa" required >	
 					</div>
 					<div class="form-group">
 						<label>Diagnosa</label>
@@ -165,24 +199,23 @@
 					<div class="form-group">
 						<label>Keterangan</label>
 						<textarea name="keterangan" id="keterangan" class="form-control">
-						
 						</textarea>
 					</div>
-					
-        			<table class="table" id="tablePeriksa">
+					<div class="form-group">
+						<button type="button" class="btn btn-primary" id="saveDiagnosa">Save Changes</button>
+        				<button type="button" class="btn btn-default" id="updateDiagnosa">Update</button>
+					</div>
+        			<table class="table" id="tableDiagnosa">
 						<thead>
 							<tr>
-								<th>JenisPemeriksaan</th>
+								<th>NoDiagnosa</th>
+								<th>Diagnosa</th>
+								<th>Keterangan</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td></td>
-								<td>
-									<button type="button" class="btn btn-primary" data-dismiss="modal">Pilih</button>
-								</td>
-							</tr>
+							
 						</tbody>
 					</table>
       			</div>
@@ -190,9 +223,119 @@
         			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       			</div>
     		</div>
-  		</div>
-	</div>
+    	</div>
+  	</div>
 <!-- end modal diagnosa  -->
 </body>
 	<script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		/* crud diagnosa */
+			function saveDiagnosa(){
+				var noDiagnosa = $('#noDiagnosa').val();
+				var diagnosa = $('#diagnosa').val();
+				var keterangan = $('#keterangan').val();
+							
+				var diagnosa = {
+						noDiagnosa : noDiagnosa,
+						diagnosa : diagnosa,
+						keteranga : keterangan
+				}
+				
+				$.ajax({
+					url: '/pemeriksaan/saveDiagnosa',
+					type: 'POST',
+				 	contentType:'application/json',
+				 	dataType : 'json',
+					data: JSON.stringify(diagnosa), 
+					success: function(data,x,xhr){
+						showData();	
+						clearForm();
+					}
+				
+				});
+			}
+		
+			function updateDiagnosa(){
+				var noDiagnosa = $('#noDiagnosa').val();
+				var diagnosa = $('#diagnosa').val();
+				var keterangan = $('#keterangan').val();
+				var id = $('#idDiagnosa').val();
+							
+				var diagnosa = {
+						noDiagnosa : noDiagnosa,
+						diagnosa : diagnosa,
+						keterangan : keterangan,
+						id :id
+				}
+				
+				$.ajax({
+					url: '/pemeriksaan/updateDiagnosa',
+					type: 'POST',
+				 	contentType:'application/json',
+				 	dataType : 'json',
+					data: JSON.stringify(diagnosa), 
+					success: function(data,x,xhr){
+						showData();	
+						clearForm();
+					}
+				
+				});
+			}
+			
+			function doDeleteDiagnosa(del){
+				var id = $(del).attr("idDeleteDiagnosa");
+				$.ajax({
+					url : "/pemeriksaan/deleteDiagnosa/"+id,
+					type : "DELETE",
+					success : function(data){
+						console.log(data);
+						showData();
+					}
+				});
+			}
+			
+			function fillDataDiagnosa(data){
+				var dt = $("#tableDiagnosa");
+				var tbody = dt.find("tbody");
+				tbody.find("tr").remove();
+				$.each(data, function(index , listDiagnosa){
+					var trString = "<tr>";
+							trString += "<td>" + listDiagnosa.noDiagnosa + "</td>";
+							trString += "<td>" + listDiagnosa.diagnosa + "</td>";
+							trString += "<td>" + listDiagnosa.keterangan + "</td>";
+							trString += "<td><a href='#' class='deleteDiagnosa' idDeleteDiagnosa='" + listDiagnosa.id + "'>delete</a></td>";
+							trString += "<td><a href='#' class='updateDiagnosa' idUpdateDiagnosa='" + listDiagnosa.id + "'>edit</a></td>";
+						trString +="</tr>";
+					tbody.append(trString);
+				});
+			}
+			
+			function showDataDiagnosa(){
+				var noDiagnosa = $('#noDiagnosa').val();
+				$.ajax({
+					url :'/diagnosa/getDiagnosaByNoDiagnosa/'+noDiagnosa,
+					type: 'POST',
+					dataType : 'json',
+					success : function(data ,x,xhr){
+						console.log("data is loaded");
+						fillDataDiagnosa(data);
+					}	
+				});
+			}
+			
+			function updateColumnDiagnosa(data){
+				$('#idDiagnosa').val(data.id);
+				$('#noDiagnosa').val(data.noDiagnosa);
+				$('#diagnosa').val(data.diagnosa);
+				$('#keterangan').val(data.keterangan);
+			}
+			
+			function clearFormDiagnosa(){
+				$('#idDiagnosa').val("");
+				$('#noDiagnosa').val("");
+				$('#diagnosa').val("");
+				$('#keterangan').val("");
+			}
+		/* end crud diagnosa */
+	</script>
 </html>
