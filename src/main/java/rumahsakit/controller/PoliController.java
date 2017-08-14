@@ -56,7 +56,7 @@ public class PoliController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getall", method = RequestMethod.GET)
+	@RequestMapping(value = "/getall", method = RequestMethod.POST)
 	@ResponseStatus(value= HttpStatus.OK)
 	public List<Poli> getAllPoli(){
 		return dataMasterPoli.getAllPoli();

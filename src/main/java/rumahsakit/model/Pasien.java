@@ -26,7 +26,7 @@ public class Pasien {
 	private String noidentitas;
 	private String nama;
 	private String alamat;
-	private int nohp;
+	private String nohp;
 	private int umur;
 	private String jeniskelamin;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="pasien")
@@ -34,7 +34,7 @@ public class Pasien {
 	
 	public Pasien(){}
 
-	public Pasien(int id, String noidentitas, String nama, String alamat, int nohp, int umur, String jeniskelamin,
+	public Pasien(int id, String noidentitas, String nama, String alamat, String nohp, int umur, String jeniskelamin,
 			List<Pendaftaran> pendaftaran) {
 		super();
 		this.id = id;
@@ -79,11 +79,11 @@ public class Pasien {
 		this.alamat = alamat;
 	}
 
-	public int getNohp() {
+	public String getNohp() {
 		return nohp;
 	}
 
-	public void setNohp(int nohp) {
+	public void setNohp(String nohp) {
 		this.nohp = nohp;
 	}
 

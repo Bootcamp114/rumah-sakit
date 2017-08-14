@@ -53,7 +53,7 @@ public class PetugasController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/getall", method = RequestMethod.GET)
+	@RequestMapping(value = "/getall", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Petugas> getAllPetugas() {
 		return dataMasterPetugas.getAllPetugas();
