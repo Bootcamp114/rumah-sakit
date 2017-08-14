@@ -38,7 +38,8 @@
 			<div class="form-group">
 				<label>JenisPemeriksaan</label>
 				<select name="jenisPemeriksaan" class="form-control">
-					
+					<option></option>
+					<option value=""></option>
 				</select>	
 			</div>
 			<div class="form-group">

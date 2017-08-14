@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,8 +22,8 @@ public class Resep {
 	@OneToOne
 	private Pendaftaran pendaftaran;
 	private String noResep;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "resep")
-	private List<Obat> obat;
+	@ManyToOne
+	private Obat obat;
 	private String dosis;
 	private int jumlah;
 	

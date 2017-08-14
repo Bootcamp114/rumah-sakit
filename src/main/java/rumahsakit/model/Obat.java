@@ -1,10 +1,14 @@
 package rumahsakit.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -20,8 +24,8 @@ public class Obat {
 	private String obat;
 	private int harga;
 	private String jenisObat;
-	@ManyToOne
-	private Resep resep;
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "obat")
+	private List<Resep> resep;
 	@ManyToOne
 	private Supplier supplier;
 	
