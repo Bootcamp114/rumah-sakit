@@ -12,7 +12,7 @@
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <body>
-	<h1 align="center">Form Pembelian Obat</h1>
+	<h1 align="center">Form Pembayaran Obat</h1>
 	<hr>
 	<div class="container">
 		<div class="row">

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name="rs_pembelian")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id")
-public class PembelianObat {
+public class PembayaranObat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
@@ -62,8 +62,8 @@ public class PembelianObat {
 		this.tanggal = tanggal;
 	}
 	
-	public PembelianObat(){}
-	public PembelianObat(int id, String noBeli, Resep resep, Apoteker apoteker, Double total, String tanggal) {
+	public PembayaranObat(){}
+	public PembayaranObat(int id, String noBeli, Resep resep, Apoteker apoteker, Double total, String tanggal) {
 		super();
 		this.id = id;
 		this.noBeli = noBeli;

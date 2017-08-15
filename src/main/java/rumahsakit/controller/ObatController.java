@@ -59,7 +59,7 @@ public class ObatController {
 	@ResponseBody
 	@RequestMapping(value = "/edit/{id}" , method = RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
-	public Obat getObatById(@PathVariable int id , Model model){
+	public Obat getObatById(@PathVariable int id){
 		return dtPembelian.getObatById(id);
 	}
 }
