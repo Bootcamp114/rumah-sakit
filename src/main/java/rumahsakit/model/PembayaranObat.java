@@ -20,7 +20,7 @@ public class PembayaranObat {
 	private int id;
 	private String noBeli;
 	@OneToOne
-	private Resep resep;
+	private Resep resep; 
 	@ManyToOne
 	private Apoteker apoteker;
 	private Double total;
