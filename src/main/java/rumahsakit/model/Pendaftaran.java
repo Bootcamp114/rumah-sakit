@@ -58,8 +58,8 @@ public class Pendaftaran {
 	public String getNodaftar() {
 		return nodaftar;
 	}
-	public void setNodaftar(String nodaftar) {
-		this.nodaftar = nodaftar;
+	public void setNodaftar(String nodaftar) { 
+		this.nodaftar = nodaftar;   
 	}
 	public String getTanggal() {
 		return tanggal;

@@ -19,7 +19,7 @@
 		$("#save").on("click",function(){	
 			save();
 			showData();
-			clearForm();
+			clearForm();   
 			alert("Data Tersimpan..");
 		});
 		

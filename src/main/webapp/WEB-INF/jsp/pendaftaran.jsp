@@ -92,7 +92,7 @@
 <select id="pasien" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
 	<option></option>
 	<c:forEach var="listPasien" items="${listPasien}">
-	<option value="${listPasien.id }" >${listPasien.noidentitas}</option>
+	<option value="${listPasien.id }" >${listPasien.noidentitas}</option> 
 	</c:forEach>
 </select>
 <input type="submit" name="pilih" id="pilih" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>

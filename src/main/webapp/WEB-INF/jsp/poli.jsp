@@ -13,7 +13,7 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#save").on("click",function(){	
+		$("#save").on("click",function(){	 
 			save();
 			showData();
 			clearForm();

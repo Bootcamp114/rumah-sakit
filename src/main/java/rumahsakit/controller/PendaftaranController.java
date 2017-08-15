@@ -36,7 +36,7 @@ public class PendaftaranController {
 	
 
 	@RequestMapping("/index")
-	public String index( Model model) {
+	public String index( Model model) {    
 		String noUrut = appUtils.getNoUrut();
 		model.addAttribute("noUrut", noUrut);
 		List<Pasien> pas = dataMasterPasien.getAllPasien();
