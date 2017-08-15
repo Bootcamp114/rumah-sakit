@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Form Supplier</title>
+<title>Form Petugas</title>
 </head>
 <link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
 <link rel="stylesheet"
@@ -13,6 +13,9 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("input[name='jeniskelamin']").on("change", function() {
+			jeniskelamin= $(this).val();
+		})	
 		$("#save").on("click",function(){	
 			save();
 			showData();
@@ -76,8 +79,9 @@
 					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp">
 			</div>
 			<div class="form-group">
-				<label>Jenis Kelamin : </label> <input type="text"
-					class="form-control" name="jeniskelamin" id="jeniskelamin" placeholder="Jenis Kelamin">
+				<label>Jenis Kelamin : </label> <br>
+					<input type="radio"  name="jeniskelamin" value="Laki - Laki" id="jeniskelamin" checked> Laki - Laki<br>
+  					<input type="radio"  name="jeniskelamin" value="Perempuan" id="jeniskelamin" > Perempuan<br>
 			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
@@ -108,8 +112,7 @@
 			var nama = $('#nama').val();
 			var alamat = $('#alamat').val();
 			var nohp = $('#nohp').val();
-			var jeniskelamin = $('#jeniskelamin').val();
-			
+		
 			var tablepetugas = {
 					nip : nip,
 					nama : nama,

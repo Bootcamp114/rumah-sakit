@@ -81,11 +81,12 @@
 		});
 	});
 </script>
-<body>
+	<!-- <script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'textarea'});</script>    -->
 <h1 style="text-align: center;"> FORM PENDAFTARAN</h1><br><br><hr>
 <div class="container">
 <input type="hidden" id="id" name="id">
-<label>Tanggal :</label> <input type="text" id="tanggal" name="tanggal" class="form-control" style="width: 20%; margin-left: 20px;"></br>
+	<label>Tanggal :</label> <input type="text" id="tanggal" name="tanggal" class="form-control" style="width: 20%; margin-left: 20px;"></br>
 	 <label>No.Urut</label><input type="text" id="nodaftar" name="nodaftar" value="${noUrut}" placeholder="masukan nomor" class="form-control" style="width: 20%; margin-left: 20px;" />
 		<hr>
 <select id="pasien" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
@@ -108,7 +109,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		
 	</tbody>
 </table>
 <select id="poli" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
@@ -127,11 +127,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>Mata</td>
-			<td>A01</td>
-			<td>150000</td>
-		</tr>
 	</tbody>
 </table>
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Tambah Keluhan</button>
@@ -147,10 +142,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Masukan Keluhan</h4>
       </div>
       <div class="modal-body">
-        <p><textarea placeholder="masukan keluhan" class="form-control" rows="4"></textarea> </p>
+        <textarea placeholder="masukan keluhan" class="form-control" rows="4" id="keluhan" name="keluhan"></textarea> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Simpan</button>
@@ -166,7 +161,8 @@
 			var nodaftar = $('#nodaftar').val();
 			var noidentitas = $('#noidentitas').val();
 			var poli = $('#poli').val();
-			var pasien =$('#pasien').val();			
+			var pasien =$('#pasien').val();	
+			var keluhan = $('textarea[id ="keluhan"]').val();
 		
 			
 			
@@ -174,8 +170,13 @@
 					tanggal : tanggal,
 					nodaftar : nodaftar,
 					noidentitas : noidentitas,
-					poli : poli,
-					pasien : pasien
+					keluhan : keluhan,
+					poli : {
+						id : poli
+					},
+					pasien : {
+						id : pasien
+					}
 			}
 			
 			$.ajax({
@@ -228,7 +229,7 @@
 				var trString = "<tr>";
 						trString += "<td>" +  listPoli.poli + "</td>";
 						trString += "<td>" +  listPoli.ruangan + "</td>";
-						tr += "<td>" +  listPoli.biaya + "</td>";
+						trString += "<td>" +  listPoli.biaya + "</td>";
 					trString +="</tr>";
 				tbody.append(trString);
 			});
@@ -309,6 +310,8 @@
 			$('#noidentitas').val("");
 			$('#poli').val("");
 			$('#nodaftar').val("");
+			$('textarea[id ="keluhan"]').val("");
+			$('#pasien').val("");
 		}
 	</script>
 <script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>
