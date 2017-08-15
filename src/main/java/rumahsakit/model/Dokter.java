@@ -31,7 +31,7 @@ public class Dokter {
 	private String jk;
 	private String alamat;
 	private String noHp;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Poli poli;
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "dokter" , cascade = CascadeType.ALL)
 	private List<Pemeriksaan> pemeriksaan;

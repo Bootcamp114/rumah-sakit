@@ -195,17 +195,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+							<c:forEach var="listDaftar" items="${listDaftar}">
+								<tr>
+								<td>${listDaftar.nodaftar}</td>
+								<td>${listDaftar.nodaftar}</td>
+								<td>${listDaftar.nodaftar}</td>
+								<td>${listDaftar.nodaftar}</td>
+								<td>${listDaftar.nodaftar}</td>
 								<td>
 									<button type="button" class="btn btn-primary"
 										data-dismiss="modal">Pilih</button>
 								</td>
 							</tr>
+							</c:forEach>						
 						</tbody>
 					</table>
 				</div>

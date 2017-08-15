@@ -17,7 +17,9 @@ import rumahsakit.model.Diagnosa;
 import rumahsakit.model.Dokter;
 import rumahsakit.model.JenisPemeriksaan;
 import rumahsakit.model.Pemeriksaan;
+import rumahsakit.model.Pendaftaran;
 import rumahsakit.service.DataMasterPemeriksaan;
+import rumahsakit.service.DataMasterPendaftaran;
 
 @Controller
 @RequestMapping("/pemeriksaan")
@@ -25,13 +27,17 @@ public class PemeriksaanController {
 
 	@Autowired
 	private DataMasterPemeriksaan service;
+	@Autowired
+	private DataMasterPendaftaran serviceDaftar;
 	
 	@RequestMapping
-	public String index(Model model , Model modelJenisPeriksa){
+	public String index(Model model , Model modelJenisPeriksa , Model modelNoDaftar ){
 		List<Dokter> listDokter = service.getAllDokter();
 		model.addAttribute("listDokter", listDokter);
 		List<JenisPemeriksaan> listJenis = service.getAllJenisPemeriksaan();
 		modelJenisPeriksa.addAttribute("listJenis", listJenis);
+		List<Pendaftaran> listDaftar = serviceDaftar.getAlPendaftaran();
+		modelNoDaftar.addAttribute("listDaftar", listDaftar);
 		return "pemeriksaan";
 	}
 	 
