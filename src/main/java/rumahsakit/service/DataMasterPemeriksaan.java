@@ -10,10 +10,12 @@ import rumahsakit.dao.DiagnosaDao;
 import rumahsakit.dao.DokterDao;
 import rumahsakit.dao.JenisPemeriksaanDao;
 import rumahsakit.dao.PoliDao;
+import rumahsakit.dao.ResepDao;
 import rumahsakit.model.Diagnosa;
 import rumahsakit.model.Dokter;
 import rumahsakit.model.JenisPemeriksaan;
 import rumahsakit.model.Poli;
+import rumahsakit.model.Resep;
 
 @Service
 @Transactional
@@ -27,6 +29,8 @@ public class DataMasterPemeriksaan {
 	private PoliDao poliDao;
 	@Autowired
 	private DiagnosaDao diagnosaDao;
+	@Autowired
+	private ResepDao resepDao;
 	
 	//jenis pemeriksaan service
 	public void saveJenisPemeriksaan(JenisPemeriksaan jenisPemeriksaan){
@@ -105,4 +109,27 @@ public class DataMasterPemeriksaan {
 		return diagnosaDao.getDiagnosaById(id);
 	}
 	//end diagnosa
+	
+	//resep
+		public List<Resep> getAllResep(){
+			return resepDao.getAllResepByNoDaftar();
+		}
+		
+		public void saveResep(Resep resep){
+			resepDao.save(resep);
+		}
+		
+		public void updateResep(Resep resep){
+			resepDao.update(resep);
+		}
+		
+		public void deleteResep(int id){
+			resepDao.delete(id);
+		}
+		
+		public Resep getResepById(int id){
+			return resepDao.getResepById(id);
+		}
+	//end resep
+		
 }
