@@ -216,6 +216,7 @@
 						<button type="button" class="btn btn-primary" id="saveDiagnosa">Save Changes</button>
         				<button type="button" class="btn btn-default" id="updateDiagnosa">Update</button>
 					</div>
+					<a></</a>
         			<table class="table" id="tableDiagnosa">
 						<thead>
 							<tr>

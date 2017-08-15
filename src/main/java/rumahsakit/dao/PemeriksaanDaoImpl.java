@@ -7,54 +7,54 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import rumahsakit.model.Resep;
+import rumahsakit.model.Pemeriksaan;
 
 @Repository
-public class ResepDaoImpl implements ResepDao{
+public class PemeriksaanDaoImpl implements PemeriksaanDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	@Override
-	public void save(Resep resep) {
+	public void save(Pemeriksaan pemeriksaan) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(resep);
+		session.save(pemeriksaan);
 		session.flush();
 	}
 
 	@Override
-	public void update(Resep resep) {
+	public void update(Pemeriksaan pemeriksaan) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.update(resep);
+		session.update(pemeriksaan);
+		session.flush();
 	}
 
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Resep resep = new Resep();
-		resep.setId(id);
-		session.delete(resep);
+		Pemeriksaan pemeriksaan = new Pemeriksaan();
+		pemeriksaan.setId(id);
+		session.delete(pemeriksaan);
 		session.flush();
 	}
 
 	@Override
-	public Resep getResepById(int id) {
+	public List<Pemeriksaan> getAllPemeriksaan() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Resep resep = session.get(Resep.class, id);
-		return resep;
+		List<Pemeriksaan> listPemeriksaan = session.createCriteria(Pemeriksaan.class).list();
+		return listPemeriksaan;
 	}
 
 	@Override
-	public List<Resep> getAllResepByNoDaftar() {
+	public Pemeriksaan getPemeriksaanById(int id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Resep> listResep = session.createCriteria(Resep.class).list();
-		return listResep;
+		Pemeriksaan pemeriksaan = session.get(Pemeriksaan.class, id);
+		return pemeriksaan;
 	}
 
 }
