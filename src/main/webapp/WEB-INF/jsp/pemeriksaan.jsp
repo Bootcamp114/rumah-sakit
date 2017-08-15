@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,6 +77,15 @@
 				<select name="jenisPemeriksaan" class="form-control">
 					<option></option>
 					<option value=""></option>
+				</select>	
+			</div>
+			<div class="form-group">
+				<label>Dokter</label>
+				<select name="dokter" class="form-control" id="dokter">
+					<option></option>
+					<c:forEach var="listDokter" items="${listDokter}">
+						<option value="${lisDokter.id}">${listDokter.nama}</option>
+					</c:forEach>
 				</select>	
 			</div>
 			<div class="form-group">
@@ -332,7 +343,6 @@
 			
 			function clearFormDiagnosa(){
 				$('#idDiagnosa').val("");
-				$('#noDiagnosa').val("");
 				$('#diagnosa').val("");
 				$('#keterangan').val("");
 			}

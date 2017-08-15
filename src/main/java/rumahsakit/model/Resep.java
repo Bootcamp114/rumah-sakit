@@ -30,8 +30,8 @@ public class Resep {
 	public Resep() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public Resep(int id, Pendaftaran pendaftaran, String noResep, List<Obat> obat, String dosis, int jumlah) {
+	
+	public Resep(int id, Pendaftaran pendaftaran, String noResep, Obat obat, String dosis, int jumlah) {
 		super();
 		this.id = id;
 		this.pendaftaran = pendaftaran;
@@ -40,6 +40,20 @@ public class Resep {
 		this.dosis = dosis;
 		this.jumlah = jumlah;
 	}
+
+
+
+	public Obat getObat() {
+		return obat;
+	}
+
+
+
+	public void setObat(Obat obat) {
+		this.obat = obat;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -63,14 +77,6 @@ public class Resep {
 
 	public void setNoResep(String noResep) {
 		this.noResep = noResep;
-	}
-
-	public List<Obat> getObat() {
-		return obat;
-	}
-
-	public void setObat(List<Obat> obat) {
-		this.obat = obat;
 	}
 
 	public String getDosis() {
