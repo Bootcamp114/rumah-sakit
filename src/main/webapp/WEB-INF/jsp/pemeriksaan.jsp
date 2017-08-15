@@ -339,7 +339,7 @@
 				showDataDiagnosa();
 			}
 		});
-	}
+	} 
 
 	function fillDataDiagnosa(data) {
 		var dt = $("#tableDiagnosa");

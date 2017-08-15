@@ -32,7 +32,7 @@ public class PemeriksaanDaoImpl implements PemeriksaanDao{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) { 
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		Pemeriksaan pemeriksaan = new Pemeriksaan();

@@ -27,7 +27,7 @@ public class Pemeriksaan {
 	private String noPemeriksaan;
 	@OneToOne
 	private Pendaftaran pendaftaran;
-	@ManyToOne
+	@ManyToOne 
 	private JenisPemeriksaan jenisPemeriksaan;
 	@ManyToOne
 	private Dokter dokter;

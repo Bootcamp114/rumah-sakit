@@ -25,7 +25,7 @@ public class Dokter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	@Column(unique = true)
+	@Column(unique = true) 
 	private int nip;
 	private String nama;
 	private String jk;

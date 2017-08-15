@@ -16,7 +16,7 @@ public class Diagnosa {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String noDiagnosa;
-	private String diagnosa;
+	private String diagnosa; 
 	private String keterangan;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Pemeriksaan pemeriksaan;

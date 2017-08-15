@@ -34,7 +34,7 @@ public class PemeriksaanController {
 		modelJenisPeriksa.addAttribute("listJenis", listJenis);
 		return "pemeriksaan";
 	}
-	
+	 
 	@RequestMapping(value = "/saveDiagnosa" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void saveDiagnosa(@RequestBody Diagnosa diagnosa){
