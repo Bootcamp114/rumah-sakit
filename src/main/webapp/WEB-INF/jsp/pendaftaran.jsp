@@ -27,9 +27,7 @@
 		})	
 	
 		$("#save").on("click",function(){	
-			savepasien();
-			savepoli();
-			showData();
+			save();
 			clearForm();
 			alert("Data Tersimpan..");
 		});
@@ -93,7 +91,7 @@
 <select id="pasien" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
 	<option></option>
 	<c:forEach var="listPasien" items="${listPasien}">
-	<option>${listPasien.noidentitas}</option>
+	<option value="${listPasien.id }" >${listPasien.noidentitas}</option>
 	</c:forEach>
 </select>
 <input type="submit" name="pilih" id="pilih" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>
@@ -116,7 +114,7 @@
 <select id="poli" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
 	<option></option>
 	<c:forEach var="listPoli" items="${lisPoli}">
-	<option>${listPoli.poli}</option>
+	<option value="${listPoli.id }">${listPoli.poli}</option>
 	</c:forEach>
 </select>
 <input type="submit" name="pilih" id="pilih2" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>
@@ -137,7 +135,7 @@
 	</tbody>
 </table>
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Tambah Keluhan</button>
-<input type="submit" value="SIMPAN" class="btn btn-default" style="margin-left: 10px;">
+<input type="submit" value="SIMPAN" id="save" class="btn btn-default" style="margin-left: 10px;">
 <input type="submit" value="CETAK" class="btn btn-default" style="margin-left: 10px;">
 
 		
@@ -163,61 +161,35 @@
 </div>
 </body>
 <script type="text/javascript">
-		function savepasien(){
+		function save(){
+			var tanggal = $('#tanggal').val();
+			var nodaftar = $('#nodaftar').val();
 			var noidentitas = $('#noidentitas').val();
-			var nama = $('#nama').val();
-			var alamat = $('#alamat').val();
-			var nohp = $('#nohp').val();
-			var umur = $('#umur').val();
+			var poli = $('#poli').val();
+			var pasien =$('#pasien').val();			
+		
 			
-			var tablepasien = {
+			
+			var tablependaftaran = {
+					tanggal : tanggal,
+					nodaftar : nodaftar,
 					noidentitas : noidentitas,
-					nama : nama,
-					alamat : alamat,
-					nohp : nohp,
-					umur : umur,
-					jeniskelamin : jeniskelamin
+					poli : poli,
+					pasien : pasien
 			}
 			
 			$.ajax({
-				url: '/pasien/save',
+				url: '/pendaftaran/save',
 				type: 'POST',
 			 	contentType:'application/json',
 			 	dataType : 'json',
-				data: JSON.stringify(tablepasien), 
+				data: JSON.stringify(tablependaftaran), 
 				success: function(data,x,xhr){
 				}
 			
 			});
 		}
 		
-		function savepoli(){
-			var noidentitas = $('#noidentitas').val();
-			var nama = $('#nama').val();
-			var alamat = $('#alamat').val();
-			var nohp = $('#nohp').val();
-			var umur = $('#umur').val();
-			
-			var tablepasien = {
-					noidentitas : noidentitas,
-					nama : nama,
-					alamat : alamat,
-					nohp : nohp,
-					umur : umur,
-					jeniskelamin : jeniskelamin
-			}
-			
-			$.ajax({
-				url: '/pasien/save',
-				type: 'POST',
-			 	contentType:'application/json',
-			 	dataType : 'json',
-				data: JSON.stringify(tablepasien), 
-				success: function(data,x,xhr){
-				}
-			
-			});
-		}
 		function doDelete(del){
 			var id = $(del).attr("id_delete");
 			$.ajax({
@@ -237,6 +209,7 @@
 			$.each(data, function(index , listPasien){
 				var trString = "<tr>";
 						trString += "<td>" + listPasien.noidentitas + "</td>";
+					    trString += "<td>" + listPasien.poli + "</td>"; 
 						trString += "<td>" + listPasien.nama + "</td>";
 						trString += "<td>" + listPasien.alamat + "</td>";
 						trString += "<td>" + listPasien.nohp + "</td>";
@@ -255,7 +228,7 @@
 				var trString = "<tr>";
 						trString += "<td>" +  listPoli.poli + "</td>";
 						trString += "<td>" +  listPoli.ruangan + "</td>";
-						trString += "<td>" +  listPoli.biaya + "</td>";
+						tr += "<td>" +  listPoli.biaya + "</td>";
 					trString +="</tr>";
 				tbody.append(trString);
 			});
@@ -332,12 +305,10 @@
 		
 		function clearForm(){
 			$('#id').val("");
+			$('#tanggal').val("");
 			$('#noidentitas').val("");
-			$('#nama').val("");
-			$('#alamat').val("");
-			$('#nohp').val("");
-			$('#umur').val("");
-			$('#jeniskelamin').val("");
+			$('#poli').val("");
+			$('#nodaftar').val("");
 		}
 	</script>
 <script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>

@@ -46,10 +46,12 @@ public class PendaftaranController {
 		return "pendaftaran";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void save(@RequestBody Pendaftaran pen) {
 		dataMasterPendaftaran.savePendaftaran(pen);
+		
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
