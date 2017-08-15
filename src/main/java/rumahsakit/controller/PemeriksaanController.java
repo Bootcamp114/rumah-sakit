@@ -31,10 +31,12 @@ public class PemeriksaanController {
 		return "pemeriksaan";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/saveDiagnosa" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void saveDiagnosa(@RequestBody Diagnosa diagnosa){
-		service.saveDiagnosa(diagnosa);
+	public Diagnosa saveDiagnosa(@RequestBody Diagnosa diagnosa){
+		//service.saveDiagnosa(diagnosa);
+		return diagnosa;
 	}
 	
 	@RequestMapping(value = "/updateDiagnosa" , method = RequestMethod.PUT)
@@ -58,7 +60,7 @@ public class PemeriksaanController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getDiagnosaByNoDiagnosa/{noDiagnosa}" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
+	@ResponseStatus(value = HttpStatus.OK)
 	public List<Diagnosa> getDiagnosaByNoDiagnosa(@PathVariable String noDiagnosa){
 		return service.getAllDiagnosaByNoDiagnosa(noDiagnosa);
 	}

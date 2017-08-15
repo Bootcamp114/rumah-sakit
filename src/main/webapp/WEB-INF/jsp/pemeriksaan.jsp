@@ -197,11 +197,11 @@
         			<h4 class="modal-title" id="myModalLabel">Diagnosa</h4>
       			</div>
       			<div class="modal-body">
-      		
+      			
       				<div class="form-group">
 						<label>No Diagnosa</label>
 						<input type="hidden" name="noDiagnosa" id="idDiagnosa" class="form-control" autofocus placeholder="noDiagnosa"  >	
-						<input type="text" name="noDiagnosa" id="noDiagnosa" class="form-control" autofocus placeholder="noDiagnosa" required >	
+						<input type="text" name="noDiagnosa" id="noDiagnosa" class="form-control" value="D001" autofocus placeholder="noDiagnosa" required >	
 					</div>
 					<div class="form-group">
 						<label>Diagnosa</label>
@@ -247,10 +247,10 @@
 				var diagnosa = $('#diagnosa').val();
 				var keterangan = $('#keterangan').val();
 							
-				var diagnosa = {
+				var diagnosaEntity = {
 						noDiagnosa : noDiagnosa,
 						diagnosa : diagnosa,
-						keteranga : keterangan
+						keterangan : keterangan
 				}
 				
 				$.ajax({
@@ -258,7 +258,7 @@
 					type: 'POST',
 				 	contentType:'application/json',
 				 	dataType : 'json',
-					data: JSON.stringify(diagnosa), 
+					data: JSON.stringify(diagnosaEntity), 
 					success: function(data,x,xhr){
 						showData();	
 						clearForm();
@@ -325,7 +325,7 @@
 			function showDataDiagnosa(){
 				var noDiagnosa = $('#noDiagnosa').val();
 				$.ajax({
-					url :'/diagnosa/getDiagnosaByNoDiagnosa/'+noDiagnosa,
+					url :'/pemeriksaan/getDiagnosaByNoDiagnosa/'+noDiagnosa,
 					type: 'POST',
 					dataType : 'json',
 					success : function(data ,x,xhr){
