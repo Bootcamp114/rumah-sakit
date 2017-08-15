@@ -2,6 +2,7 @@ package rumahsakit.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Pemeriksaan {
 	private JenisPemeriksaan jenisPemeriksaan;
 	@ManyToOne
 	private Dokter dokter;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "pemeriksaan")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "pemeriksaan" , cascade = CascadeType.ALL)
 	private List<Diagnosa> diagnosa;
 	private String tindakan;
 	private int beratBadan;

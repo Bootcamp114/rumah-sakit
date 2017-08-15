@@ -9,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import rumahsakit.dao.DiagnosaDao;
 import rumahsakit.dao.DokterDao;
 import rumahsakit.dao.JenisPemeriksaanDao;
+import rumahsakit.dao.PemeriksaanDao;
 import rumahsakit.dao.PoliDao;
 import rumahsakit.dao.ResepDao;
 import rumahsakit.model.Diagnosa;
 import rumahsakit.model.Dokter;
 import rumahsakit.model.JenisPemeriksaan;
+import rumahsakit.model.Pemeriksaan;
 import rumahsakit.model.Poli;
 import rumahsakit.model.Resep;
 
@@ -31,6 +33,8 @@ public class DataMasterPemeriksaan {
 	private DiagnosaDao diagnosaDao;
 	@Autowired
 	private ResepDao resepDao;
+	@Autowired
+	private PemeriksaanDao pemeriksaanDao;
 	
 	//jenis pemeriksaan service
 	public void saveJenisPemeriksaan(JenisPemeriksaan jenisPemeriksaan){
@@ -131,5 +135,9 @@ public class DataMasterPemeriksaan {
 			return resepDao.getResepById(id);
 		}
 	//end resep
-		
+	//pemeeriksaan
+		public void savePemeriksaan(Pemeriksaan pemeriksaan){
+			pemeriksaanDao.save(pemeriksaan);
+		}
+	//end pemeriksaan
 }

@@ -322,8 +322,8 @@
 			$('#jk').val(data.jk);
 			$('#alamat').val(data.alamat);
 			$('#noHp').val(data.noHp);
-			$('#idPoli').val(data.poli);
-			$('#poli').val(data.poli);
+			$('#idPoli').val(data.poli.idPoli);
+			$('#poli').val(data.poli.poli);
 		}
 		
 		function pilihPoli(data){

@@ -2,6 +2,7 @@ package rumahsakit.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Dokter {
 	private String noHp;
 	@ManyToOne
 	private Poli poli;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "dokter")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "dokter" , cascade = CascadeType.ALL)
 	private List<Pemeriksaan> pemeriksaan;
 	
 	public Dokter() {

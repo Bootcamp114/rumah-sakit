@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import rumahsakit.model.Diagnosa;
 import rumahsakit.model.Dokter;
+import rumahsakit.model.JenisPemeriksaan;
+import rumahsakit.model.Pemeriksaan;
 import rumahsakit.service.DataMasterPemeriksaan;
 
 @Controller
@@ -25,18 +27,18 @@ public class PemeriksaanController {
 	private DataMasterPemeriksaan service;
 	
 	@RequestMapping
-	public String index(Model model){
+	public String index(Model model , Model modelJenisPeriksa){
 		List<Dokter> listDokter = service.getAllDokter();
 		model.addAttribute("listDokter", listDokter);
+		List<JenisPemeriksaan> listJenis = service.getAllJenisPemeriksaan();
+		modelJenisPeriksa.addAttribute("listJenis", listJenis);
 		return "pemeriksaan";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/saveDiagnosa" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Diagnosa saveDiagnosa(@RequestBody Diagnosa diagnosa){
-		//service.saveDiagnosa(diagnosa);
-		return diagnosa;
+	public void saveDiagnosa(@RequestBody Diagnosa diagnosa){
+		service.saveDiagnosa(diagnosa);
 	}
 	
 	@RequestMapping(value = "/updateDiagnosa" , method = RequestMethod.PUT)
@@ -63,5 +65,11 @@ public class PemeriksaanController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<Diagnosa> getDiagnosaByNoDiagnosa(@PathVariable String noDiagnosa){
 		return service.getAllDiagnosaByNoDiagnosa(noDiagnosa);
+	}
+	
+	@RequestMapping(value = "/savePemeriksaan" , method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public void savePemeriksaan(@RequestBody Pemeriksaan pemeriksaan){
+		service.savePemeriksaan(pemeriksaan);
 	}
 }
