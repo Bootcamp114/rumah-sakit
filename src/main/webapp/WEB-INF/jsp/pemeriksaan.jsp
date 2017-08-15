@@ -183,7 +183,7 @@
 					<h4 class="modal-title" id="myModalLabel">Data Pendaftaran</h4>
 				</div>
 				<div class="modal-body">
-					<table class="table" id="tablePeriksa">
+					<table class="table" id="tablePendaftaran">
 						<thead>
 							<tr>
 								<th>NoDaftar</th>
@@ -198,12 +198,12 @@
 							<c:forEach var="listDaftar" items="${listDaftar}">
 								<tr>
 								<td>${listDaftar.nodaftar}</td>
-								<td>${listDaftar.nodaftar}</td>
-								<td>${listDaftar.nodaftar}</td>
-								<td>${listDaftar.nodaftar}</td>
-								<td>${listDaftar.nodaftar}</td>
+								<td>${listDaftar.pasien.nama}</td>
+								<td>${listDaftar.poli.poli}</td>
+								<td>${listDaftar.petugas.nama}</td>
+								<td>${listDaftar.keluhan}</td>
 								<td>
-									<button type="button" class="btn btn-primary"
+									<button type="button" class="pilih btn btn-primary" idPilih="${listDaftar.id}"
 										data-dismiss="modal">Pilih</button>
 								</td>
 							</tr>
