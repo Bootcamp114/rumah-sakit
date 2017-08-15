@@ -11,6 +11,10 @@
 <script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("input[name='jk']").on("change", function() {
+			jk = $(this).val();
+		})
+		
 		$("#save").on("click",function(){	
 			save();
 			showData();
@@ -63,8 +67,10 @@
 	<input type="text" id="nama" class="form-control" placeholder="Nama">
 </div>
 <div class="form-group">
-	<label>Masukan Jenis Kelamin</label>
-	<input type="text" id="jk" class="form-control" placeholder="NIP">
+	<label>Masukan Jenis Kelamin</label><br>
+			<input type="radio"   name="jeniskelamin" value="Laki - Laki" id="jk"> Laki - Laki<br>
+  					<input type="radio"   name="jeniskelamin" value="Perempuan" id="jk" > Perempuan<br>
+			
 </div>
 <div class="form-group">
 	<label>Masukan Alamat</label>
@@ -174,7 +180,6 @@
 			
 			var nip = $('#nip').val();
 			var nama = $('#nama').val();
-			var jk = $('#jk').val();
 			var alamat = $('#alamat').val();
 			var nohp = $('#nohp').val();
 			var id = $('#id').val();
