@@ -2,6 +2,7 @@ package rumahsakit.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -38,9 +39,11 @@ public class ResepDaoImpl implements ResepDao{
 	}
 
 	@Override
-	public List<Resep> getAllResepByNoDaftar(String noDaftar) {
+	public List<Resep> getAllResepByNoDaftar() {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		List<Resep> listResep = session.createCriteria(Resep.class).list();
+		return listResep;
 	}
 
 }

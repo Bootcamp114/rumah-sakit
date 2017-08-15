@@ -10,7 +10,7 @@ public interface ResepDao {
 	public void update();
 	public void delete();
 	public Resep getResepById();
-	public List<Resep> getAllResepByNoDaftar(String noDaftar);
+	public List<Resep> getAllResepByNoDaftar();
 	
 }
 
