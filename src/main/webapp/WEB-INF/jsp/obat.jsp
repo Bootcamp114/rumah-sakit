@@ -15,6 +15,7 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	showData();
 	$("#save").on("click",function(){
 		save();
 	})
@@ -78,7 +79,6 @@ $(document).ready(function(){
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<a href="#" id="loadData">Load Data</a>
 		<table id="tableObat" class="table table-bordered">
 			<thead>
 				<tr class="info">

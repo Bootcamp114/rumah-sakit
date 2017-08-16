@@ -114,4 +114,14 @@ public class DataMasterPembelian {
 		return pembelianDao.getAll();
 	}
 
+	public void deleteDetail(int id) {
+		// TODO Auto-generated method stub
+		pembelianDao.delete(id);
+	}
+
+	public String hitungDetail() {
+		// TODO Auto-generated method stub
+		return pembelianDao.hitungDetail();
+	}
+
 }

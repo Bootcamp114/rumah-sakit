@@ -86,7 +86,6 @@
 	<button class="btn btn-default" id="update">UPDATE</button>
 </div>
 </div>
-<a href="#" id="loadData">Load Data</a>
 <table id="tableApoteker" class="table table-bordered">
 	<thead>
 	<tr class="info">

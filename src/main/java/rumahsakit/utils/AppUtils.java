@@ -22,4 +22,14 @@ public class AppUtils {
 		 return String.valueOf(data.get(0));
 	}
 	
+	public String getNoFaktur(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("select seq_nofaktur_pembelian.nextval from dual");
+		 List<Long> data = query.list();
+		 
+		 return String.valueOf(data.get(0));
+	}
+	
+
+	
 }

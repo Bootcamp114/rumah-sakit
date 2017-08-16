@@ -18,6 +18,7 @@ import rumahsakit.model.Obat;
 import rumahsakit.model.PembelianObat;
 import rumahsakit.model.Pendaftaran;
 import rumahsakit.service.DataMasterPembelian;
+import rumahsakit.utils.AppUtils;
 
 @Controller
 @RequestMapping("/pembelian")
@@ -25,6 +26,8 @@ public class PembelianController {
 
 	@Autowired
 	DataMasterPembelian dataMasterPembelian;
+	@Autowired
+	private AppUtils appUtils;
 	
 	@RequestMapping("/index")
 	public String index(Model model){
@@ -32,6 +35,10 @@ public class PembelianController {
 		model.addAttribute("listObat", list);
 		List<DetailObat> listDetail = dataMasterPembelian.getAllDetail();
 		model.addAttribute("listDetail", listDetail);
+		String noFaktur = appUtils.getNoFaktur();
+		model.addAttribute("noFaktur", noFaktur);
+		String hitungTotal = dataMasterPembelian.hitungDetail();
+		model.addAttribute("hitungTotal", hitungTotal);
 		return "pembelian";
 	}
 	
@@ -53,5 +60,11 @@ public class PembelianController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<DetailObat> getAllDetail(){
 		return dataMasterPembelian.getAllDetail();
+	}
+	
+	@RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void delete(@PathVariable int id){
+		dataMasterPembelian.deleteDetail(id);
 	}
 }

@@ -17,8 +17,8 @@
 	$(document).ready(function() {
 
 		$("#save").on("click",function(){	
-			save();	
-			showData();
+			save();
+			window.location.href="/pembelian/index";
 		});
 		
 		
@@ -33,13 +33,22 @@
 				}
 			});
 		});
+		
+		$(document).on("click",".delete",function(){
+			var conf = confirm("Yakin mau dihapus?");
+			if(conf == true){
+				doDelete(this);	
+				window.location.href="/pembelian/index";
+			}
+			
+		});
 	})
 </script>
 <body>
 	<div class="container">
 		<div style="width: 500px; margin: 0 auto">
 			<div class="form-group">
-				<label>NoFaktur</label> <input type="text" class="form-control"
+				<label>NoFaktur</label> <input readonly type="text" value="FK0${noFaktur }" class="form-control"
 					id="noFaktur">
 			</div>
 			<div class="form-group">
@@ -55,7 +64,7 @@
 					class="form-control" id="harga">
 			</div>
 			<div class="form-group">
-				<label>Jumlah</label> <input type="text" onChange="hitung()"
+				<label>Jumlah</label> <input type="text" onKeyUp="hitung()"
 					class="form-control" id="jumlah">
 			</div>
 			<div class="form-group">
@@ -63,7 +72,7 @@
 					class="form-control" id="total">
 			</div>
 			<div class="form-group" align="right">
-				<button class="btn btn-default" id="save">SIMPAN</button>
+				<button class="btn btn-default" id="save">TAMBAH</button>
 			</div>
 		</div>
 		<table class="table table-bordered" id="tableObat">
@@ -83,17 +92,17 @@
 					<td>${listDetail.obat.harga }</td>
 					<td>${listDetail.jumlah }</td>
 					<td>${listDetail.total }</td>
-					<td><a href='#' class='delete' id_delete='" + listObat.id + "'>DELETE</a></td>
+					<td><a href='#' class='delete' id_delete="${listDetail.id}">DELETE</a></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div class="col-md-9"></div>
 		<div class="form-group col-md-3" align="right">
-			<label>Total Harga</label> <input type="text" class="form-control"
+			<label>Total Harga</label> <input type="text" value="${hitungTotal }" class="form-control"
 				id="totalHarga" readonly><br> <label>Bayar</label> <input
-				type="text" class="form-control" id="bayar"><br> <label>Kembalian</label>
-			<input type="text" class="form-control" id="kembalian"><br>
+				type="text" onKeyUp="hitung2()" class="form-control" id="bayar"><br> <label>Kembalian</label>
+			<input type="text" class="form-control" readonly id="kembalian"><br>
 			<button class="btn btn-info">SELESAI</button>
 		</div>
 	</div>
@@ -102,8 +111,9 @@
 		aria-labelledby="myLargeModalLabel">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<h1 align="center">Pilih Obat</h1>
-				<table class="table table-bordered">
+				<h1 align="center" class="modal-title">Pilih Obat</h1>
+				<hr>	
+				<table class="table table-hover">
 					<thead>
 						<tr class="info">
 							<th>OBAT</th>
@@ -139,6 +149,13 @@
 		document.getElementById('total').value = harga * jumlah;
 
 	}
+
+	function hitung2() {
+		var total = document.getElementById('totalHarga').value;
+		var bayar = document.getElementById('bayar').value;
+		document.getElementById('kembalian').value = bayar - total;
+
+	}
 	
 	function save(){
 		var noFaktur = $('#noFaktur').val();
@@ -167,7 +184,16 @@
 		
 		});
 	}
-	
+	function doDelete(del){
+		var id = $(del).attr("id_delete");
+		$.ajax({
+			url : "/pembelian/delete/"+id,
+			type : "DELETE",
+			success : function(data){
+				console.log(data);
+			}
+		});
+	}
 	
 
 </script>
