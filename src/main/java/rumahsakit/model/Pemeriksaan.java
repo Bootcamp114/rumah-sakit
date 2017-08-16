@@ -25,13 +25,13 @@ public class Pemeriksaan {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String noPemeriksaan;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Pendaftaran pendaftaran;
 	@ManyToOne
 	private JenisPemeriksaan jenisPemeriksaan;
 	@ManyToOne
 	private Dokter dokter;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "pemeriksaan")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "pemeriksaan" , cascade = CascadeType.ALL)
 	private List<Diagnosa> diagnosa;
 	private String tindakan;
 	private int beratBadan;

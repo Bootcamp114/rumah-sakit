@@ -57,13 +57,13 @@
 		});
 		
 		$(document).on("click",".pilih",function(){
-			var id = $(this).attr("idPilih");
-			
+			var idDaftar = $(this).attr("idPilih");
 			$.ajax({
-				url : '/pemeriksaan/getPendaftaranById/'+id,
+				url : '/pemeriksaan/getPendaftaranById/'+idDaftar,
 				type : 'GET',
 				success : function(data){
 					pilihDaftar(data);
+					console.log(data);
 				}
 			});
 		});
@@ -91,12 +91,12 @@
 				</div>
 				<div class="form-group">
 					<label>No Daftar</label> 
-					<input type="hidden" name="noPendafaran"
+					<input type="hidden"
 						id="idPendaftaran" class="form-control" autofocus
 						placeholder="noPendaftaran" required >
-					<input type="text" name="noPendafaran"
-						id="noPendafaran" class="form-control" autofocus
-						placeholder="noPendaftaran" required > <br>
+					<input type="text"
+						id="noPendaftaran" class="form-control" autofocus
+						placeholder="noPendaftaran" required readonly> <br>
 					<button type="button" class="btn btn-primary btn-md"
 						data-toggle="modal" data-target="#modalPendaftaran">
 						pilih no daftar</button>
@@ -219,8 +219,7 @@
 								<td>${listDaftar.petugas.nama}</td>
 								<td>${listDaftar.keluhan}</td>
 								<td>
-									<button type="button" class="pilih btn btn-primary" idPilih="${listDaftar.id}"
-										data-dismiss="modal">Pilih</button>
+									<a href="#" class="pilih" idPilih="${listDaftar.id}" data-dismiss="modal">Pilih</a>
 								</td>
 							</tr>
 							</c:forEach>						
@@ -264,7 +263,7 @@
 							Changes</button>
 						<button type="button" class="btn btn-default" id="updateDiagnosa">Update</button>
 					</div>
-					<a></</a>
+					
 					<table class="table" id="tableDiagnosa">
 						<thead>
 							<tr>
@@ -410,7 +409,7 @@
 	/* crud pemeriksaan */
 	function savePemeriksaan() {
 		var noPemeriksaan = $("#noPemeriksaan").val();
-		var noDaftar = $("#noDaftar").val();
+		var noDaftar = $("#idPendaftaran").val();
 		var jenisPemeriksaan = $("#jenisPemeriksaan").val();
 		var dokter = $("#dokter").val();
 		var tindakan = $("#tindakan").val();
@@ -449,8 +448,8 @@
 	}
 	
 	function pilihDaftar(data){
-		$("#idPendaftaran").val(data.id);
-		$("#noPendaftaran").val(data.nodaftar);
+		$('#idPendaftaran').val(data.id);
+		$('#noPendaftaran').val(data.nodaftar);
 	}
 	/* end crud pemeriksaan */
 </script>

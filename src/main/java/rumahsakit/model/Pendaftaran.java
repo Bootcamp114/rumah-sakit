@@ -1,5 +1,6 @@
 package rumahsakit.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Pendaftaran {
 	private String nodaftar;
 	private String tanggal;
 	private String keluhan;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Pemeriksaan pemeriksaan;
 	@OneToOne
 	private Resep resep;
