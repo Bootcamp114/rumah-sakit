@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +15,8 @@ public class DetailObat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	private String beliObat;
+	@OneToOne
+	private PembelianObat pembelianObat;
 	@ManyToOne
 	private Obat obat;
 	private int jumlah;
@@ -23,10 +26,10 @@ public class DetailObat {
 		
 	}
 
-	public DetailObat(int id, String beliObat, Obat obat, int jumlah, Double total) {
+	public DetailObat(int id, PembelianObat pembelianObat, Obat obat, int jumlah, Double total) {
 		super();
 		this.id = id;
-		this.beliObat = beliObat;
+		this.pembelianObat = pembelianObat;
 		this.obat = obat;
 		this.jumlah = jumlah;
 		this.total = total;
@@ -40,12 +43,12 @@ public class DetailObat {
 		this.id = id;
 	}
 
-	public String getBeliObat() {
-		return beliObat;
+	public PembelianObat getPembelianObat() {
+		return pembelianObat;
 	}
 
-	public void setBeliObat(String beliObat) {
-		this.beliObat = beliObat;
+	public void setPembelianObat(PembelianObat pembelianObat) {
+		this.pembelianObat = pembelianObat;
 	}
 
 	public Obat getObat() {
@@ -71,6 +74,8 @@ public class DetailObat {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
+
+	
 	
 	
 }

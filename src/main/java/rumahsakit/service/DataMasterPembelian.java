@@ -8,9 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import rumahsakit.dao.ApotekerDao;
 import rumahsakit.dao.ObatDao;
+import rumahsakit.dao.PembelianDao;
 import rumahsakit.dao.SupplierDao;
 import rumahsakit.model.Apoteker;
+import rumahsakit.model.DetailObat;
 import rumahsakit.model.Obat;
+import rumahsakit.model.PembelianObat;
+import rumahsakit.model.Pendaftaran;
 import rumahsakit.model.Supplier;
 @Service
 @Transactional
@@ -21,6 +25,8 @@ public class DataMasterPembelian {
 	ApotekerDao apotekerDao;
 	@Autowired
 	ObatDao obatDao;
+	@Autowired
+	PembelianDao pembelianDao;
 	
 	//Service Supplier-------------------------------------------------------------
 	public void saveSupplier(Supplier supp){
@@ -97,4 +103,15 @@ public class DataMasterPembelian {
 		// TODO Auto-generated method stub
 		return obatDao.getById(id);
 	}
+
+	public void savePembelian(DetailObat detail) {
+		// TODO Auto-generated method stub
+		pembelianDao.save(detail);
+	}
+
+	public List<DetailObat> getAllDetail() {
+		// TODO Auto-generated method stub
+		return pembelianDao.getAll();
+	}
+
 }

@@ -136,7 +136,7 @@ function updateColumn(data){
 	$('#obat').val(data.obat);
 	$('#harga').val(data.harga);
 	$('#jenisObat').val(data.jenisObat);
-	$('#supplier').eval(data.suplier.supplier);
+	$('#supplier').select(data.suplier.supplier);
 	
 }
 

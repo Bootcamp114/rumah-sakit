@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,20 +14,21 @@ public class PembelianObat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE) 
 	private int id;
-	private String noBeli;
-	@ManyToOne
+	private String noFaktur;
+	@OneToOne
 	private DetailObat detailObat;
 	private String tanggal;
+	@ManyToOne
 	private Apoteker apoteker;
 	
 	public PembelianObat(){
 		
 	}
 
-	public PembelianObat(int id, String noBeli, DetailObat detailObat, String tanggal, Apoteker apoteker) {
+	public PembelianObat(int id, String noFaktur, DetailObat detailObat, String tanggal, Apoteker apoteker) {
 		super();
 		this.id = id;
-		this.noBeli = noBeli;
+		this.noFaktur = noFaktur;
 		this.detailObat = detailObat;
 		this.tanggal = tanggal;
 		this.apoteker = apoteker;
@@ -40,12 +42,12 @@ public class PembelianObat {
 		this.id = id;
 	}
 
-	public String getNoBeli() {
-		return noBeli;
+	public String getNoFaktur() {
+		return noFaktur;
 	}
 
-	public void setNoBeli(String noBeli) {
-		this.noBeli = noBeli;
+	public void setNoFaktur(String noFaktur) {
+		this.noFaktur = noFaktur;
 	}
 
 	public DetailObat getDetailObat() {
@@ -72,5 +74,5 @@ public class PembelianObat {
 		this.apoteker = apoteker;
 	}
 	
-	
+		
 }
