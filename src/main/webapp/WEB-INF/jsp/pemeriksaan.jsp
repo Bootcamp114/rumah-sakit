@@ -15,8 +15,13 @@
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
 
+	$(document).ready(function() {
+		var dataTable = $('#tableDiagnosa');
+		var elementNoDiagnosa = $('#noDiagnosa');
+		var elementDiagnosa = $('#diagnosa');
+		var elementKeterangan = $('textarea[id ="keterangan"]');
+		
 		showDataDiagnosa();
 
 		$('#save').on('click' , function(){
@@ -25,16 +30,26 @@
 		});
 		
 		$('#saveDiagnosa').on('click', function() {
-			saveDiagnosa();
-			showDataDiagnosa();
-			clearFormDiagnosa();
+			var noDiagnosa = elementNoDiagnosa.val();
+			var diagnosa = elementDiagnosa.val();
+			var keterangan = elementKeterangan.val();
+			var tbody = dataTable.find("tbody");
+			var trString = "<tr>";
+			trString += "<td>" + noDiagnosa	+ "</td>";
+			trString += "<td>" + diagnosa+ "</td>";
+			trString += "<td>" + keterangan	+ "</td>";
+			trString += "<td><a href='#'>delete</a></td>";
+			trString += "<td><a href='#'>edit</a></td>";
+			trString += "</tr>";
+			tbody.append(trString);			
 		});
 
 		$(document).on("click", ".deleteDiagnosa", function() {
-			var conf = confirm("Apakah yakin akan dihapus ? ");
-			if (conf == true) {
-				doDeleteDiagnosa(this);
-			}
+			$("table tbody").find('').each(function(){
+            	if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
 		});
 
 		$(document).on("click", ".updateDiagnosa", function() {
@@ -126,6 +141,20 @@
 					<button type="button" class="btn btn-primary btn-md"
 						data-toggle="modal" data-target="#modalDiagnosa">Klik
 						Untuk Diagnosa</button>
+						
+					<table class="table" id="tableDiagnosa">
+						<thead>
+							<tr>
+								<th>NoDiagnosa</th>
+								<th>Diagnosa</th>
+								<th>Keterangan</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
 				</div>
 				<div class="form-group">
 					<label>Tindakan</label> <input type="text" name="tindakan"
@@ -259,24 +288,10 @@
 						</textarea>
 					</div>
 					<div class="form-group">
-						<button type="button" class="btn btn-primary" id="saveDiagnosa">Save
+						<button type="button" class="btn btn-primary" id="saveDiagnosa" data-dismiss="modal">Save
 							Changes</button>
 						<button type="button" class="btn btn-default" id="updateDiagnosa">Update</button>
 					</div>
-					
-					<table class="table" id="tableDiagnosa">
-						<thead>
-							<tr>
-								<th>NoDiagnosa</th>
-								<th>Diagnosa</th>
-								<th>Keterangan</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-
-						</tbody>
-					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -290,33 +305,10 @@
 	src="/resources/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	/* crud diagnosa */
+	
+	
 	function saveDiagnosa() {
-		var noDiagnosa = $('#noDiagnosa').val();
-		var diagnosa = $('#diagnosa').val();
-		var keterangan = $('#keterangan').val();
-		var noPemeriksaan = $('#noPemeriksaan').val();
-
-		var diagnosaEntity = {
-			noDiagnosa : noDiagnosa,
-			diagnosa : diagnosa,
-			keterangan : keterangan,
-			pemeriksaan : {
-				noPemeriksaan : noPemeriksaan
-			}
-		}
-
-		$.ajax({
-			url : '/pemeriksaan/saveDiagnosa',
-			type : 'POST',
-			contentType : 'application/json',
-			dataType : 'json',
-			data : JSON.stringify(diagnosaEntity),
-			success : function(data, x, xhr) {
-				showDataDiagnosa();
-				clearFormDiagnosa();
-			}
-
-		});
+		
 	}
 
 	function updateDiagnosa() {

@@ -22,7 +22,7 @@ public class Diagnosa {
 	private String noDiagnosa;
 	private String diagnosa; 
 	private String keterangan;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Pemeriksaan pemeriksaan;
 	
 	public Diagnosa() {
