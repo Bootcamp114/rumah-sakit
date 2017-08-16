@@ -307,7 +307,7 @@
 	function updateDiagnosa() {
 		var noDiagnosa = $('#noDiagnosa').val();
 		var diagnosa = $('#diagnosa').val();
-		var keterangan = $('#keterangan').val();
+		var keterangan = $('textarea[id ="keterangan"]').val();
 		var id = $('#idDiagnosa').val();
 
 		var diagnosa = {
@@ -368,7 +368,7 @@
 	function showDataDiagnosa() {
 		var noDiagnosa = $('#noDiagnosa').val();
 		$.ajax({
-			url : '/pemeriksaan/getDiagnosaByNoDiagnosa/' + noDiagnosa,
+			url : '/pemeriksaan/getDiagnosaByNoDiagnosa',
 			type : 'POST',
 			dataType : 'json',
 			success : function(data, x, xhr) {
@@ -382,13 +382,13 @@
 		$('#idDiagnosa').val(data.id);
 		$('#noDiagnosa').val(data.noDiagnosa);
 		$('#diagnosa').val(data.diagnosa);
-		$('#keterangan').val(data.keterangan);
+		$('textarea[id ="keluhan"]').val(data.keterangan);
 	}
 
 	function clearFormDiagnosa() {
 		$('#idDiagnosa').val("");
 		$('#diagnosa').val("");
-		$('#keterangan').val("");
+		$('textarea[id ="keluhan"]').val("");
 	}
 	/* end crud diagnosa */
 	/* crud pemeriksaan */

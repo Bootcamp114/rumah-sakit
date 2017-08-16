@@ -67,10 +67,10 @@ public class PemeriksaanController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getDiagnosaByNoDiagnosa/{noDiagnosa}" , method = RequestMethod.POST)
+	@RequestMapping(value = "/getDiagnosaByNoDiagnosa" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<Diagnosa> getDiagnosaByNoDiagnosa(@PathVariable String noDiagnosa){
-		return service.getAllDiagnosaByNoDiagnosa(noDiagnosa);
+	public List<Diagnosa> getDiagnosaByNoDiagnosa(){
+		return service.getAllDiagnosaByNoDiagnosa();
 	}
 	
 	@RequestMapping(value = "/savePemeriksaan" , method = RequestMethod.POST)

@@ -42,10 +42,10 @@ public class DiagnosaDaoImpl implements DiagnosaDao{
 	}
 
 	@Override
-	public List<Diagnosa> getAllDiagnosaByNoDiagnosa(String noDiagnosa) {
+	public List<Diagnosa> getAllDiagnosaByNoDiagnosa() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Diagnosa> listDiagnosa = session.createQuery("SELECT u Diagnosa WHERE noDiagnosa =: noDiagnosa").list();
+		List<Diagnosa> listDiagnosa = session.createCriteria(Diagnosa.class).list();
 		return listDiagnosa;
 	}
 

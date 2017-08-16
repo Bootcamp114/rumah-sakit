@@ -105,8 +105,8 @@ public class DataMasterPemeriksaan {
 		diagnosaDao.update(diagnosa);
 	}
 	
-	public List<Diagnosa> getAllDiagnosaByNoDiagnosa(String noDiagnosa){
-		return diagnosaDao.getAllDiagnosaByNoDiagnosa(noDiagnosa);
+	public List<Diagnosa> getAllDiagnosaByNoDiagnosa(){
+		return diagnosaDao.getAllDiagnosaByNoDiagnosa();
 	}
 	
 	public Diagnosa getDiagnosaById(int id){

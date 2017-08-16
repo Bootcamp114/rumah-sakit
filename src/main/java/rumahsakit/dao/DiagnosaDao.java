@@ -9,7 +9,7 @@ public interface DiagnosaDao {
 	public void save(Diagnosa diagnosa);
 	public void delete(int id);
 	public void update(Diagnosa diagnosa);
-	public List<Diagnosa> getAllDiagnosaByNoDiagnosa(String noDiagnosa);
+	public List<Diagnosa> getAllDiagnosaByNoDiagnosa();
 	public Diagnosa getDiagnosaById(int id);
 
 }
