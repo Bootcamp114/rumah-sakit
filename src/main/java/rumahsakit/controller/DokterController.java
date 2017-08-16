@@ -31,13 +31,11 @@ public class DokterController {
 		model.addAttribute("listPoli", listPoli);
 		return "dokter";
 	}
-	
-	@ResponseBody
+
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Dokter save(@RequestBody Dokter dokter){
-		//service.saveDokter(dokter);
-		return dokter;
+	public void save(@RequestBody Dokter dokter){
+		service.saveDokter(dokter);
 	}
 	
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)

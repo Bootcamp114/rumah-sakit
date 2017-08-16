@@ -55,6 +55,18 @@
 			clearFormDiagnosa();
 			alert("Terupdate");
 		});
+		
+		$(document).on("click",".pilih",function(){
+			var id = $(this).attr("idPilih");
+			
+			$.ajax({
+				url : '/pemeriksaan/getPendaftaranById/'+id,
+				type : 'GET',
+				success : function(data){
+					pilihDaftar(data);
+				}
+			});
+		});
 	});
 </script>
 <!-- <script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
@@ -78,7 +90,11 @@
 						autofocus placeholder="noPemeriksaan" required >
 				</div>
 				<div class="form-group">
-					<label>No Daftar</label> <input type="text" name="noPendafaran"
+					<label>No Daftar</label> 
+					<input type="hidden" name="noPendafaran"
+						id="idPendaftaran" class="form-control" autofocus
+						placeholder="noPendaftaran" required >
+					<input type="text" name="noPendafaran"
 						id="noPendafaran" class="form-control" autofocus
 						placeholder="noPendaftaran" required > <br>
 					<button type="button" class="btn btn-primary btn-md"
@@ -430,6 +446,11 @@
 			}
 
 		});
+	}
+	
+	function pilihDaftar(data){
+		$("#idPendaftaran").val(data.id);
+		$("#noPendaftaran").val(data.nodaftar);
 	}
 	/* end crud pemeriksaan */
 </script>

@@ -23,7 +23,7 @@ public class JenisPemeriksaan {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String jenisPemeriksaan;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "jenisPemeriksaan", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "jenisPemeriksaan")
 	private List<Pemeriksaan> pemeriksaan;
 	
 	public JenisPemeriksaan() {

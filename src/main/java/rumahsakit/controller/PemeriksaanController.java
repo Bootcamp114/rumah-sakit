@@ -78,4 +78,13 @@ public class PemeriksaanController {
 	public void savePemeriksaan(@RequestBody Pemeriksaan pemeriksaan){
 		service.savePemeriksaan(pemeriksaan);
 	}
+	
+	//pendfataran
+	@ResponseBody
+	@RequestMapping(value = "/getPendaftaranById/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public Pendaftaran getPendaftaranById(@PathVariable int id){
+		return serviceDaftar.getById(id);
+	}
+	//end pendaftraan
 }
