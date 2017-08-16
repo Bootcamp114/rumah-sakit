@@ -26,7 +26,6 @@
 
 		$('#save').on('click' , function(){
 			savePemeriksaan();
-			alert();
 		});
 		
 		$('#saveDiagnosa').on('click', function() {
@@ -38,7 +37,7 @@
 			trString += "<td>" + noDiagnosa	+ "</td>";
 			trString += "<td>" + diagnosa+ "</td>";
 			trString += "<td>" + keterangan	+ "</td>";
-			trString += "<td><a href='#'>delete</a></td>";
+			trString += "<td><a href='#' class='deleteDiagnosa'>delete</a></td>";
 			trString += "<td><a href='#'>edit</a></td>";
 			trString += "</tr>";
 			tbody.append(trString);			
@@ -402,7 +401,7 @@
 	function savePemeriksaan() {
 		var noPemeriksaan = $("#noPemeriksaan").val();
 		var noDaftar = $("#idPendaftaran").val();
-		var jenisPemeriksaan = $("#jenisPemeriksaan").val();
+		var jenisPemeriksaan = $("#jenisPeriksa").val();
 		var dokter = $("#dokter").val();
 		var tindakan = $("#tindakan").val();
 		var beratBadan = $("#beratBadan").val();
@@ -412,7 +411,7 @@
 		var pemeriksaan = {
 			noPemeriksaan : noPemeriksaan,
 			pendaftaran : {
-				nodaftar : noDaftar
+				id : noDaftar
 			},
 			jenisPemeriksaan : {
 				id : jenisPemeriksaan
@@ -426,17 +425,17 @@
 			tensiSistolik : tensiSistolik
 		}
 		
-		$.ajax({
+	 	$.ajax({
 			url : '/pemeriksaan/savePemeriksaan',
 			type : 'POST',
 			contentType : 'application/json',
 			dataType : 'json',
 			data : JSON.stringify(pemeriksaan),
 			success : function(data, x, xhr) {
-				log.console("loaded");
+				log.console(data);
 			}
 
-		});
+		}); 
 	}
 	
 	function pilihDaftar(data){
