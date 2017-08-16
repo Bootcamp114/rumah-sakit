@@ -57,12 +57,12 @@
 		});
 	});
 </script>
-<script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
+<!-- <script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script>
 	tinymce.init({
 		selector : 'textarea'
 	});
-</script>
+</script> -->
 <body>
 	<div class="container">
 		<h1>Form Pemeriksaan Pasien</h1>
@@ -99,7 +99,7 @@
 						id="dokter">
 						<option></option>
 						<c:forEach var="listDokter" items="${listDokter}">
-							<option value="${lisDokter.id}">${listDokter.nama}</option>
+							<option value="${listDokter.id}">${listDokter.nama}</option>
 						</c:forEach>
 					</select>
 				</div>

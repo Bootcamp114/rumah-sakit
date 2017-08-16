@@ -32,10 +32,12 @@ public class DokterController {
 		return "dokter";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void save(@RequestBody Dokter dokter){
-		service.saveDokter(dokter);
+	public Dokter save(@RequestBody Dokter dokter){
+		//service.saveDokter(dokter);
+		return dokter;
 	}
 	
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
