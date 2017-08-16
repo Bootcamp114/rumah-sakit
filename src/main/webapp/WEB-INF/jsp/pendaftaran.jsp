@@ -64,7 +64,7 @@
 			var id = $(this).attr("id_update");
 			
 			$.ajax({
-				url : '/poli/getdatabyid/'+id,
+				url : '/pendaftaran/getdatabyid/'+id,
 				type : 'GET',
 				success : function(data){
 					updateColumn(data);
@@ -129,6 +129,12 @@
 	<tbody>
 	</tbody>
 </table>
+<select id="petugas" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
+	<option></option>
+	<c:forEach var="listPetugas" items="${listPetugas}">
+	<option value="${listPetugas.id }">${listPetugas.nama}</option>
+	</c:forEach>
+</select></br><br><br>
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Tambah Keluhan</button>
 <input type="submit" value="SIMPAN" id="save" class="btn btn-default" style="margin-left: 10px;">
 <input type="submit" value="CETAK" class="btn btn-default" style="margin-left: 10px;">
@@ -145,7 +151,7 @@
         <h4 class="modal-title">Masukan Keluhan</h4>
       </div>
       <div class="modal-body">
-        <textarea placeholder="masukan keluhan" class="form-control" rows="4" id="keluhan" name="keluhan"></textarea> 
+        <textarea placeholder="Masukan Keluhan" class="form-control" rows="4" id="keluhan" name="keluhan"></textarea> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Simpan</button>
@@ -163,6 +169,8 @@
 			var poli = $('#poli').val();
 			var pasien =$('#pasien').val();	
 			var keluhan = $('textarea[id ="keluhan"]').val();
+			var petugas =$('#petugas').val();
+			var nama = $('#nama').val();
 		
 			
 			
@@ -171,11 +179,15 @@
 					nodaftar : nodaftar,
 					noidentitas : noidentitas,
 					keluhan : keluhan,
+					nama : nama,
 					poli : {
 						id : poli
 					},
 					pasien : {
 						id : pasien
+					},
+					petugas : {
+						id : petugas
 					}
 			}
 			
@@ -257,33 +269,55 @@
 				}	
 			});
 		}
+		
+		function showDataPetugas(){
+			$.ajax({
+				url :'/petugas/getall',
+				type: 'POST',
+				dataType : 'json',
+				success : function(data ,x,xhr){
+					console.log("data is loaded");
+					fillData2(data);
+				}	
+			});
+		}
 		function update(){
 			
+			var tanggal = $('#tanggal').val();
+			var nodaftar = $('#nodaftar').val();
 			var noidentitas = $('#noidentitas').val();
+			var poli = $('#poli').val();
+			var pasien =$('#pasien').val();	
+			var keluhan = $('textarea[id ="keluhan"]').val();
+			var petugas =$('#petugas').val();
 			var nama = $('#nama').val();
-			var alamat = $('#alamat').val();
-			var nohp = $('#nohp').val();
-			var umur = $('#umur').val();
-			var jeniskelamin = $('#jeniskelamin').val();
 			var id = $('#id').val();
+		
 			
 			
-			var tablepasien = {
+			var tablependaftaran = {
+					tanggal : tanggal,
+					nodaftar : nodaftar,
 					noidentitas : noidentitas,
+					keluhan : keluhan,
 					nama : nama,
-					alamat : alamat,
-					nohp : nohp,
-					umur : umur,
-					jeniskelamin : jeniskelamin,
-					id : id
+					poli : {
+						id : poli
+					},
+					pasien : {
+						id : pasien
+					},
+					petugas : {
+						id : petugas
+					}
 			}
 			
 			$.ajax({
-				url: '/pasien/update',
+				url: '/pendaftaran/update',
 				type: 'PUT',
 			 	contentType:'application/json',
 			 	dataType : 'json',
-				data: JSON.stringify(tablepasien), 
+				data: JSON.stringify(tablependaftaran), 
 				success: function(data ,a , xhr){
 					if( xhr.status == 201){
 					}
@@ -296,12 +330,14 @@
 		
 		function updateColumn(data){
 			$('#id').val(data.id);
+			$('#tanggal').val(data.tanggal);
+			$('#nodaftar').val(data.nodaftar);
 			$('#noidentitas').val(data.noidentitas);
+			$('#poli').val(data.poli);
+			$('#pasien').val(data.pasien);	
+			$('textarea[id ="keluhan"]').val(data.keluhan);
+			$('#petugas').val(data.petugas);
 			$('#nama').val(data.nama);
-			$('#alamat').val(data.alamat);
-			$('#nohp').val(data.nohp);
-			$('#umur').val(data.umur);
-			$('#jeniskelamin').val(data.jeniskelamin);
 		}
 		
 		function clearForm(){
@@ -312,6 +348,8 @@
 			$('#nodaftar').val("");
 			$('textarea[id ="keluhan"]').val("");
 			$('#pasien').val("");
+			$('#petugas').val("");
+			$('#nama').val("");
 		}
 	</script>
 <script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>

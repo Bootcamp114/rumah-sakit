@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import rumahsakit.model.Pasien;
 import rumahsakit.model.Pendaftaran;
+import rumahsakit.model.Petugas;
 import rumahsakit.model.Poli;
 import rumahsakit.service.DataMasterPasien;
 import rumahsakit.service.DataMasterPendaftaran;
+import rumahsakit.service.DataMasterPetugas;
 import rumahsakit.service.DataMasterPoli;
 import rumahsakit.utils.AppUtils;
 
@@ -32,6 +34,8 @@ public class PendaftaranController {
 	@Autowired
 	DataMasterPoli dataMasterPoli;
 	@Autowired
+	DataMasterPetugas dataMasterPetugas;
+	@Autowired
 	private AppUtils appUtils;
 	
 
@@ -41,6 +45,8 @@ public class PendaftaranController {
 		model.addAttribute("noUrut", noUrut);
 		List<Pasien> pas = dataMasterPasien.getAllPasien();
 		List<Poli> pol = dataMasterPoli.getAllPoli();
+		List<Petugas> pet = dataMasterPetugas.getAllPetugas();
+		model.addAttribute("listPetugas", pet);
 		model.addAttribute("lisPoli",pol);
 		model.addAttribute("listPasien",pas);
 		return "pendaftaran";
