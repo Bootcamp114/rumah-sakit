@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import rumahsakit.model.Pasien;
 import rumahsakit.model.Pendaftaran;
+import rumahsakit.model.Petugas;
+import rumahsakit.model.Poli;
 
 @Repository
 public class PendaftaranDaoImpl implements PendaftaranDao {
@@ -55,6 +57,30 @@ public class PendaftaranDaoImpl implements PendaftaranDao {
 		// TODO Auto-generated method stub
 		Session session =  sessionFactory.getCurrentSession();
 		List<Pendaftaran> list = session.createCriteria(Pendaftaran.class).list();
+		return list;
+	}
+
+	@Override
+	public List<Pasien> getByNoIdentitas(String noIdentitas) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Pasien> list = session.createQuery("from " + Pasien.class.getName() + " where id = '" + noIdentitas + "'").list();
+		return list;
+	}
+
+	@Override
+	public List<Poli> getByPoli(String poli) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Poli> list = session.createQuery("from " + Poli.class.getName() + " where id = '" + poli + "'").list();
+		return list;
+	}
+
+	@Override
+	public List<Petugas> getByPetugas(String petugas) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Petugas> list = session.createQuery("from " + Petugas.class.getName() + " where id = '" + petugas + "'").list();
 		return list;
 	}
 

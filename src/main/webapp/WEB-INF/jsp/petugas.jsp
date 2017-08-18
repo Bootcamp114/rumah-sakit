@@ -80,7 +80,7 @@
 			</div>
 			<div class="form-group">
 				<label>Jenis Kelamin : </label> <br>
-					<input type="radio"  name="jeniskelamin" value="Laki - Laki" id="jeniskelamin" checked> Laki - Laki<br>
+					<input type="radio"  name="jeniskelamin" value="Laki - Laki" id="jeniskelamin" > Laki - Laki<br>
   					<input type="radio"  name="jeniskelamin" value="Perempuan" id="jeniskelamin" > Perempuan<br>
 			</div>
 			<div class="form-group" align="right">

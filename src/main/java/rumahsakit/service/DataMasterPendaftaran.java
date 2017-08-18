@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import rumahsakit.dao.PendaftaranDao;
 import rumahsakit.model.Pasien;
 import rumahsakit.model.Pendaftaran;
+import rumahsakit.model.Petugas;
+import rumahsakit.model.Poli;
 
 @Service
 @Transactional
@@ -35,5 +37,16 @@ public class DataMasterPendaftaran {
 
 	public List<Pendaftaran> getAlPendaftaran() {
 		return pendaftaranDao.getAllPendaftaran();
+	}
+	public List<Pasien> getByNoIdentitas(String noIdentitas) {
+		return pendaftaranDao.getByNoIdentitas(noIdentitas);
+	}
+	
+	public List<Poli> getByPoli(String poli){
+		return pendaftaranDao.getByPoli(poli);
+	}
+	
+	public List<Petugas> getByPetugas(String petugas){
+		return pendaftaranDao.getByPetugas(petugas);
 	}
 }

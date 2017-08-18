@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import rumahsakit.model.Pasien;
+import rumahsakit.model.Poli;
 import rumahsakit.service.DataMasterPasien;
+import rumahsakit.service.DataMasterPoli;
 
 @Controller
 @RequestMapping("/pasien")
@@ -52,6 +54,7 @@ public class PasienController {
 		Pasien pas = dataMasterPasien.getById(id);
 		return pas;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/getall", method = RequestMethod.POST)

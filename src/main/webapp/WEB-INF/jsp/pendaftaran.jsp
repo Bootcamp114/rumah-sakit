@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Form Pendaftaran</title>
 </head>
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
@@ -245,8 +245,9 @@
 			});
 		}
 		function showData(){
+			var pasien = $('#pasien').val();
 			$.ajax({
-				url :'/pasien/getall',
+				url :'/pendaftaran/getno/'+pasien,
 				type: 'POST',
 				dataType : 'json',
 				success : function(data ,x,xhr){
@@ -257,8 +258,9 @@
 		}
 		
 		function showDataPoli(){
+			var poli = $('#poli').val();
 			$.ajax({
-				url :'/poli/getall',
+				url :'/pendaftaran/getpo/'+poli,
 				type: 'POST',
 				dataType : 'json',
 				success : function(data ,x,xhr){

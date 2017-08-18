@@ -12,13 +12,29 @@
 <link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
+<!--   <script>
   $( function() {
     $( "#tanggallahir" ).datepicker();
   } );
-  </script>
+  </script> -->
+  <script>
+        $(function() {
+            $( "#tanggallahir" ).datepicker();
+        });
+ 
+        window.onload=function(){
+            $('#tanggallahir').on('change', function() {
+                var dob = new Date(this.value);
+                var today = new Date();
+                var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                $('#umur').val(age);
+            });
+        }
+ 
+    </script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		showData();
 		$("input[name='jeniskelamin']").on("change", function() {
 			jeniskelamin= $(this).val();
 		})	
@@ -30,10 +46,10 @@
 			alert("Data Tersimpan..");
 		});
 		
-		$("#loadData").on("click",function(){
+		/* $("#loadData").on("click",function(){
 			showData();
 		});
-	
+	 */
 		$(document).on("click",".delete",function(){
 			var conf = confirm("Yakin mau dihapus?");
 			if(conf == true){
@@ -98,16 +114,12 @@
 					<input type="radio"  name="jeniskelamin" value="Laki - Laki" id="jeniskelamin" > Laki - Laki<br>
   					<input type="radio"  name="jeniskelamin" value="Perempuan" id="jeniskelamin" > Perempuan<br>
 			</div>
-			<div class="form-group">
-				<label>Keluhan : </label> <input type="number"
-					class="form-control" name="keluhan" id="keluhan" placeholder="Usia">
-			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<a href="#" id="loadData">Load Data</a>
+		<!-- <a href="#" id="loadData">Load Data</a> -->
 			<table class="table table-bordered" id="tablepasien">
 				<thead>
 					<tr class="info">
@@ -245,7 +257,7 @@
 				success: function(data ,a , xhr){
 					if( xhr.status == 201){
 					}
-					clearForm();
+					/* clearForm(); */
 				}
 				
 			});
@@ -268,7 +280,7 @@
 			$('#noidentitas').val("");
 			$('#nama').val("");
 			$('#alamat').val("");
-			$('#tanggallahir').val("tanggallahir");
+			$('#tanggallahir').val("");
 			$('#nohp').val("");
 			$('#umur').val("");
 			$('#jeniskelamin').val("");

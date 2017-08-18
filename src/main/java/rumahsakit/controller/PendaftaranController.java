@@ -79,6 +79,23 @@ public class PendaftaranController {
 		Pendaftaran pen = dataMasterPendaftaran.getById(id);
 		return pen;
 	}
+	@ResponseBody
+	@RequestMapping(value = "/getno/{noIdentitas}")
+	public List<Pasien> getByNo(@PathVariable String noIdentitas){
+		return dataMasterPendaftaran.getByNoIdentitas(noIdentitas);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getpo/{poli}")
+	public List<Poli> getByPo(@PathVariable String poli){
+		return dataMasterPendaftaran.getByPoli(poli);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getpo/{poli}")
+	public List<Petugas> getByPet(@PathVariable String petugas){
+		return dataMasterPendaftaran.getByPetugas(petugas);
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getall", method = RequestMethod.POST)
@@ -86,4 +103,6 @@ public class PendaftaranController {
 	public List<Pendaftaran> getAllPendaftaran(){
 		return dataMasterPendaftaran.getAlPendaftaran();
 	}
+	
+	
 }
