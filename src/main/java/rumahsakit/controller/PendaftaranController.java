@@ -92,7 +92,7 @@ public class PendaftaranController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getpo/{poli}")
+	@RequestMapping(value = "/getpet/{petugas}")
 	public List<Petugas> getByPet(@PathVariable String petugas){
 		return dataMasterPendaftaran.getByPetugas(petugas);
 	}
