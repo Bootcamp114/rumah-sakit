@@ -79,6 +79,13 @@ public class PemeriksaanController {
 		service.savePemeriksaan(pemeriksaan);
 	}
 	
+	//pemeriksaan
+		@RequestMapping(value = "/save" , method = RequestMethod.POST)
+		@ResponseStatus(value = HttpStatus.CREATED)
+		public void save(@RequestBody Pemeriksaan pemeriksaan){
+			service.savePemeriksaan(pemeriksaan);
+		}
+	//end ppemeriksaan
 	//pendfataran
 	@ResponseBody
 	@RequestMapping(value = "/getPendaftaranById/{id}" , method = RequestMethod.GET)

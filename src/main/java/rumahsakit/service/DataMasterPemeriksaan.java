@@ -138,6 +138,10 @@ public class DataMasterPemeriksaan {
 	//pemeeriksaan
 		public void savePemeriksaan(Pemeriksaan pemeriksaan){
 			pemeriksaanDao.save(pemeriksaan);
+			for(Diagnosa diagnosa : pemeriksaan.getDiagnosa()){
+				diagnosa.setPemeriksaan(pemeriksaan);
+				diagnosaDao.save(diagnosa);
+			}
 		}
 	//end pemeriksaan
 }

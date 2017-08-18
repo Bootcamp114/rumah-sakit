@@ -40,7 +40,7 @@
 				var id = $(this).attr("id_update");
 				
 				$.ajax({
-					url : '/dokter/getById/'+id,
+					url : '/resep/getResepById/'+id,
 					type : 'GET',
 					success : function(data){
 						updateColumn(data);
@@ -48,14 +48,26 @@
 				});
 			});
 			
-			$(document).on("click",".pilih",function(){
-				var id = $(this).attr("id_pilih");
+			$(document).on("click",".pilihObat",function(){
+				var id = $(this).attr("idPilihObat");
 				
 				$.ajax({
-					url : '/dokter/getPoliById/'+id,
+					url : '/resep/getObatById/'+id,
 					type : 'GET',
 					success : function(data){
-						pilihPoli(data);
+						pilihObat(data);
+					}
+				});
+			});
+			
+			$(document).on("click",".pilihDaftar",function(){
+				var id = $(this).attr("idPilihPendaftaran");
+				
+				$.ajax({
+					url : '/resep/getPasienById/'+id,
+					type : 'GET',
+					success : function(data){
+						pilihPasien(data);
 					}
 				});
 			});
@@ -159,7 +171,7 @@
 									<td>${listDaftar.nodaftar}</td>
 									<td>${listDaftar.pasien.nama}</td>
 									<td>
-										<a href='#' class='pilih' id_pilih='${listDaftar.id}' data-dismiss="modal">Pilih</a>
+										<a href='#' class='pilihDaftar' idPilihPendaftaran='${listDaftar.id}' data-dismiss="modal">Pilih</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -196,7 +208,7 @@
 									<td>${listObat.obat}</td>
 									<td>${listObat.jenisObat}</td>
 									<td>
-										<a href='#' class='pilih' id_pilih='${listObat.id}' data-dismiss="modal">Pilih</a>
+										<a href='#' class='pilihObat' idPilihObat='${listObat.id}' data-dismiss="modal">Pilih</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -257,19 +269,18 @@
 		}
 		
 		function fillData(data){
-			var dt = $("#tableDokter");
+			var dt = $("#tableResep");
 			var tbody = dt.find("tbody");
 			tbody.find("tr").remove();
-			$.each(data, function(index , listDokter){
+			$.each(data, function(index , listResep){
 				var trString = "<tr>";
-						trString += "<td>" + listDokter.nip + "</td>";
-						trString += "<td>" + listDokter.nama + "</td>";
-						trString += "<td>" + listDokter.jk + "</td>";
-						trString += "<td>" + listDokter.alamat + "</td>";
-						trString += "<td>" + listDokter.noHp + "</td>";
-						trString += "<td>" + listDokter.poli.poli + "</td>";
-						trString += "<td><a href='#' class='delete' id_delete='" + listDokter.id + "'>delete</a></td>";
-						trString += "<td><a href='#' class='update' id_update='" + listDokter.id + "'>edit</a></td>";
+						trString += "<td>" + listResep.noResep + "</td>";
+						trString += "<td>" + listResep.pasien.nama + "</td>";
+						trString += "<td>" + listResep.obat.obat + "</td>";
+						trString += "<td>" + listResep.dosis + "</td>";
+						trString += "<td>" + listResep.jumlah + "</td>";
+						trString += "<td><a href='#' class='delete' id_delete='" + listResep.id + "'>delete</a></td>";
+						trString += "<td><a href='#' class='update' id_update='" + listResep.id + "'>edit</a></td>";
 					trString +="</tr>";
 				tbody.append(trString);
 			});
@@ -277,7 +288,7 @@
 		
 		function showData(){
 			$.ajax({
-				url :'/dokter/getAll',
+				url :'/resep/getAllResep',
 				type: 'POST',
 				dataType : 'json',
 				success : function(data ,x,xhr){
@@ -286,98 +297,72 @@
 				}	
 			});
 		}
-		/* modal poli  */
-		/* function fillDataPoli(data){
-			var dt = $("#tablePoli");
-			var tbody = dt.find("tbody");
-			tbody.find("tr").remove();
-			$.each(data, function(index , listPoli){
-				var trString = "<tr>";
-						trString += "<td>" + listPoli.poli + "</td>";
-						trString += "<td><a href='#' class='pilihPoli' id_pilih='" + listPoli.id + "' data-dismiss='modal' >Pilih</a></td>";
-					trString +="</tr>";
-				tbody.append(trString);
-			});
-		}
 		
-		function showDataPoli(){
-			$.ajax({
-				url :'/dokter/getAllPoli',
-				type: 'POST',
-				dataType : 'json',
-				success : function(data ,x,xhr){
-					console.log("data is loaded");
-					fillDataPoli(data);
-				}	
-			});
-		}
-		 */
-		/* end modal poli */
 		function update(){
-			var nip = $('#nip').val();
-			var nama = $('#nama').val();
-			var jk = $('#jk').val();
-			var alamat = $('#alamat').val();
-			var noHp = $('#noHp').val();
-			var poli = $('#idPoli').val();
+			var noResep = $('#noResep').val();
+			var pasien = $('#idPendaftaran').val();
+			var obat = $('#idObat').val();
+			var dosis = $('#dosis').val();
+			var jumlah = $('#jumlah').val();
 			var id = $('#id').val();
-			
-			var dokter = {
-					nip : nip,
-					nama : nama,
-					jk : jk,
-					alamat : alamat,
-					noHp : noHp,
-					poli : {
-						id : poli
+			var resep = {
+					noResep : noResep,
+					pendaftaran : {
+						id : pasien
 					},
+					obat : {
+						id : obat
+					},
+					dosis : dosis,
+					jumlah : jumlah,
 					id : id
 			}
 			
 			$.ajax({
-				url: '/dokter/update',
+				url: '/resep/update',
 				type: 'PUT',
 			 	contentType:'application/json',
 			 	dataType : 'json',
-				data: JSON.stringify(dokter), 
-				success: function(data ,a , xhr){
-					if( xhr.status == 201){
-						showData();	
-					}
+				data: JSON.stringify(resep), 
+				success: function(data,x,xhr){
+					showData();	
 					clearForm();
 				}
-				
+			
 			});
 			
 		}
 		
 		function updateColumn(data){
+			$('#noResep').val(data.noResep);
+			$('#idPendaftaran').val(data.pendaftaran.id);
+			$('#pendaftaran').val(data.pendaftaran.pasien.nama);
+			$('#idObat').val(data.obat.id);
+			$('#obat').val(data.obat.obat);
+			$('#dosis').val(data.dosis);
+			$('#jumlah').val(data.jumlah);
 			$('#id').val(data.id);
-			$('#nip').val(data.nip);
-			$('#nama').val(data.nama);
-			$('#jk').val(data.jk);
-			$('#alamat').val(data.alamat);
-			$('#noHp').val(data.noHp);
-			$('#idPoli').val(data.poli.idPoli);
-			$('#poli').val(data.poli.poli);
 		}
 		
-		function pilihPoli(data){
-			$('#idPoli').val(data.id);
-			$('#poli').val(data.poli);
+		function pilihPasien(data){
+			$('#idPendaftaran').val(data.id);
+			$('#pasien').val(data.pasien.nama);
+		}
+		
+		function pilihObat(data){
+			$('#idObat').val(data.id);
+			$('#obat').val(data.obat);
 		}
 		
 		function clearForm(){
-			$('#id').val("");
-			$('#nip').val("");
-			$('#nama').val("");
-			$('#jk').val("");
-			$('#alamat').val("");
-			$('#noHp').val("");
-			$('#idPoli').val("");
-			$('#poli').val("");
-			$('#idPoli').val("");
-			$('#poli').val("");
+			$('#noResep').val("");
+			$('#idPendaftaran').val("");
+			$('#pendaftaran').val("");
+			$('#idObat').val("");
+			$('#obat').val("");
+			$('#dosis').val("");
+			$('#jumlah').val("");
+			$('#id').val(data.id);
 		}
 	</script>
 	<script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>

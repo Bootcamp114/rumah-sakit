@@ -15,8 +15,9 @@
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-
+	var pemeriksaan;
 	$(document).ready(function() {
+		var setDiagnosa;
 		var dataTable = $('#tableDiagnosa');
 		var elementNoDiagnosa = $('#noDiagnosa');
 		var elementDiagnosa = $('#diagnosa');
@@ -408,7 +409,7 @@
 		var tensiDiastolik = $("#tensiDiastolik").val();
 		var tensiSistolik = $("#tensiSistolik").val();
 
-		var pemeriksaan = {
+		 pemeriksaan = {
 			noPemeriksaan : noPemeriksaan,
 			pendaftaran : {
 				id : noDaftar
@@ -422,20 +423,36 @@
 			tindakan : tindakan,
 			beratBadan : beratBadan,
 			tensiDiastolik : tensiDiastolik,
-			tensiSistolik : tensiSistolik
+			tensiSistolik : tensiSistolik,
+			diagnosa : []
 		}
 		
-	 	$.ajax({
+		var table = $("#tableDiagnosa");
+		var tbody = table.find("tbody");
+		var tr = tbody.find("tr");
+	
+		$.each(tr , function(index , data){
+		
+			setDiagnosa = {
+				noDiagnosa : $(this).find("td").eq(0).text(),
+				diagnosa : $(this).find("td").eq(1).text(),
+				keterangan : $(this).find("td").eq(2).text()
+			}
+			
+			pemeriksaan.diagnosa.push(setDiagnosa);
+		});
+		
+	 	 $.ajax({
 			url : '/pemeriksaan/savePemeriksaan',
 			type : 'POST',
 			contentType : 'application/json',
 			dataType : 'json',
 			data : JSON.stringify(pemeriksaan),
 			success : function(data, x, xhr) {
-				log.console(data);
+				console.log(data);
 			}
 
-		}); 
+		});  
 	}
 	
 	function pilihDaftar(data){

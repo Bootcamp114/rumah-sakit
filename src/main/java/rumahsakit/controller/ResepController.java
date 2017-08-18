@@ -71,4 +71,18 @@ public class ResepController {
 	public List<Resep> getAllResep(){
 		return serviceResep.getAllResep();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getObatById/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public Obat getObatById(@PathVariable int id){
+		return serviceObat.getObatById(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getPasienById/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public Pendaftaran getDaftarById(@PathVariable int id){
+		return serviceDaftar.getById(id);
+	}
 }
