@@ -19,6 +19,7 @@ import rumahsakit.model.Poli;
 import rumahsakit.service.DataMasterPasien;
 import rumahsakit.service.DataMasterPendaftaran;
 import rumahsakit.service.DataMasterPoli;
+import rumahsakit.service.DataMasterRekamjejak;
 
 @Controller
 @RequestMapping("/rekamjejak")
@@ -30,6 +31,8 @@ public class RekamjejakController {
 		DataMasterPasien dataMasterPasien;
 		@Autowired
 		DataMasterPoli dataMasterPoli;
+		@Autowired
+		DataMasterRekamjejak dataMasterRekamjejak;
 		
 	@RequestMapping("/index")
 	public String index(Model model) {
@@ -45,13 +48,13 @@ public class RekamjejakController {
 	@ResponseBody
 	@RequestMapping(value = "/getpo/{poli}")
 	public List<Poli> getByPo(@PathVariable String poli){
-		return dataMasterPendaftaran.getByPoli(poli);
+		return dataMasterRekamjejak.getByPoli(poli);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getno/{noIdentitas}")
 	public List<Pasien> getByPas(@PathVariable String noIdentitas){
-		return dataMasterPendaftaran.getByNoIdentitas(noIdentitas);
+		return dataMasterRekamjejak.getByNoIdentitas(noIdentitas);
 	}
 
 	@RequestMapping(value="/getall", method = RequestMethod.POST)
