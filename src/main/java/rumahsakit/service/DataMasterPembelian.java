@@ -109,9 +109,9 @@ public class DataMasterPembelian {
 		pembelianDao.save(detail);
 	}
 
-	public List<DetailObat> getAllDetail() {
+	public List<DetailObat> getAllDetail(String noFaktur) {
 		// TODO Auto-generated method stub
-		return pembelianDao.getAll();
+		return pembelianDao.getAll(noFaktur);
 	}
 
 	public void deleteDetail(int id) {

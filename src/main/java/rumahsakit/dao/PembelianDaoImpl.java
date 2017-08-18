@@ -25,10 +25,10 @@ public class PembelianDaoImpl implements PembelianDao {
 	}
 
 	@Override
-	public List<DetailObat> getAll() {
-		// TODO Auto-generated method stub
+	public List<DetailObat> getAll(String noFaktur) {
+		// TODO Auto-generated method stub 
 		Session session = sessionFactory.getCurrentSession();
-		List<DetailObat> list = session.createCriteria(DetailObat.class).list();
+		List<DetailObat> list = session.createQuery("from " + DetailObat.class.getName() + " where PEMBELIANOBAT_ID = '"+ noFaktur +"' ").list();
 		return list;
 	}
 

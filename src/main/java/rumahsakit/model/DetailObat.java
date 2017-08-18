@@ -25,6 +25,8 @@ public class DetailObat {
 		
 	}
 
+	
+
 	public DetailObat(int id, PembelianObat pembelianObat, Obat obat, int jumlah, Double total) {
 		super();
 		this.id = id;
@@ -33,6 +35,8 @@ public class DetailObat {
 		this.jumlah = jumlah;
 		this.total = total;
 	}
+
+
 
 	public int getId() {
 		return id;

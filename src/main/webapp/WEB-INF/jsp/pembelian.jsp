@@ -14,13 +14,19 @@
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+var grandTotal2 = 0;
 	$(document).ready(function() {
-
+		
+		
 		$("#save").on("click",function(){	
 			save();
-			window.location.href="/pembelian/index";
+			grandTotal();
 		});
 		
+		function grandTotal(){
+			grandTotal2 = parseInt($('#total').val()) + grandTotal2;
+			$('#totalHarga').val(grandTotal2);
+		}
 		
 		$(document).on("click", ".edit", function() {
 			var id = $(this).attr("id_edit");
@@ -48,8 +54,10 @@
 	<div class="container">
 		<div style="width: 500px; margin: 0 auto">
 			<div class="form-group">
-				<label>NoFaktur</label> <input readonly type="text" value="FK0${noFaktur }" class="form-control"
+			<form method="post">
+				<label>NoFaktur</label> <input readonly type="text" name="noFaktur" value="FK001" class="form-control"
 					id="noFaktur">
+					</form>
 			</div>
 			<div class="form-group">
 				<label>Obat</label>
@@ -64,7 +72,7 @@
 					class="form-control" id="harga">
 			</div>
 			<div class="form-group">
-				<label>Jumlah</label> <input type="text" onKeyUp="hitung()"
+				<label>Jumlah</label> <input type="text" onChange="hitung()"
 					class="form-control" id="jumlah">
 			</div>
 			<div class="form-group">
@@ -99,7 +107,7 @@
 		</table>
 		<div class="col-md-9"></div>
 		<div class="form-group col-md-3" align="right">
-			<label>Total Harga</label> <input type="text" value="${hitungTotal }" class="form-control"
+			<label>Total Harga</label> <input type="text" class="form-control"
 				id="totalHarga" readonly><br> <label>Bayar</label> <input
 				type="text" onKeyUp="hitung2()" class="form-control" id="bayar"><br> <label>Kembalian</label>
 			<input type="text" class="form-control" readonly id="kembalian"><br>
@@ -137,6 +145,8 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+
 	function pilihObat(data) {
 		$('#obat').val(data.obat);
 		$('#harga').val(data.harga);
@@ -157,32 +167,23 @@
 
 	}
 	
+
+	
+
+	
 	function save(){
-		var noFaktur = $('#noFaktur').val();
-		var idObat = $('#idObat').val();
+		var obat = $('#obat').val();
+		var harga = $('#harga').val();
 		var jumlah = $('#jumlah').val();
 		var total = $('#total').val();
-		
-		var tableDetail = {
-				jumlah : jumlah,
-				total : total,
-				obat : {
-					id : idObat	
-				}
-				
-		}
-		
-		$.ajax({
-			url: '/pembelian/save',
-			type: 'POST',
-		 	contentType:'application/json',
-		 	dataType : 'json',
-			data: JSON.stringify(tableDetail), 
-			success: function(data,x,xhr){
-				console.log(data);
-			}
-		
-		});
+		var tbody = $('#tableObat').find("tbody");
+		var markup = "<tr>";
+		markup += "<td>" + obat + "</td>";
+		markup += "<td>" + harga + "</td>";
+		markup += "<td>" + jumlah + "</td>";
+		markup += "<td>" + total + "</td>";
+	markup +="</tr>";
+	    $(tbody).append(markup);
 	}
 	function doDelete(del){
 		var id = $(del).attr("id_delete");
