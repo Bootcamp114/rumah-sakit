@@ -23,10 +23,11 @@
 		var elementDiagnosa = $('#diagnosa');
 		var elementKeterangan = $('textarea[id ="keterangan"]');
 		
-		showData();
+		
 
 		$('#save').on('click' , function(){
 			savePemeriksaan();
+			showData();
 		});
 		
 		$('#saveDiagnosa').on('click', function() {
@@ -411,6 +412,7 @@
 			}
 		});
 	}
+	
 	/* end crud pemeriksaan */
 </script>
 </html>
