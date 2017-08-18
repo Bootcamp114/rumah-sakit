@@ -12,8 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "rs_resep")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Resep {
 	
 	@Id
@@ -22,38 +26,37 @@ public class Resep {
 	@OneToOne
 	private Pendaftaran pendaftaran;
 	private String noResep;
-	@ManyToOne
-	private Obat obat;
 	private String dosis;
 	private int jumlah;
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "resep")
+	private List<DetailResep> detailResep;
 	
 	public Resep() {
 		// TODO Auto-generated constructor stub
 	}
+
+
 	
-	public Resep(int id, Pendaftaran pendaftaran, String noResep, Obat obat, String dosis, int jumlah) {
+	public Resep(int id, Pendaftaran pendaftaran, String noResep, String dosis, int jumlah,
+			List<DetailResep> detailResep) {
 		super();
 		this.id = id;
 		this.pendaftaran = pendaftaran;
 		this.noResep = noResep;
-		this.obat = obat;
 		this.dosis = dosis;
 		this.jumlah = jumlah;
+		this.detailResep = detailResep;
 	}
 
 
 
-	public Obat getObat() {
-		return obat;
+	public List<DetailResep> getDetailResep() {
+		return detailResep;
 	}
 
-
-
-	public void setObat(Obat obat) {
-		this.obat = obat;
+	public void setDetailResep(List<DetailResep> detailResep) {
+		this.detailResep = detailResep;
 	}
-
-
 
 	public int getId() {
 		return id;

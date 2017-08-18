@@ -24,11 +24,10 @@ public class Obat {
 	private String obat;
 	private int harga;
 	private String jenisObat;
-	@OneToMany(fetch = FetchType.LAZY , mappedBy = "obat")
-	private List<Resep> resep;
 	@ManyToOne
 	private Supplier supplier;
-	
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "obat")
+	private List<DetailResep> detailResep;
 	
 	public Supplier getSuplier() {
 		return supplier;
@@ -61,18 +60,34 @@ public class Obat {
 		this.jenisObat = jenisObat;
 	}
 	
+	
+	public Supplier getSupplier() {
+		return supplier;
+	}
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
 	public Obat(){
 		
 	}
-	public Obat(int id, String obat, int harga, String jenisObat,  Supplier supplier) {
+	public List<DetailResep> getDetailResep() {
+		return detailResep;
+	}
+	public void setDetailResep(List<DetailResep> detailResep) {
+		this.detailResep = detailResep;
+	}
+	public Obat(int id, String obat, int harga, String jenisObat, Supplier supplier, List<DetailResep> detailResep) {
 		super();
 		this.id = id;
 		this.obat = obat;
 		this.harga = harga;
 		this.jenisObat = jenisObat;
 		this.supplier = supplier;
+		this.detailResep = detailResep;
 	}
 	
+
 	
 	
 }

@@ -143,5 +143,13 @@ public class DataMasterPemeriksaan {
 				diagnosaDao.save(diagnosa);
 			}
 		}
+		
+		public List<Pemeriksaan> getAllPemriksaan(){
+			return pemeriksaanDao.getAllPemeriksaan();
+		}
+		
+		public void delete(int id){
+			pemeriksaanDao.delete(id);
+		}
 	//end pemeriksaan
 }

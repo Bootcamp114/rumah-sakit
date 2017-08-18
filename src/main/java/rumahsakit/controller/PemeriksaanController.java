@@ -41,51 +41,26 @@ public class PemeriksaanController {
 		return "pemeriksaan";
 	}
 	 
-	@RequestMapping(value = "/saveDiagnosa" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void saveDiagnosa(@RequestBody Diagnosa diagnosa){
-		service.saveDiagnosa(diagnosa);
-	}
-	
-	@RequestMapping(value = "/updateDiagnosa" , method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void updateDiagnosa(@RequestBody Diagnosa diagnosa){
-		service.updateDiagnosa(diagnosa);
-	}
-	
-	@RequestMapping(value = "/deleteDiagnosa/{id}" , method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteDiagnosa(@PathVariable int id){
-		service.deleteDiagnosa(id);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/getDiagnosaById/{id}" , method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
-	public Diagnosa getDiagnosaById(@PathVariable int id){
-		return service.getDiagnosaById(id);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/getDiagnosaByNoDiagnosa" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public List<Diagnosa> getDiagnosaByNoDiagnosa(){
-		return service.getAllDiagnosaByNoDiagnosa();
-	}
-	
 	@RequestMapping(value = "/savePemeriksaan" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void savePemeriksaan(@RequestBody Pemeriksaan pemeriksaan){
 		service.savePemeriksaan(pemeriksaan);
 	}
 	
-	//pemeriksaan
-		@RequestMapping(value = "/save" , method = RequestMethod.POST)
-		@ResponseStatus(value = HttpStatus.CREATED)
-		public void save(@RequestBody Pemeriksaan pemeriksaan){
-			service.savePemeriksaan(pemeriksaan);
-		}
-	//end ppemeriksaan
+	@ResponseBody
+	@RequestMapping(value = "/getAllPemeriksaan" , method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<Pemeriksaan> getAllPemeriksaan(){
+		return service.getAllPemriksaan();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/delete" , method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void delete(int id){
+		service.delete(id);
+	}
+	
 	//pendfataran
 	@ResponseBody
 	@RequestMapping(value = "/getPendaftaranById/{id}" , method = RequestMethod.GET)

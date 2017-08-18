@@ -23,7 +23,7 @@
 		var elementDiagnosa = $('#diagnosa');
 		var elementKeterangan = $('textarea[id ="keterangan"]');
 		
-		showDataDiagnosa();
+		showData();
 
 		$('#save').on('click' , function(){
 			savePemeriksaan();
@@ -41,7 +41,9 @@
 			trString += "<td><a href='#' class='deleteDiagnosa'>delete</a></td>";
 			trString += "<td><a href='#'>edit</a></td>";
 			trString += "</tr>";
-			tbody.append(trString);			
+			tbody.append(trString);		
+			$('#diagnosa').val("");
+			$('textarea[id ="keluhan"]').val("");
 		});
 
 		$(document).on("click", ".deleteDiagnosa", function() {
@@ -304,100 +306,6 @@
 <script type="text/javascript"
 	src="/resources/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	/* crud diagnosa */
-	
-	
-	function saveDiagnosa() {
-		
-	}
-
-	function updateDiagnosa() {
-		var noDiagnosa = $('#noDiagnosa').val();
-		var diagnosa = $('#diagnosa').val();
-		var keterangan = $('textarea[id ="keterangan"]').val();
-		var id = $('#idDiagnosa').val();
-
-		var diagnosa = {
-			noDiagnosa : noDiagnosa,
-			diagnosa : diagnosa,
-			keterangan : keterangan,
-			id : id
-		}
-
-		$.ajax({
-			url : '/pemeriksaan/updateDiagnosa',
-			type : 'POST',
-			contentType : 'application/json',
-			dataType : 'json',
-			data : JSON.stringify(diagnosa),
-			success : function(data, x, xhr) {
-				showDataDiagnosa();
-				clearFormDiagnosa();
-			}
-
-		});
-	}
-
-	function doDeleteDiagnosa(del) {
-		var id = $(del).attr("idDeleteDiagnosa");
-		$.ajax({
-			url : "/pemeriksaan/deleteDiagnosa/" + id,
-			type : "DELETE",
-			success : function(data) {
-				console.log(data);
-				showDataDiagnosa();
-			}
-		});
-	} 
-
-	function fillDataDiagnosa(data) {
-		var dt = $("#tableDiagnosa");
-		var tbody = dt.find("tbody");
-		tbody.find("tr").remove();
-		$
-				.each(
-						data,
-						function(index, listDiagnosa) {
-							var trString = "<tr>";
-							trString += "<td>" + listDiagnosa.noDiagnosa
-									+ "</td>";
-							trString += "<td>" + listDiagnosa.diagnosa
-									+ "</td>";
-							trString += "<td>" + listDiagnosa.keterangan
-									+ "</td>";
-							trString += "<td><a href='#' class='deleteDiagnosa' idDeleteDiagnosa='" + listDiagnosa.id + "'>delete</a></td>";
-							trString += "<td><a href='#' class='updateDiagnosa' idUpdateDiagnosa='" + listDiagnosa.id + "'>edit</a></td>";
-							trString += "</tr>";
-							tbody.append(trString);
-						});
-	}
-
-	function showDataDiagnosa() {
-		var noDiagnosa = $('#noDiagnosa').val();
-		$.ajax({
-			url : '/pemeriksaan/getDiagnosaByNoDiagnosa',
-			type : 'POST',
-			dataType : 'json',
-			success : function(data, x, xhr) {
-				console.log("data is loaded");
-				fillDataDiagnosa(data);
-			}
-		});
-	}
-
-	function updateColumnDiagnosa(data) {
-		$('#idDiagnosa').val(data.id);
-		$('#noDiagnosa').val(data.noDiagnosa);
-		$('#diagnosa').val(data.diagnosa);
-		$('textarea[id ="keluhan"]').val(data.keterangan);
-	}
-
-	function clearFormDiagnosa() {
-		$('#idDiagnosa').val("");
-		$('#diagnosa').val("");
-		$('textarea[id ="keluhan"]').val("");
-	}
-	/* end crud diagnosa */
 	/* crud pemeriksaan */
 	function savePemeriksaan() {
 		var noPemeriksaan = $("#noPemeriksaan").val();
@@ -450,14 +358,58 @@
 			data : JSON.stringify(pemeriksaan),
 			success : function(data, x, xhr) {
 				console.log(data);
+				showData();
 			}
 
 		});  
 	}
 	
+	function fillData(data) {
+		var dt = $("#tablePeriksa");
+		var tbody = dt.find("tbody");
+		tbody.find("tr").remove();
+		$.each(data,function(index, listPemeriksaan) {
+			var trString = "<tr>";
+				trString += "<td>" + listPemeriksaan.pendaftaran.nodaftar + "</td>";
+				trString += "<td>" + listPemeriksaan.jenisPemeriksaan.jenisPemeriksaan + "</td>";
+				trString += "<td>" + listPemeriksaan.diagnosa.diagnosa + "</td>";
+				trString += "<td>" + listPemeriksaan.tindakan + "</td>";
+				trString += "<td>" + listPemeriksaan.beratBadan + "</td>";
+				trString += "<td>" + listPemeriksaan.tensiDiastolik + "</td>";
+				trString += "<td>" + listPemeriksaan.tensiSistolik + "</td>";
+				trString += "<td><a href='#' class='delete' idDelete='" + listPemeriksaan.id + "'>delete</a></td>";
+				trString += "</tr>";
+			tbody.append(trString);
+		});
+	}
+	
 	function pilihDaftar(data){
 		$('#idPendaftaran').val(data.id);
 		$('#noPendaftaran').val(data.nodaftar);
+	}
+	
+	function showData(){
+		$.ajax({
+			url :'/pemeriksaan/getAllPemeriksaan',
+			type: 'POST',
+			dataType : 'json',
+			success : function(data ,x,xhr){
+				console.log("data is loaded");
+				fillData(data);
+			}	
+		});
+	}
+	
+	function doDelete(del){
+		var id = $(del).attr("idDelete");
+		$.ajax({
+			url : "/pemeriksaan/delete/"+id,
+			type : "DELETE",
+			success : function(data){
+				console.log(data);
+				showData();
+			}
+		});
 	}
 	/* end crud pemeriksaan */
 </script>
