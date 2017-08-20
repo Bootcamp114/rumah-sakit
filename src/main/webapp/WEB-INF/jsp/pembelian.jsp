@@ -15,18 +15,25 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 var grandTotal2 = 0;
+
 	$(document).ready(function() {
 		
 		
 		$("#save").on("click",function(){	
 			save();
 			grandTotal();
+			clearForm();
 		});
 		
 		function grandTotal(){
 			grandTotal2 = parseInt($('#total').val()) + grandTotal2;
 			$('#totalHarga').val(grandTotal2);
 		}
+		
+		$("#selesai").on("click",function(){
+			selesai();
+			window.location.href='/pembelian/index';
+		})
 		
 		$(document).on("click", ".edit", function() {
 			var id = $(this).attr("id_edit");
@@ -55,7 +62,7 @@ var grandTotal2 = 0;
 		<div style="width: 500px; margin: 0 auto">
 			<div class="form-group">
 			<form method="post">
-				<label>NoFaktur</label> <input readonly type="text" name="noFaktur" value="FK001" class="form-control"
+				<label>NoFaktur</label> <input readonly type="text" name="noFaktur" class="form-control"
 					id="noFaktur">
 					</form>
 			</div>
@@ -86,6 +93,7 @@ var grandTotal2 = 0;
 		<table class="table table-bordered" id="tableObat">
 			<thead>
 				<tr class="info">
+					<th style="display:none">Id</th>
 					<th>OBAT</th>
 					<th>HARGA</th>
 					<th>JUMLAH</th>
@@ -94,15 +102,7 @@ var grandTotal2 = 0;
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="listDetail" items="${listDetail }">
-				<tr>
-					<td>${listDetail.obat.obat }</td>
-					<td>${listDetail.obat.harga }</td>
-					<td>${listDetail.jumlah }</td>
-					<td>${listDetail.total }</td>
-					<td><a href='#' class='delete' id_delete="${listDetail.id}">DELETE</a></td>
-				</tr>
-				</c:forEach>
+				
 			</tbody>
 		</table>
 		<div class="col-md-9"></div>
@@ -111,7 +111,9 @@ var grandTotal2 = 0;
 				id="totalHarga" readonly><br> <label>Bayar</label> <input
 				type="text" onKeyUp="hitung2()" class="form-control" id="bayar"><br> <label>Kembalian</label>
 			<input type="text" class="form-control" readonly id="kembalian"><br>
-			<button class="btn btn-info">SELESAI</button>
+			<button id="selesai" class="btn btn-info">
+				<a href="/pembelian/struk" target="_blank" style="text-decoration:none;color:white;">SELESAI</a>
+			</button>
 		</div>
 	</div>
 
@@ -145,6 +147,11 @@ var grandTotal2 = 0;
 	</div>
 </body>
 <script type="text/javascript">
+var d = new Date();
+var hari = d.getDay();
+var bulan = d.getMonth();
+var tahun = d.getFullYear();
+$('#noFaktur').val("NF" + bulan + "" + tahun + ${noFaktur});
 
 
 	function pilihObat(data) {
@@ -166,22 +173,30 @@ var grandTotal2 = 0;
 		document.getElementById('kembalian').value = bayar - total;
 
 	}
-	
+	function clearForm(){
+		$('#obat').val("");
+		$('#harga').val('');
+		$('#jumlah').val('');
+		$('#total').val('');
+	}
 
 	
 
 	
 	function save(){
+		var id = $('#idObat').val();
 		var obat = $('#obat').val();
 		var harga = $('#harga').val();
 		var jumlah = $('#jumlah').val();
 		var total = $('#total').val();
 		var tbody = $('#tableObat').find("tbody");
 		var markup = "<tr>";
+		markup += "<td style='display:none'>" + id + "</td>";
 		markup += "<td>" + obat + "</td>";
 		markup += "<td>" + harga + "</td>";
 		markup += "<td>" + jumlah + "</td>";
 		markup += "<td>" + total + "</td>";
+		markup += "<td> <a href='#'>DELETE</a></td>";
 	markup +="</tr>";
 	    $(tbody).append(markup);
 	}
@@ -194,6 +209,44 @@ var grandTotal2 = 0;
 				console.log(data);
 			}
 		});
+	}
+	
+	function selesai(){
+		var noFaktur = $('#noFaktur').val();
+		var totalHarga = $('#totalHarga').val();
+		
+		pembelian = {
+				noFaktur : noFaktur,
+				totalHarga : totalHarga,
+				detailObat : []
+		}
+		
+		var table = $('#tableObat');
+		var tbody = table.find("tbody");
+		var tr = tbody.find("tr");
+		
+		$.each(tr , function(index,data){
+			setObat = {
+				obat : {
+					id : $(this).find("td").eq(0).text()
+				},
+					jumlah : $(this).find("td").eq(3).text(),
+					total : $(this).find("td").eq(4).text()
+				
+			}
+			pembelian.detailObat.push(setObat);
+		})
+		
+		$.ajax({
+			url : '/pembelian/selesai',
+			type : 'POST',
+			contentType : 'application/json',
+			dataType : 'json',
+			data : JSON.stringify(pembelian),
+			success : function(data, x, xhr) {
+				console.log(data);
+			}
+		})
 	}
 	
 

@@ -44,8 +44,7 @@ public class PembelianController {
 	public String index(Model model , DetailObat obat){
 		List<Obat> list = dataMasterPembelian.getAllObat(); 
 		model.addAttribute("listObat", list);
-		List<DetailObat> listDetail = dataMasterPembelian.getAllDetail("FK001");
-		model.addAttribute("listDetail", listDetail);
+		model.addAttribute("noFaktur",appUtils.getNoFaktur());
 		String hitungTotal = dataMasterPembelian.hitungDetail();
 		model.addAttribute("hitungTotal", hitungTotal);
 		return "pembelian";
@@ -59,12 +58,10 @@ public class PembelianController {
 		return dataMasterPembelian.getObatById(id);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/save" , method = RequestMethod.POST)
+	@RequestMapping(value = "/selesai" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public DetailObat save(@RequestBody DetailObat detail){
-		dataMasterPembelian.savePembelian(detail);
-		return detail ;
+	public void save(@RequestBody PembelianObat pem){
+		dataMasterPembelian.savePembelian(pem);
 	}
 	
 	@ResponseBody

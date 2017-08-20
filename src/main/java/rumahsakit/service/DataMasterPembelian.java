@@ -104,10 +104,16 @@ public class DataMasterPembelian {
 		return obatDao.getById(id);
 	}
 
-	public void savePembelian(DetailObat detail) {
+	public void savePembelian(PembelianObat pem) {
 		// TODO Auto-generated method stub
-		pembelianDao.save(detail);
+		pembelianDao.pembelian(pem);
+		for (DetailObat obat : pem.getDetailObat()) {
+			obat.setPembelianObat(pem);
+			pembelianDao.save(obat);
+		}
+		
 	}
+	
 
 	public List<DetailObat> getAllDetail(String noFaktur) {
 		// TODO Auto-generated method stub

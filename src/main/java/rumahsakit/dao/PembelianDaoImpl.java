@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import rumahsakit.model.DetailObat;
+import rumahsakit.model.PembelianObat;
 
 @Repository
 public class PembelianDaoImpl implements PembelianDao {
@@ -49,6 +50,14 @@ public class PembelianDaoImpl implements PembelianDao {
 		Query query = session.createQuery("select sum(total) from " + DetailObat.class.getName());
 		List<Long> data = query.list();
 		return String.valueOf(data.get(0));
+	}
+
+	@Override
+	public void pembelian(PembelianObat pem) {
+		// TODO Auto-generated method stub
+		Session session= sessionFactory.getCurrentSession();
+		session.save(pem);
+		session.flush();
 	}
 
 }
