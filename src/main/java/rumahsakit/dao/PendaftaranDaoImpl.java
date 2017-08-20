@@ -64,7 +64,7 @@ public class PendaftaranDaoImpl implements PendaftaranDao {
 	public List<Pasien> getByNoIdentitas(String noIdentitas) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Pasien> list = session.createQuery("from " + Pasien.class.getName() + " where id = '" + noIdentitas + "'").list();
+		List<Pasien> list = session.createQuery("from " + Pasien.class.getName() + " where noidentitas like '%" + noIdentitas + "%'").list();
 		return list;
 	}
 

@@ -81,24 +81,6 @@
 		});
 	});
 </script>
-<script>
-function myFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("poli");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-
-        }
-    }
-}
-</script>
 	<!-- <script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
     <script>tinymce.init({selector:'textarea'});</script>    -->
 <h1 style="text-align: center;"> FORM PENDAFTARAN</h1><br><br><hr>
@@ -107,12 +89,8 @@ function myFunction() {
 	<label>Tanggal :</label> <input type="text" id="tanggal" name="tanggal" class="form-control" style="width: 20%; margin-left: 20px;"></br>
 	 <label>No.Urut</label><input type="text" id="nodaftar" name="nodaftar" value="RS00${noUrut}" placeholder="masukan nomor" class="form-control" style="width: 20%; margin-left: 20px;" />
 		<hr>
-<select id="pasien" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
-	<option></option>
-	<c:forEach var="listPasien" items="${listPasien}">
-	<option value="${listPasien.id }" >${listPasien.noidentitas}</option> 
-	</c:forEach>
-</select>
+<input type="hidden" class="form-control" id="pasien">
+<input type="text" class="form-control col-md-4" id="noidentitas" style="width: 20%; margin-left: 20px;">
 <input type="submit" name="pilih" id="pilih" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>
 <table class="table table-bordered" id="tablepasien"><br>
 	<thead>
@@ -267,7 +245,7 @@ function myFunction() {
 			});
 		}
 		function showData(){
-			var pasien = $('#pasien').val();
+			var pasien = $('#noidentitas').val();
 			$.ajax({
 				url :'/pendaftaran/getno/'+pasien,
 				type: 'POST',
