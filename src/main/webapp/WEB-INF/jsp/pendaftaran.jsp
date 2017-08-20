@@ -81,6 +81,24 @@
 		});
 	});
 </script>
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("poli");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
 	<!-- <script src="/resources/assets/tinymce/js/tinymce/tinymce.min.js"></script>
     <script>tinymce.init({selector:'textarea'});</script>    -->
 <h1 style="text-align: center;"> FORM PENDAFTARAN</h1><br><br><hr>
@@ -110,12 +128,16 @@
 	<tbody>
 	</tbody>
 </table>
+
+
+
+
 <select id="poli" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
 	<option></option>
 	<c:forEach var="listPoli" items="${lisPoli}">
 	<option value="${listPoli.id }">${listPoli.poli}</option>
 	</c:forEach>
-</select>
+</select> 
 <input type="submit" name="pilih" id="pilih2" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>
 <table class="table table-bordered" id="tablepoli"><br>
 	<thead>

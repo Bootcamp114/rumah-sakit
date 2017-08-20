@@ -2,6 +2,8 @@ package rumahsakit.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import rumahsakit.model.Pasien;
 import rumahsakit.model.Poli;
 

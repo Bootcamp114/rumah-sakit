@@ -58,12 +58,12 @@ function fillData(data){
 	tbody.find("tr").remove();
 	$.each(data, function(index , listPendaftaran){
 		var trString = "<tr>";
-				trString += "<td>" + listPendaftaran.pasien.noidentitas + "</td>";
-				trString += "<td>" + listPendaftaran.poli.poli + "</td>";
+				trString += "<td>" + listPendaftaran.noidentitas + "</td>";
+				trString += "<td>" + listPendaftaran.poli + "</td>";
 				trString += "<td>" + listPendaftaran.tanggal + "</td>";
 				trString += "<td>" + listPendaftaran.keluhan + "</td>";
-				trString += "<td>" + listPendaftaran.pasien.nama + "</td>";
-				trString += "<td>" + listPendaftaran.pasien.umur + "</td>";
+				trString += "<td>" + listPendaftaran.nama + "</td>";
+				trString += "<td>" + listPendaftaran.umur + "</td>";
 			trString +="</tr>";
 		tbody.append(trString);
 	});
