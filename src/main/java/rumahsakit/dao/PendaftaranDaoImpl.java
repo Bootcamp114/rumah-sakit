@@ -61,7 +61,7 @@ public class PendaftaranDaoImpl implements PendaftaranDao {
 	}
 
 	@Override
-	public List<Pasien> getByNoIdentitas(String noIdentitas) {
+	public List<Pasien> getByNoIdentitas(String noIdentitas) { 
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Pasien> list = session.createQuery("from " + Pasien.class.getName() + " where noidentitas like '%" + noIdentitas + "%'").list();
