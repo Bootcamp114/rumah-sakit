@@ -161,6 +161,7 @@
 </div>
 </body>
 <script type="text/javascript">
+	
 		function save(){
 			var tanggal = $('#tanggal').val();
 			var nodaftar = $('#nodaftar').val();
@@ -228,6 +229,7 @@
 						trString += "<td>" + listPasien.jeniskelamin + "</td>";
 					trString +="</tr>";
 				tbody.append(trString);
+				$('#pasien').val(listPasien.id);
 			});
 		}
 		
@@ -242,6 +244,7 @@
 						trString += "<td>" +  listPoli.biaya + "</td>";
 					trString +="</tr>";
 				tbody.append(trString);
+				
 			});
 		}
 		function showData(){
