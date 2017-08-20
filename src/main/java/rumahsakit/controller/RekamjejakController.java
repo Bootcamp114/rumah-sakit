@@ -47,7 +47,7 @@ public class RekamjejakController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getpo/{poli}")
-	public List<Poli> getByPo(@PathVariable String poli){
+	public List<Poli> getByPo(@PathVariable String poli){   
 		return dataMasterRekamjejak.getByPoli(poli);
 	}
 	
