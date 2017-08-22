@@ -12,16 +12,22 @@
 <link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!--   <script>
-  $( function() {
-    $( "#tanggallahir" ).datepicker();
-  } );
-  </script> -->
+
+  <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
+
   <script>
         $(function() {
             $( "#tanggallahir" ).datepicker();
         });
- 
+        
         window.onload=function(){
             $('#tanggallahir').on('change', function() {
                 var dob = new Date(this.value);
@@ -86,7 +92,7 @@
 		<div style="width:500px;margin:0 auto;">
 		<input type="hidden" id="id" name="id">
 			<div class="form-group">
-				<label>No. Indentitas : </label> <input type="text"
+				<label>No. Indentitas (KTP) : </label> <input type="text"
 					class="form-control" name="noidentitas" id="noidentitas" placeholder="No Identitas">
 			</div>
 			<div class="form-group">
@@ -98,8 +104,8 @@
 					class="form-control" name="alamat" id="alamat" placeholder="Alamat">
 			</div>
 			<div class="form-group">
-				<label>Nomor Hp : </label> <input type="number"
-					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp">
+				<label>Nomor Hp : </label> <input type="text"
+					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp" onkeypress="return hanyaAngka(event)"maxlength="12">
 			</div>
 			<div class="form-group">
 				<label>Tanggal Lahir : </label> <input type="text"
@@ -107,12 +113,12 @@
 			</div>
 			<div class="form-group">
 				<label>Usia : </label> <input type="number"
-					class="form-control" name="umur" id="umur" placeholder="Usia">
+					class="form-control" name="umur" id="umur" placeholder="Usia" readonly>
 			</div>
 			<div class="form-group">
 				<label>Jenis Kelamin : </label> <br>
-					<input type="radio"  name="jeniskelamin" value="Laki - Laki" id="jeniskelamin" > Laki - Laki<br>
-  					<input type="radio"  name="jeniskelamin" value="Perempuan" id="jeniskelamin" > Perempuan<br>
+					<input type="radio"  name="jeniskelamin" value="Laki - Laki"  > Laki - Laki<br>
+  					<input type="radio"  name="jeniskelamin" value="Perempuan"  > Perempuan<br>
 			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
@@ -150,6 +156,12 @@
 			var tahun = date.getYear();
 			var tanggalSekarang = bulan +"/"+tanggal+"/"+tahun;
 		} */
+			var jeniskelamin;
+		$(document).ready(function(){
+			$("input[name='jeniskelamin']").on("change", function(){
+				jeniskelasmin = $(this).val();
+			});
+		});
 		function save(){
 			var noidentitas = $('#noidentitas').val();
 			var nama = $('#nama').val();
@@ -157,7 +169,7 @@
 			var nohp = $('#nohp').val();
 			var tanggallahir = $('#tanggallahir').val();
 			var umur = $('#umur').val();
-			var jeniskelamin = $('#jeniskelamin').val();
+			
 			
 			var tablepasien = {
 					noidentitas : noidentitas,
