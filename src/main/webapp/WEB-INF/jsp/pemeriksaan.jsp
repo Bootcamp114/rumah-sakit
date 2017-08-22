@@ -117,7 +117,7 @@
 				<div class="form-group">
 					<label>Diagnosa</label> <input type="text" name="noDiagnosa"
 						id="noDiagnosa" class="form-control" autofocus
-						placeholder="Diagnosa" value="D001" required readonly> <br>
+						placeholder="Diagnosa" value="D000${noDiagnosa}" required readonly> <br>
 					<button type="button" class="btn btn-primary btn-md"
 						data-toggle="modal" data-target="#modalDiagnosa">Klik
 						Untuk Diagnosa</button>
@@ -142,12 +142,12 @@
 						placeholder="Tindakan" required>
 				</div>
 				<div class="form-group">
-					<label>Berat Badan</label> <input type="text" name="beratBadan"
+					<label>Berat Badan</label> <input type="number" name="beratBadan"
 						id="beratBadan" class="form-control" autofocus
 						placeholder="Berat Badan" maxlength="3" size="3" required>
 				</div>
 				<div class="form-group">
-					<label>Tensi Diastolik</label> <input type="text"
+					<label>Tensi Diastolik</label> <input type="number"
 						name="tensiDiastolik" id="tensiDiastolik" class="form-control"
 						autofocus placeholder="Tensi Diastolik" maxlength="3" size="3"
 						required>

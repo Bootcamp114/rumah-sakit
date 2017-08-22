@@ -46,4 +46,11 @@ public class AppUtils {
 		 return String.valueOf(data.get(0));
 	}
 	
+	public String getNoDiagnosa(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("select seq_no_diagnosa.nextval from dual");
+		 List<Long> data = query.list();
+		 
+		 return String.valueOf(data.get(0));
+	}
 }

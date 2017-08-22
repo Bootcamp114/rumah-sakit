@@ -41,6 +41,7 @@ public class PemeriksaanController {
 		List<Pendaftaran> listDaftar = serviceDaftar.getAlPendaftaran();
 		modelNoDaftar.addAttribute("listDaftar", listDaftar);
 		model.addAttribute("noPeriksa", appUtil.getNoPeriksa());
+		model.addAttribute("noDiagnosa", appUtil.getNoDiagnosa());
 		return "pemeriksaan";
 	}
 	 
