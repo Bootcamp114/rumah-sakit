@@ -10,10 +10,14 @@
 </head>
 
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
 	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			$("#tableDokter").DataTable();
+			showData();
 			
 			$("#save").on("click",function(){	
 				save();	
@@ -56,6 +60,7 @@
 					type : 'GET',
 					success : function(data){
 						pilihPoli(data);
+						console.log("terpiih");
 					}
 				});
 			});
@@ -345,4 +350,5 @@
 		}
 	</script>
 	<script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 </html>

@@ -43,7 +43,7 @@
 			trString += "</tr>";
 			tbody.append(trString);		
 			$('#diagnosa').val("");
-			$('textarea[id ="keluhan"]').val("");
+			$('textarea[id="keterangan"]').val("");
 		});
 
 		$(document).on("click", ".deleteDiagnosa", function() {
