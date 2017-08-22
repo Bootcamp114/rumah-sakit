@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+   <%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,8 +16,10 @@
 			
 			$("#save").on("click",function(){	
 				save();
-				showData();	
 				clearForm();
+				window.location.href="./jenispemeriksaan";
+				window.location.href="./jenispemeriksaan";
+				document.location.location = "jenispemeriksaan";
 			});
 			
 			$("#loadData").on("click",function(){
@@ -26,6 +30,8 @@
 				var conf = confirm("Apakah yakin menghapus data ini ?");
 				if(conf == true){
 					doDelete(this);	
+					window.location.href = "./jenispemeriksaan";
+					window.location.href="./jenispemeriksaan";
 				}
 			});
 			
@@ -43,8 +49,9 @@
 			
 			$("#update").on("click",function(){
 				update();	
-				showData();	
 				clearForm();
+				window.location.href = "./jenispemeriksaan";
+				window.location.href = "./jenispemeriksaan";
 				alert("Terupdate");
 			});
 			
@@ -67,15 +74,21 @@
 	        		<button type="button" class="btn btn-default" id="update">Update</button></div>
 				</div>
 			<div class="col-md-8">
-				<a href="#" id="loadData">Load Data</a>
 				<table class="table" id="tableJenisPeriksa">
 					<thead>
 						<tr>
 							<th>JenisPemeriksaan</th>
-							<th>Action</th>
+							<th colspan="2">Action</th>
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var = "listJenis" items="${listJenis}">
+							<tr>
+								<td>${listJenis.jenisPemeriksaan}</td>
+								<td><a href='#' class='delete' id_delete='${listJenis.id}'>delete</a></td>
+								<td><a href='#' class='update' id_update='${listJenis.id}'>update</a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -97,8 +110,10 @@
 			 	dataType : 'json',
 				data: JSON.stringify(tableJenisPemeriksaan), 
 				success: function(data,x,xhr){
-					showData();	
 					clearForm();
+					if(xhr.status == 201){
+						window.location = "./jenispemeriksaan";
+					}
 				}
 			
 			});
@@ -111,7 +126,7 @@
 				type : "DELETE",
 				success : function(data){
 					console.log(data);
-					showData();
+					window.location = "./jenispemeriksaan";
 				}
 			});
 		}
@@ -138,6 +153,7 @@
 				success : function(data ,x,xhr){
 					console.log("data is loaded");
 					fillData(data);
+					window.location = "./jenispemeriksaan";
 				}	
 			});
 		}
@@ -159,9 +175,7 @@
 			 	dataType : 'json',
 				data: JSON.stringify(tableJenisPemeriksaan), 
 				success: function(data ,a , xhr){
-					if( xhr.status == 201){
-						showData();	
-					}
+					
 					clearForm();
 				}
 				

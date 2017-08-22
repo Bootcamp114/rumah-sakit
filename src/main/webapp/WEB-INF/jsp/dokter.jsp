@@ -10,19 +10,28 @@
 </head>
 
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
 	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
+	  <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 	<script type="text/javascript">
+	
 		$(document).ready(function(){
 			
 			$("#tableDokter").DataTable();
-			showData();
 			
 			$("#save").on("click",function(){	
 				save();	
-				showData();	
 				clearForm();
+				window.location.href = "./dokter";
 			});
 			
 			$("#loadData").on("click",function(){
@@ -37,6 +46,7 @@
 				var conf = confirm("Apakah yakin akan dihapus ? ");
 				if(conf == true){
 					doDelete(this);	
+					window.location.href = "./dokter";
 				}
 			});
 			
@@ -67,8 +77,9 @@
 			
 			$("#update").on("click",function(){
 				update();
-				showData();	
 				clearForm();
+				window.location.href = "dokter";
+				window.location.href = "dokter";
 				alert("Terupdate");
 			});
 		});
@@ -96,7 +107,7 @@
 				</div>
 				<div class="form-group">
 					<label>No HP</label>
-					<input type="number" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" required maxlength="13">	
+					<input type="number" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" onkeypress="return hanyaAngka(event)" required maxlength="13">	
 				</div>
 				<div class="form-group">
 					<label>Jenis Kelamin</label>
@@ -121,8 +132,8 @@
 	        		<button type="button" class="btn btn-default" id="update">Update</button></div>
 				</div>
 			<div class="col-md-8">
-				<a href="#" id="loadData">Load Data</a>
-				<table class="table" id="tableDokter">
+				<!-- <a href="#" id="loadData">Load Data</a> -->
+				<table id="tableDokter" class="table">
 					<thead>
 						<tr>
 							<th>NIP</th>
@@ -132,10 +143,24 @@
 							<th>NoHP</th>
 							<th>Poli</th>
 							<th>Action</th>
+							
 						</tr>
 					</thead>
 					<tbody>
-						
+						<c:forEach var="listDokter" items="${listDokter}">
+							<tr>
+								<td>${listDokter.nip}</td>
+								<td>${listDokter.nama}</td>
+								<td>${listDokter.jk}</td>
+								<td>${listDokter.alamat}</td>
+								<td>${listDokter.noHp}</td>
+								<td>${listDokter.poli.poli}</td>
+								<td>
+									<a href='#' class='delete' id_delete='${listDokter.id}'>delete</a>
+									<a href='#' class='update' id_update='${listDokter.id}'>update</a>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -206,10 +231,12 @@
 			 	dataType : 'json',
 				data: JSON.stringify(dokter), 
 				success: function(data,x,xhr){
-					showData();	
 					clearForm();
+					console.log(xhr.status);
+					if(xhr.status == 201){
+						window.location = "/dokter";	
+					}		
 				}
-			
 			});
 		}
 		
@@ -327,7 +354,7 @@
 			$('#jk').val(data.jk);
 			$('#alamat').val(data.alamat);
 			$('#noHp').val(data.noHp);
-			$('#idPoli').val(data.poli.idPoli);
+			$('#idPoli').val(data.poli.id);
 			$('#poli').val(data.poli.poli);
 		}
 		

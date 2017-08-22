@@ -29,13 +29,18 @@ public class DokterController {
 	public String index(Model model){
 		List<Poli> listPoli = service.getAllPoli();
 		model.addAttribute("listPoli", listPoli);
+		model.addAttribute("listDokter", service.getAllDokter());
 		return "dokter";
 	}
 
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void save(@RequestBody Dokter dokter){
-		service.saveDokter(dokter);
+		try{
+			service.saveDokter(dokter);
+		}catch(Exception e){
+			
+		}
 	}
 	
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)

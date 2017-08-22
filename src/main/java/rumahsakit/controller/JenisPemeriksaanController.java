@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,8 @@ public class JenisPemeriksaanController {
 	private DataMasterPemeriksaan service;
 	
 	@RequestMapping
-	public String index(){
+	public String index(Model model){
+		model.addAttribute("listJenis",service.getAllJenisPemeriksaan());
 		return "jenispemeriksaan";
 	}
 	

@@ -170,7 +170,6 @@
 						<tr>
 							<th>NoDaftar</th>
 							<th>JenisPemeriksaan</th>
-							<th>Diagnosa</th>
 							<th>Tindakan</th>
 							<th>BeratBadan</th>
 							<th>TensiDiasitolik</th>
@@ -180,7 +179,6 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -338,6 +336,7 @@
 				console.log(data);
 				showData();
 				alert("Pemeriksaan Sukses");
+				document.location = "./pemeriksaan";
 			}
 
 		});  
@@ -351,7 +350,6 @@
 			var trString = "<tr>";
 				trString += "<td>" + listPemeriksaan.pendaftaran.nodaftar + "</td>";
 				trString += "<td>" + listPemeriksaan.jenisPemeriksaan.jenisPemeriksaan + "</td>";
-				trString += "<td>" + listPemeriksaan.diagnosa.diagnosa + "</td>";
 				trString += "<td>" + listPemeriksaan.tindakan + "</td>";
 				trString += "<td>" + listPemeriksaan.beratBadan + "</td>";
 				trString += "<td>" + listPemeriksaan.tensiDiastolik + "</td>";
