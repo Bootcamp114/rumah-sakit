@@ -92,7 +92,16 @@
 				</div>
 				<div class="form-group">
 					<label>No Resep</label>
-					<input type="text" id="noResep" class="form-control" autofocus placeholder="Masukan NoResep" required >	
+					<input type="text" id="noResep" class="form-control" autofocus placeholder="Masukan NoResep" value="R000${noResep}" readonly required >	
+				</div>
+				<div class="form-group">
+					<label>Dokter</label>
+					<select class="form-control" id="dokter">
+						<option></option>
+						<c:forEach var="listDokter" items="${listDokter}">
+							<option value="${listDokter.id}">${listDokter.nama}</option>
+						</c:forEach>
+					</select>
 				</div>
 					<div class="form-group">
 					<label>Pasien</label>
@@ -226,11 +235,15 @@
 		function save(){
 			var noResep = $('#noResep').val();
 			var pasien = $('#idPendaftaran').val();
+			var dokter = $('#dokter').val();
 			var obat = $('#idObat').val();
 			var dosis = $('#dosis').val();
 			var jumlah = $('#jumlah').val();
 			var resep = {
 					noResep : noResep,
+					dokter : {
+						id : dokter
+					},
 					pendaftaran : {
 						id : pasien
 					},
@@ -265,7 +278,7 @@
 			 	dataType : 'json',
 				data: JSON.stringify(resep), 
 				success: function(data,x,xhr){
-					alert();
+					console.log()
 				}
 			
 			});
@@ -285,7 +298,7 @@
 		
 		function pilihPasien(data){
 			$('#idPendaftaran').val(data.id);
-			$('#pasien').val(data.pasien.nama);
+			$('#pendaftaran').val(data.pasien.nama);
 		}
 		
 		function pilihObat(data){
@@ -294,7 +307,6 @@
 		}
 		
 		function clearForm(){
-			$('#noResep').val("");
 			$('#idPendaftaran').val("");
 			$('#pendaftaran').val("");
 			$('#idObat').val("");

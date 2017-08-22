@@ -82,7 +82,7 @@
 				<div class="form-group">
 					<label>No Pemeriksaan</label> <input type="text"
 						name="noPemeriksaan" id="noPemeriksaan" class="form-control"
-						autofocus placeholder="noPemeriksaan" required >
+						autofocus placeholder="noPemeriksaan" value="PD000${noPeriksa}" readonly required >
 				</div>
 				<div class="form-group">
 					<label>No Daftar</label> 
@@ -337,6 +337,7 @@
 			success : function(data, x, xhr) {
 				console.log(data);
 				showData();
+				alert("Pemeriksaan Sukses");
 			}
 
 		});  
@@ -390,6 +391,16 @@
 		});
 	}
 	
+	function clearForm(){
+		$("#noPemeriksaan").val("");
+		$("#idPendaftaran").val("");
+		$("#jenisPeriksa").val("");
+		$("#dokter").val("");
+		$("#tindakan").val("");
+		$("#beratBadan").val("");
+		$("#tensiDiastolik").val("");
+		$("#tensiSistolik").val("");
+	}
 	/* end crud pemeriksaan */
 </script>
 </html>

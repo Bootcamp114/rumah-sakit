@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import rumahsakit.model.Dokter;
 import rumahsakit.model.Obat;
 import rumahsakit.model.Pendaftaran;
 import rumahsakit.model.Resep;
 import rumahsakit.service.DataMasterPembelian;
+import rumahsakit.service.DataMasterPemeriksaan;
 import rumahsakit.service.DataMasterPendaftaran;
 import rumahsakit.service.DataMasterResep;
+import rumahsakit.utils.AppUtils;
 
 @Controller
 @RequestMapping("/resep")
@@ -30,6 +33,10 @@ public class ResepController {
 	private DataMasterPembelian serviceObat;
 	@Autowired
 	private DataMasterPendaftaran serviceDaftar;
+	@Autowired
+	private DataMasterPemeriksaan servicePeriksa;
+	@Autowired
+	private AppUtils appUtils;
 	
 	@RequestMapping
 	public String index(Model model , Model daftar){
@@ -37,6 +44,9 @@ public class ResepController {
 		model.addAttribute("listObat", listObat);
 		List<Pendaftaran> listDaftar = serviceDaftar.getAlPendaftaran();
 		daftar.addAttribute("listDaftar", listDaftar);
+		List<Dokter> listDokter = servicePeriksa.getAllDokter();
+		model.addAttribute("listDokter", listDokter);
+		model.addAttribute("noResep", appUtils.getNoResep());
 		return "resep";
 	}
 	

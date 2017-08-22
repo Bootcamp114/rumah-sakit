@@ -30,6 +30,20 @@ public class AppUtils {
 		 return String.valueOf(data.get(0));
 	}
 	
-
+	public String getNoResep(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("select seq_no_resep.nextval from dual");
+		 List<Long> data = query.list();
+		 
+		 return String.valueOf(data.get(0));
+	}
+	
+	public String getNoPeriksa(){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("select seq_no_periksa.nextval from dual");
+		 List<Long> data = query.list();
+		 
+		 return String.valueOf(data.get(0));
+	}
 	
 }
