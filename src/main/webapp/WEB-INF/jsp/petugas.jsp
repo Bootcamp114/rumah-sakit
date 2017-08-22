@@ -11,6 +11,15 @@
 	href="/resources/assets/css/bootstrap-theme.min.css" />
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+	<script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input[name='jeniskelamin']").on("change", function() {
@@ -57,14 +66,14 @@
 	});
 </script>
 <body>
-	<h1 align="center">FORM IDENTITAS PASIEN</h1>
+	<h1 align="center">FORM IDENTITAS PETUGAS</h1>
 	<br>
 	<div class="container">
 		<div style="width:500px;margin:0 auto;">
 		<input type="hidden" id="id" name="id">
 			<div class="form-group">
 				<label>NIP: </label> <input type="text"
-					class="form-control" name="nip" id="nip" placeholder="Nip">
+					class="form-control" name="nip" id="nip" placeholder="Nip" onkeypress="return hanyaAngka(event)"maxlength="8">
 			</div>
 			<div class="form-group">
 				<label>Nama : </label> <input type="text"
@@ -75,8 +84,8 @@
 					class="form-control" name="alamat" id="alamat" placeholder="Alamat">
 			</div>
 			<div class="form-group">
-				<label>Nomor Hp : </label> <input type="number"
-					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp">
+				<label>Nomor Hp : </label> <input type="text"
+					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp" onkeypress="return hanyaAngka(event)"maxlength="11">
 			</div>
 			<div class="form-group">
 				<label>Jenis Kelamin : </label> <br>
@@ -88,7 +97,7 @@
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<a href="#" id="loadData">Load Data</a>
+		<a href="#" id="loadData"></a>
 			<table class="table table-bordered" id="tablepetugas">
 				<thead>
 					<tr class="info">

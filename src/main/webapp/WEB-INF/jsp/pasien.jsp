@@ -25,7 +25,7 @@
 
   <script>
         $(function() {
-            $( "#tanggallahir" ).datepicker();
+            $( "#tanggallahir" ).datepicker(({maxDate: '0'}));
         });
         
         window.onload=function(){
@@ -40,22 +40,19 @@
     </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		showData();
+
 		$("input[name='jeniskelamin']").on("change", function() {
 			jeniskelamin= $(this).val();
 		})	
-	
+		showData();
 		$("#save").on("click",function(){	
 			save();
 			showData();
 			clearForm();
 			alert("Data Tersimpan..");
+			window.location.href='/pasien/index';
 		});
 		
-		/* $("#loadData").on("click",function(){
-			showData();
-		});
-	 */
 		$(document).on("click",".delete",function(){
 			var conf = confirm("Yakin mau dihapus?");
 			if(conf == true){
@@ -89,11 +86,12 @@
 	<h1 align="center">FORM IDENTITAS PASIEN</h1>
 	<br>
 	<div class="container">
+<!-- 	<form id="assignmentForm" name="assignmentForm" method="post" onsubmit="return validateForm();"> -->
 		<div style="width:500px;margin:0 auto;">
 		<input type="hidden" id="id" name="id">
 			<div class="form-group">
 				<label>No. Indentitas (KTP) : </label> <input type="text"
-					class="form-control" name="noidentitas" id="noidentitas" placeholder="No Identitas">
+					class="form-control" name="noidentitas" id="noidentitas" placeholder="No Identitas" onkeypress="return hanyaAngka(event)"maxlength="16">
 			</div>
 			<div class="form-group">
 				<label>Nama : </label> <input type="text"
@@ -105,7 +103,7 @@
 			</div>
 			<div class="form-group">
 				<label>Nomor Hp : </label> <input type="text"
-					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp" onkeypress="return hanyaAngka(event)"maxlength="12">
+					class="form-control" name="nohp" id="nohp" placeholder="Nomor Hp" onkeypress="return hanyaAngka(event)"maxlength="11">
 			</div>
 			<div class="form-group">
 				<label>Tanggal Lahir : </label> <input type="text"
@@ -125,7 +123,7 @@
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<!-- <a href="#" id="loadData">Load Data</a> -->
+		<a href="#" id="loadData"></a> 
 			<table class="table table-bordered" id="tablepasien">
 				<thead>
 					<tr class="info">
@@ -148,20 +146,14 @@
 </body>
 <script type="text/javascript">
 
-/* 		function getUmur(){
-			var tanggalLahir = $("#tanggallahir").val();
-			var date = new Date();
-			var tanggal = date.getDate();
-			var bulan = date.getMonth();
-			var tahun = date.getYear();
-			var tanggalSekarang = bulan +"/"+tanggal+"/"+tahun;
-		} */
-			var jeniskelamin;
+
+		var jeniskelamin;
 		$(document).ready(function(){
-			$("input[name='jeniskelamin']").on("change", function(){
-				jeniskelasmin = $(this).val();
-			});
+		$("input[name='jeniskelamin']").on("change", function(){
+		jeniskelasmin = $(this).val();
 		});
+		});
+
 		function save(){
 			var noidentitas = $('#noidentitas').val();
 			var nama = $('#nama').val();

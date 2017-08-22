@@ -11,13 +11,23 @@
 	href="/resources/assets/css/bootstrap-theme.min.css" />
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+	<script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		showData();
 		$("#save").on("click",function(){	 
 			save();
 			showData();
 			clearForm();
-			alert("Data Tersimpan..");
+			/* alert("Data Tersimpan.."); */
 		});
 		
 		$("#loadData").on("click",function(){
@@ -69,14 +79,14 @@
 			</div>
 			<div class="form-group">
 				<label>Biaya : </label> <input type="text"
-					class="form-control" name="biaya" id="biaya" placeholder="Biaya">
+					class="form-control" name="biaya" id="biaya" placeholder="Biaya" onkeypress="return hanyaAngka(event)">
 			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<a href="#" id="loadData">Load Data</a>
+		<a href="#" id="loadData"></a>
 			<table class="table table-bordered" id="tablepoli">
 				<thead>
 					<tr class="info">

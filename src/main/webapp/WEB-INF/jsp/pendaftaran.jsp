@@ -15,11 +15,15 @@
 	<link rel="stylesheet" href="/resources/assets/jquery-ui-1.12.1/jquery-ui.css">
 	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#tanggal" ).datepicker();
-  } );
-  </script>
+<script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
   <script type="text/javascript">
 	$(document).ready(function() {
 		$("input[name='jeniskelamin']").on("change", function() {
@@ -30,6 +34,7 @@
 			save();
 			clearForm();
 			alert("Data Tersimpan..");
+			window.location.href='/pendaftaran/index';
 		});
 		
 		$("#pilih").on("click",function(){
@@ -86,11 +91,11 @@
 <h1 style="text-align: center;"> FORM PENDAFTARAN</h1><br><br><hr>
 <div class="container">
 <input type="hidden" id="id" name="id">
-	<label>Tanggal :</label> <input type="text" id="tanggal" name="tanggal" class="form-control" style="width: 20%; margin-left: 20px;"></br>
+	<label>Tanggal :</label> <input type="text" id="tanggal" name="tanggal" class="form-control" style="width: 20%; margin-left: 20px;"> </br>
 	 <label>No.Urut</label><input type="text" id="nodaftar" name="nodaftar" value="RS00${noUrut}" placeholder="masukan nomor" class="form-control" style="width: 20%; margin-left: 20px;" />
 		<hr>
 <input type="hidden" class="form-control" id="pasien">
-<input type="text" class="form-control col-md-4" id="noidentitas" style="width: 20%; margin-left: 20px;">
+<input type="text" class="form-control col-md-4" id="noidentitas" style="width: 20%; margin-left: 20px;" placeholder="Masukan No Identitas (KTP)" onkeypress="return hanyaAngka(event)"maxlength="16">
 <input type="submit" name="pilih" id="pilih" value="PILIH" class="btn btn-default" style="margin-left:10px"/></br>
 <table class="table table-bordered" id="tablepasien"><br>
 	<thead>
@@ -110,8 +115,8 @@
 
 
 
-<select id="poli" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
-	<option></option>
+<select id="poli" class="form-control col-md-4" style="width: 20%; margin-left: 20px; " placeholder="Poli">
+	<option>Pilih Poli</option>
 	<c:forEach var="listPoli" items="${lisPoli}">
 	<option value="${listPoli.id }">${listPoli.poli}</option>
 	</c:forEach>
@@ -129,15 +134,14 @@
 	</tbody>
 </table>
 <select id="petugas" class="form-control col-md-4" style="width: 20%; margin-left: 20px; ">
-	<option></option>
+	<option>Nama Petugas</option>
 	<c:forEach var="listPetugas" items="${listPetugas}">
 	<option value="${listPetugas.id }">${listPetugas.nama}</option>
 	</c:forEach>
 </select></br><br><br>
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Tambah Keluhan</button>
 <input type="submit" value="SIMPAN" id="save" class="btn btn-default" style="margin-left: 10px;">
-<input type="submit" value="CETAK" class="btn btn-default" style="margin-left: 10px;">
-
+<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#View">Lihat Data</button>
 		
 		<!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -158,10 +162,54 @@
     </div>
 </div>
   </div>
+</div><br><br><br>
+<!-- Modal -->
+<div id="View" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->     
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Masukan Keluhan</h4>
+      </div>
+      <div class="modal-body">
+       <table class="table table-bordered" "><br>
+	<thead>
+		<tr>
+			<th>NO.IDENTITAS</th>
+			<th>NAMA PASIEN</th>
+			<th>ALAMAT</th>
+			<th>NO HP</th>
+			<th>UMUR</th>
+			<th>JENIS KELAMIN</th>
+			<th>POLI</th>
+			<th>RUANGAN</th>
+			<th>BIAYA</th>
+			<th>NAMA PETUGAS</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+      </div>
+    </div>
 </div>
+  </div>
+</div><br><br><br>
 </body>
 <script type="text/javascript">
-	
+
+var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']; 
+var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu']; 
+var date = new Date();
+var day = date.getDate(); 
+var month = date.getMonth(); 
+var thisDay = date.getDay(), thisDay = myDays[thisDay];
+var yy = date.getYear(); 
+var year = (yy < 1000) ? yy + 1900 : yy;  
+$('#tanggal').val(thisDay + ', ' + day + ' ' + months[month] + ' ' + year);
+
 		function save(){
 			var tanggal = $('#tanggal').val();
 			var nodaftar = $('#nodaftar').val();

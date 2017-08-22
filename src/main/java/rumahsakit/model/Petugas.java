@@ -26,14 +26,14 @@ public class Petugas {
 	private String nip;
 	private String nama;
 	private String alamat;
-	private int nohp;
+	private String nohp;
 	private String jeniskelamin;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="petugas")
 	private List<Pendaftaran> pendaftaran;
 	
 	public Petugas (){}
 
-	public Petugas(int id, String nip, String nama, String alamat, int nohp, String jeniskelamin,
+	public Petugas(int id, String nip, String nama, String alamat, String nohp, String jeniskelamin,
 			List<Pendaftaran> pendaftaran) {
 		super();
 		this.id = id;
@@ -77,11 +77,11 @@ public class Petugas {
 		this.alamat = alamat;
 	}
 
-	public int getNohp() {
+	public String getNohp() {
 		return nohp;
 	}
 
-	public void setNohp(int nohp) {
+	public void setNohp(String nohp) {
 		this.nohp = nohp;
 	}
 

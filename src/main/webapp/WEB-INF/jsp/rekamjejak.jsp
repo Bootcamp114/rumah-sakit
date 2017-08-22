@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Form Rekamjejak</title>
 </head>
 
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
@@ -19,11 +19,20 @@
 	});
 	});
 	</script>
+	<script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 <body>
 <br>
 <h2 align="center">CARI DATA</h2><br><br><br><br>
 <div class="container">
-<select id="poli" class="form-control col-md-4" style="width: 20%;  ">
+<select id="poli" class="form-control col-md-4" style="width: 20%;  " onkeypress="return hanyaAngka(event)"maxlength="16">
 	<option>No. Identitas</option>
 	<c:forEach var="listPasien" items="${listPasien}">
 	<option value="${listPasien.noidentitas }">${listPasien.noidentitas}</option>
