@@ -40,7 +40,6 @@
 			trString += "<td>" + diagnosa+ "</td>";
 			trString += "<td>" + keterangan	+ "</td>";
 			trString += "<td><a href='#' class='deleteDiagnosa'>delete</a></td>";
-			trString += "<td><a href='#'>edit</a></td>";
 			trString += "</tr>";
 			tbody.append(trString);		
 			$('#diagnosa').val("");
@@ -48,32 +47,10 @@
 		});
 
 		$(document).on("click", ".deleteDiagnosa", function() {
-			$("table tbody").find('').each(function(){
-            	if($(this).is(":checked")){
-                    $(this).parents("tr").remove();
-                }
-            });
+			var tr = $(this).closest('tr');
+	        tr.remove();
 		});
 
-		$(document).on("click", ".updateDiagnosa", function() {
-			var id = $(this).attr("idUpdateDiagnosa");
-
-			$.ajax({
-				url : '/pemeriksaan/getDiagnosaById/' + id,
-				type : 'GET',
-				success : function(data) {
-					updateColumnDiagnosa(data);
-				}
-			});
-		});
-
-		$("#updateDiagnosa").on("click", function() {
-			updateDiagnosa();
-			showDataDiagnosa();
-			clearFormDiagnosa();
-			alert("Terupdate");
-		});
-		
 		$(document).on("click",".pilih",function(){
 			var idDaftar = $(this).attr("idPilih");
 			$.ajax({

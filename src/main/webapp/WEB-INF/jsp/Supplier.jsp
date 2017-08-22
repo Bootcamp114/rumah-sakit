@@ -146,7 +146,7 @@
 		}
 		
 		function showData(){
-			$.ajax({
+			$.ajax({	
 				url :'/supplier/getall',
 				type: 'POST',
 				dataType : 'json',

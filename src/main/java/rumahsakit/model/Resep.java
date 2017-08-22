@@ -25,9 +25,9 @@ public class Resep {
 	private int id;
 	@OneToOne
 	private Pendaftaran pendaftaran;
+	@ManyToOne
+	private Dokter dokter;
 	private String noResep;
-	private String dosis;
-	private int jumlah;
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "resep")
 	private List<DetailResep> detailResep;
 	
@@ -35,28 +35,30 @@ public class Resep {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	
-	public Resep(int id, Pendaftaran pendaftaran, String noResep, String dosis, int jumlah,
-			List<DetailResep> detailResep) {
+
+	public Resep(int id, Pendaftaran pendaftaran, Dokter dokter, String noResep, List<DetailResep> detailResep) {
 		super();
 		this.id = id;
 		this.pendaftaran = pendaftaran;
+		this.dokter = dokter;
 		this.noResep = noResep;
-		this.dosis = dosis;
-		this.jumlah = jumlah;
 		this.detailResep = detailResep;
 	}
 
+	
 
-
-	public List<DetailResep> getDetailResep() {
-		return detailResep;
+	public Dokter getDokter() {
+		return dokter;
 	}
 
-	public void setDetailResep(List<DetailResep> detailResep) {
-		this.detailResep = detailResep;
+
+
+	public void setDokter(Dokter dokter) {
+		this.dokter = dokter;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -82,22 +84,13 @@ public class Resep {
 		this.noResep = noResep;
 	}
 
-	public String getDosis() {
-		return dosis;
+	public List<DetailResep> getDetailResep() {
+		return detailResep;
 	}
 
-	public void setDosis(String dosis) {
-		this.dosis = dosis;
+	public void setDetailResep(List<DetailResep> detailResep) {
+		this.detailResep = detailResep;
 	}
-
-	public int getJumlah() {
-		return jumlah;
-	}
-
-	public void setJumlah(int jumlah) {
-		this.jumlah = jumlah;
-	}
-	
 	
 	
 }

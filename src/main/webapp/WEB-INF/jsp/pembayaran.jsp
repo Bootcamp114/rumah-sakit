@@ -13,20 +13,38 @@
 	href="/resources/assets/css/bootstrap-theme.min.css" />
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pilih").on("click",function(){
+		var id = $(this).attr("id_resep");
+
+		$.ajax({
+			url : '/pembayaran/getbyresep/' + id,
+			type : 'GET',
+			success : function(data) {
+				tampilObat(data);
+			}
+		});
+	})
+
+)}
+
+</script>
 <body>
 	<h1 align="center">Form Pembayaran Obat</h1>
 	<hr>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-					<input type="text" name="no_resep" class="form-control" readonly> 
+			<input type="hidden" id="idResep" >
+					<input type="text" id="resep" name="no_resep" class="form-control" readonly> 
 			</div>
 			<div class="col-md-2">
 				<input type="submit" data-toggle="modal" data-target="#modalPilih" value="PILIH" class="btn btn-default btn-md"  > 
 			</div>
 		</div>
 		<br>
-		<table class="table table-bordered">
+		<table id="tableObat" class="table table-bordered">
 			<thead>
 				<tr>
 					<th>NAMA OBAT</th>
@@ -59,7 +77,7 @@
 					placeholder="Kembalian Uang"></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="SELESAI"
+				<td><input type="submit" id="selesai" value="SELESAI"
 					class="btn btn-default"></td>
 			</tr>
 		</table>
@@ -85,11 +103,11 @@
 				</thead>
 				<tbody>
 					<tr>
-					<c:forEach var="listResep" items="${listResep }">
-						<td><a href="#">${listResep.noResep }</a></td>
-						<td>${listResep.pendaftaran }</td>
-						<td>${listResep.pendaftaran }</td>
-						<td>${listResep.pendaftaran }</td>
+					<c:forEach var="listResep" items="${listResep}">
+						<td><a href="#" class="edit" id_resep="${listResep.id }">${listResep.noResep }</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</c:forEach>
 					</tr>
 				</tbody>
@@ -103,5 +121,49 @@
 	</div>
 <!-- end modal diagnosa  -->
 </body>
+<script type="text/javascript">
+function tampilObat(){
+	var dt = $("#tableObat");
+	var tbody = dt.find("tbody");
+	tbody.find("tr").remove();
+	$.each(data, function(index , detailResep){
+		var trString = "<tr>";
+				trString += "<td>" + detailResep.obat.obat + "</td>";
+				trString += "<td>" + detailResep.obat.harga + "</td>";
+				trString += "<td>" + detailResep.jumlah + "</td>";
+				trString += "<td>" + detailResep.total + "</td>";
+			trString +="</tr>";
+		tbody.append(trString);
+		$('#idResep').val(detailResep.id);
+	});
+}
+
+function selesai(){
+	var noBeli = $('#noBeli');
+	var total = $('#total');
+	var resep = $('#resep');
+	
+	var tableDetail{
+		noBeli : noBeli,
+		tanggal : tanggal,
+		total : total,
+		resep : {
+			id : idResep
+		}
+	}
+	
+	$.ajax({
+		url : '/pembayaran/save',
+		type : 'POST',
+		contentType : 'application/json',
+		dataType : 'json',
+		data : JSON.stringify(tableObat),
+		success : function(data,x,xhr){
+			clearForm();
+		}
+	});
+}
+</script>
+
 <script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>
 </html>

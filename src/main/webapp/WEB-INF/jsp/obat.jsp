@@ -161,7 +161,7 @@ function fillData(data){
 				trString += "<td>" + listObat.obat + "</td>";
 				trString += "<td>" + listObat.harga + "</td>";
 				trString += "<td>" + listObat.jenisObat + "</td>";
-				trString += "<td>" + listObat.suplier.supplier + "</td>";
+				trString += "<td>" + listObat.supplier.supplier + "</td>";
 				trString += "<td><a href='#' class='delete' id_delete='" + listObat.id + "'>DELETE</a></td>";
 				trString += "<td><a href='#' class='update' id_update='" + listObat.id + "'>EDIT</a></td>";
 			trString +="</tr>";

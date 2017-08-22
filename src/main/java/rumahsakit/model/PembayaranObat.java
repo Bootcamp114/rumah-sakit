@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="rs_pembelian")
+@Table(name="rs_pembayaran")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id")
 public class PembayaranObat {
 	@Id

@@ -13,7 +13,14 @@
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
 	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
+		var resep;
 		$(document).ready(function(){
+			var setDetailResep;
+			var dataTable = $("#tableResep");
+			var elementId = $("#idObat");
+			var elementObat = $("#obat");
+			var elementDosis = $("#dosis");
+			var elementJumlah = $("#jumlah");
 			
 			$("#save").on("click",function(){	
 				save();	
@@ -21,32 +28,31 @@
 				clearForm();
 			});
 			
-			$("#loadData").on("click",function(){
-				showData();
-			});
-		
-			/* $("#showPoli").on("click",function(){
-				showDataPoli();
-			});
-			 */
-			$(document).on("click",".delete",function(){
-				var conf = confirm("Apakah yakin akan dihapus ? ");
-				if(conf == true){
-					doDelete(this);	
-				}
+			$("#add").on("click" , function(){
+				var id = elementId.val();
+				var obat = elementObat.val();
+				var dosis = elementDosis.val();
+				var jumlah = elementJumlah.val();
+				var tbody = dataTable.find("tbody");
+				var trString = "<tr>";
+				trString += "<td>" + id	+ "</td>";
+				trString += "<td>" + obat + "</td>";
+				trString += "<td>" + dosis	+ "</td>";
+				trString += "<td>" + jumlah	+ "</td>";
+				trString += "<td><a href='#' class='delete'>delete</a></td>";
+				trString += "</tr>";
+				tbody.append(trString);		
+				elementId.val("");
+				elementObat.val("");
+				elementDosis.val("");
+				elementJumlah.val("");
 			});
 			
-			$(document).on("click",".update",function(){
-				var id = $(this).attr("id_update");
-				
-				$.ajax({
-					url : '/resep/getResepById/'+id,
-					type : 'GET',
-					success : function(data){
-						updateColumn(data);
-					}
-				});
+			$(document).on("click",".delete",function(){
+				var tr = $(this).closest('tr');
+		        tr.remove();
 			});
+			
 			
 			$(document).on("click",".pilihObat",function(){
 				var id = $(this).attr("idPilihObat");
@@ -72,12 +78,7 @@
 				});
 			});
 			
-			$("#update").on("click",function(){
-				update();
-				showData();	
-				clearForm();
-				alert("Terupdate");
-			});
+			
 		});
 	</script>
 
@@ -125,16 +126,13 @@
 					<input type="number" id="jumlah" class="form-control" autofocus placeholder="Masukan Jumlah"  required >	
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-primary" id="save">Save Changes</button>
-	        		<button type="button" class="btn btn-default" id="update">Update</button></div>
+					<button type="button" class="btn btn-info" id="add">Add</button></div>
 				</div>
 			<div class="col-md-8">
-				<a href="#" id="loadData">Load Data</a>
 				<table class="table" id="tableResep">
 					<thead>
 						<tr>
-							<th>NoResep</th>
-							<th>Pasien</th>
+							<th>ID</th>
 							<th>Obat</th>
 							<th>Dosis</th>
 							<th>Jumlah</th>
@@ -145,6 +143,7 @@
 						
 					</tbody>
 				</table>
+				<button type="button" class="btn btn-primary" id="save">Save Changes</button>
 			</div>
 		</div>
 	</div>
@@ -238,9 +237,26 @@
 					obat : {
 						id : obat
 					},
-					dosis : dosis,
-					jumlah : jumlah
+					detailResep : []
+					
 			}
+			
+			var table = $("#tableResep");
+			var tbody = table.find("tbody");
+			var tr = tbody.find("tr");
+		
+			$.each(tr , function(index , data){
+			
+				setDetailResep = {
+					obat : {
+						id  : $(this).find("td").eq(0).text()
+					},
+					dosis : $(this).find("td").eq(2).text(),
+					jumlah : $(this).find("td").eq(3).text()
+				}
+				
+				resep.detailResep.push(setDetailResep);
+			});
 			
 			$.ajax({
 				url: '/resep/save',
@@ -249,89 +265,12 @@
 			 	dataType : 'json',
 				data: JSON.stringify(resep), 
 				success: function(data,x,xhr){
-				//	showData();	
-				//	clearForm();
+					alert();
 				}
 			
 			});
 		}
 		
-		function doDelete(del){
-			var id = $(del).attr("id_delete");
-			$.ajax({
-				url : "/dokter/delete/"+id,
-				type : "DELETE",
-				success : function(data){
-					console.log(data);
-					showData();
-				}
-			});
-		}
-		
-		function fillData(data){
-			var dt = $("#tableResep");
-			var tbody = dt.find("tbody");
-			tbody.find("tr").remove();
-			$.each(data, function(index , listResep){
-				var trString = "<tr>";
-						trString += "<td>" + listResep.noResep + "</td>";
-						trString += "<td>" + listResep.pasien.nama + "</td>";
-						trString += "<td>" + listResep.obat.obat + "</td>";
-						trString += "<td>" + listResep.dosis + "</td>";
-						trString += "<td>" + listResep.jumlah + "</td>";
-						trString += "<td><a href='#' class='delete' id_delete='" + listResep.id + "'>delete</a></td>";
-						trString += "<td><a href='#' class='update' id_update='" + listResep.id + "'>edit</a></td>";
-					trString +="</tr>";
-				tbody.append(trString);
-			});
-		}
-		
-		function showData(){
-			$.ajax({
-				url :'/resep/getAllResep',
-				type: 'POST',
-				dataType : 'json',
-				success : function(data ,x,xhr){
-					console.log("data is loaded");
-					fillData(data);
-				}	
-			});
-		}
-		
-		function update(){
-			var noResep = $('#noResep').val();
-			var pasien = $('#idPendaftaran').val();
-			var obat = $('#idObat').val();
-			var dosis = $('#dosis').val();
-			var jumlah = $('#jumlah').val();
-			var id = $('#id').val();
-			var resep = {
-					noResep : noResep,
-					pendaftaran : {
-						id : pasien
-					},
-					obat : {
-						id : obat
-					},
-					dosis : dosis,
-					jumlah : jumlah,
-					id : id
-			}
-			
-			$.ajax({
-				url: '/resep/update',
-				type: 'PUT',
-			 	contentType:'application/json',
-			 	dataType : 'json',
-				data: JSON.stringify(resep), 
-				success: function(data,x,xhr){
-					showData();	
-					clearForm();
-				}
-			
-			});
-			
-		}
 		
 		function updateColumn(data){
 			$('#noResep').val(data.noResep);

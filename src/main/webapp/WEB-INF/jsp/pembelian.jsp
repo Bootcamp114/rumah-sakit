@@ -17,7 +17,16 @@
 var grandTotal2 = 0;
 
 	$(document).ready(function() {
-		
+		$(document).on('click','.del',function(){
+			var conf = confirm("Yakin mau dihapus?");
+			var row= $(this).closest('tr');
+			var total = $('#tableObat').find("tbody").find("tr").find("td").eq(4).text();
+			var hasil = $('#totalHarga').val() -  total;
+			if(conf == true){
+				$('#totalHarga').val(hasil);
+				row.remove();
+			}
+		});
 		
 		$("#save").on("click",function(){	
 			save();
@@ -61,10 +70,8 @@ var grandTotal2 = 0;
 	<div class="container">
 		<div style="width: 500px; margin: 0 auto">
 			<div class="form-group">
-			<form method="post">
 				<label>NoFaktur</label> <input readonly type="text" name="noFaktur" class="form-control"
 					id="noFaktur">
-					</form>
 			</div>
 			<div class="form-group">
 				<label>Obat</label>
@@ -112,7 +119,7 @@ var grandTotal2 = 0;
 				type="text" onKeyUp="hitung2()" class="form-control" id="bayar"><br> <label>Kembalian</label>
 			<input type="text" class="form-control" readonly id="kembalian"><br>
 			<button id="selesai" class="btn btn-info">
-				<a href="/pembelian/struk" target="_blank" style="text-decoration:none;color:white;">SELESAI</a>
+				SELESAI
 			</button>
 		</div>
 	</div>
@@ -129,6 +136,7 @@ var grandTotal2 = 0;
 							<th>OBAT</th>
 							<th>HARGA</th>
 							<th>JENIS OBAT</th>
+							<th>Supplier</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -138,6 +146,7 @@ var grandTotal2 = 0;
 										${listObat.obat } </a></td>
 								<td>${listObat.harga }</td>
 								<td>${listObat.jenisObat }</td>
+								<td>${listObat.supplier.supplier }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -148,10 +157,10 @@ var grandTotal2 = 0;
 </body>
 <script type="text/javascript">
 var d = new Date();
-var hari = d.getDay();
-var bulan = d.getMonth();
+var hari = d.getDate();
+var bulan = d.getMonth() + 1;
 var tahun = d.getFullYear();
-$('#noFaktur').val("NF" + bulan + "" + tahun + ${noFaktur});
+$('#noFaktur').val("NF"+ hari + "" + bulan + "" + tahun + ${noFaktur});
 
 
 	function pilihObat(data) {
@@ -196,7 +205,7 @@ $('#noFaktur').val("NF" + bulan + "" + tahun + ${noFaktur});
 		markup += "<td>" + harga + "</td>";
 		markup += "<td>" + jumlah + "</td>";
 		markup += "<td>" + total + "</td>";
-		markup += "<td> <a href='#'>DELETE</a></td>";
+		markup += "<td> <a href='#' class='del'>DELETE</a></td>";
 	markup +="</tr>";
 	    $(tbody).append(markup);
 	}
@@ -214,10 +223,14 @@ $('#noFaktur').val("NF" + bulan + "" + tahun + ${noFaktur});
 	function selesai(){
 		var noFaktur = $('#noFaktur').val();
 		var totalHarga = $('#totalHarga').val();
-		
+		var tanggal = tahun + "-0" + bulan + "-" + hari;
 		pembelian = {
 				noFaktur : noFaktur,
 				totalHarga : totalHarga,
+				tanggal : tanggal,
+				apoteker : {
+					id : 3
+				}
 				detailObat : []
 		}
 		

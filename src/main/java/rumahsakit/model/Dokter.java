@@ -35,13 +35,17 @@ public class Dokter {
 	private Poli poli;
 	@OneToMany(fetch = FetchType.LAZY , mappedBy = "dokter")
 	private List<Pemeriksaan> pemeriksaan;
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "dokter")
+	private List<Resep> resep;
 	
 	public Dokter() {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Dokter(int id, int nip, String nama, String jk, String alamat, String noHp, Poli poli,
-			List<Pemeriksaan> pemeriksaan) {
+			List<Pemeriksaan> pemeriksaan, List<Resep> resep) {
 		super();
 		this.id = id;
 		this.nip = nip;
@@ -51,6 +55,19 @@ public class Dokter {
 		this.noHp = noHp;
 		this.poli = poli;
 		this.pemeriksaan = pemeriksaan;
+		this.resep = resep;
+	}
+
+	
+
+	public List<Resep> getResep() {
+		return resep;
+	}
+
+
+
+	public void setResep(List<Resep> resep) {
+		this.resep = resep;
 	}
 
 
