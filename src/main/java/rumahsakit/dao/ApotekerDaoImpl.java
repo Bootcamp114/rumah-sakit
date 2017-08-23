@@ -37,7 +37,7 @@ public class ApotekerDaoImpl implements ApotekerDao {
 		Session session = sessionFactory.getCurrentSession();
 		Apoteker apo = new Apoteker();
 		apo.setId(id);
-		session.save(apo);
+		session.delete(apo);
 		session.flush();
 	}
 

@@ -10,17 +10,16 @@
 <link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
 <script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+var jk;
 	$(document).ready(function() {
 		showData();
 		
-		$("input[name='jk']").on("change", function() {
-			jk = $(this).val();
-		})
 		
 		$("#save").on("click",function(){	
 			save();
 			clearForm();
 			alert("Data Tersimpan..");
+			window.location.href="/apoteker/index";
 		});
 		
 		$("#loadData").on("click",function(){
@@ -30,7 +29,7 @@
 		$(document).on("click",".delete",function(){
 			var conf = confirm("Yakin mau dihapus?");
 			if(conf == true){
-				doDelete(this);	
+				doDelete(this);
 			}
 			
 		});
@@ -43,6 +42,7 @@
 				type : 'GET',
 				success : function(data){
 					updateColumn(data);
+					
 				}
 			});
 		});
@@ -52,6 +52,7 @@
 			showData();
 			clearForm();
 			alert("Data Terupdate");
+			window.location.href="/apoteker/index";
 		});
 	});
 </script>
@@ -69,9 +70,11 @@
 </div>
 <div class="form-group">
 	<label>Masukan Jenis Kelamin</label><br>
-			<input type="radio"   name="jeniskelamin" value="Laki - Laki" id="jk"> Laki - Laki<br>
-  					<input type="radio"   name="jeniskelamin" value="Perempuan" id="jk" > Perempuan<br>
-			
+			<select id="jk" class="form-control">
+				<option></option>
+				<option value="Laki - laki">Laki - laki</option>
+				<option value = "Perempuan">Perempuan</option>
+			</select>
 </div>
 <div class="form-group">
 	<label>Masukan Alamat</label>
@@ -79,7 +82,7 @@
 </div>
 <div class="form-group">
 	<label>Masukan NO HP</label>
-	<input type="text" id="nohp" class="form-control" placeholder="NO HP">
+	<input type="number" id="nohp" class="form-control" placeholder="NO HP">
 </div>
 <div class="form-group" align="right">
 	<button class="btn btn-info" id="save">SIMPAN</button>
@@ -107,10 +110,9 @@
 		function save(){
 			var nip = $('#nip').val();
 			var nama = $('#nama').val();
-			var jk = $('#jk').val();
 			var alamat = $('#alamat').val();
 			var nohp = $('#nohp').val();
-			
+			var jk = $('#jk').val();
 			
 			var tableApoteker = {
 					nip : nip,
@@ -137,11 +139,10 @@
 		function doDelete(del){
 			var id = $(del).attr("id_delete");
 			$.ajax({
-				url : "/apoteker/delete/"+id,
-				type : "DELETE",
+				url : '/apoteker/delete/'+id,
+				type : 'DELETE',
 				success : function(data){
 					console.log(data);
-					showData();
 				}
 			});
 		}
@@ -183,7 +184,7 @@
 			var alamat = $('#alamat').val();
 			var nohp = $('#nohp').val();
 			var id = $('#id').val();
-			
+			var jk = $('#jk').val();	
 			var tableApoteker = {
 					id : id,
 					nip : nip,
@@ -203,6 +204,7 @@
 				success: function(data ,a , xhr){
 					if( xhr.status == 201){
 						showData();	
+						
 					}
 					clearForm();
 				}
@@ -215,10 +217,9 @@
 			$('#id').val(data.id);
 			$('#nip').val(data.nip);
 			$('#nama').val(data.nama);
-			$('#jk').val(data.jk);
 			$('#alamat').val(data.alamat);
 			$('#nohp').val(data.nohp);
-			
+			$('#jk').val(data.jk);
 		}
 		
 		function clearForm(){

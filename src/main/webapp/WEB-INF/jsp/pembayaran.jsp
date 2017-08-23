@@ -15,9 +15,8 @@
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#pilih").on("click",function(){
+	$(".pilih").on("click",function(){
 		var id = $(this).attr("id_resep");
-
 		$.ajax({
 			url : '/pembayaran/getbyresep/' + id,
 			type : 'GET',
@@ -27,7 +26,7 @@ $(document).ready(function(){
 		});
 	})
 
-)}
+})
 
 </script>
 <body>
@@ -104,10 +103,10 @@ $(document).ready(function(){
 				<tbody>
 					<tr>
 					<c:forEach var="listResep" items="${listResep}">
-						<td><a href="#" class="edit" id_resep="${listResep.id }">${listResep.noResep }</a></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="#" class="pilih" id_resep="${listResep.id }">${listResep.noResep }</a></td>
+						<td>${listResep.pendaftaran.id }</td>
+						<td>${listResep.pendaftaran.pasien.nama }</td>
+						<td>${listResep.dokter.nama }</td>
 					</c:forEach>
 					</tr>
 				</tbody>
@@ -143,7 +142,7 @@ function selesai(){
 	var total = $('#total');
 	var resep = $('#resep');
 	
-	var tableDetail{
+	var tableDetail = {
 		noBeli : noBeli,
 		tanggal : tanggal,
 		total : total,

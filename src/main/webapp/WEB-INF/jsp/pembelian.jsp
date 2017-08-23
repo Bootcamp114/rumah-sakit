@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Pembelian</title>
 </head>
 <link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
 <link rel="stylesheet"
@@ -41,6 +41,7 @@ var grandTotal2 = 0;
 		
 		$("#selesai").on("click",function(){
 			selesai();
+			alert("Transaksi selesai..");
 			window.location.href='/pembelian/index';
 		})
 		
@@ -118,6 +119,14 @@ var grandTotal2 = 0;
 				id="totalHarga" readonly><br> <label>Bayar</label> <input
 				type="text" onKeyUp="hitung2()" class="form-control" id="bayar"><br> <label>Kembalian</label>
 			<input type="text" class="form-control" readonly id="kembalian"><br>
+			<label>Apoteker</label>
+			<select id="apoteker" class="form-control">
+				<option></option>
+				<c:forEach var="listApoteker" items="${listApoteker }">
+				<option value="${listApoteker.id }">${listApoteker.nama }</option>
+				</c:forEach>
+			</select>
+			<br>
 			<button id="selesai" class="btn btn-info">
 				SELESAI
 			</button>
@@ -224,13 +233,14 @@ $('#noFaktur').val("NF"+ hari + "" + bulan + "" + tahun + ${noFaktur});
 		var noFaktur = $('#noFaktur').val();
 		var totalHarga = $('#totalHarga').val();
 		var tanggal = tahun + "-0" + bulan + "-" + hari;
+		var apoteker = $('#apoteker').val();
 		pembelian = {
 				noFaktur : noFaktur,
 				totalHarga : totalHarga,
 				tanggal : tanggal,
-				apoteker : {
-					id : 3
-				}
+				apoteker :{
+					id : apoteker
+				},
 				detailObat : []
 		}
 		

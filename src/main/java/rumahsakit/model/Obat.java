@@ -2,6 +2,7 @@ package rumahsakit.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Obat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private  int id;
+	@Column(unique = true)
 	private String obat;
 	private int harga;
 	private String jenisObat;

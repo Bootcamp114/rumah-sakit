@@ -18,6 +18,7 @@ $(document).ready(function(){
 	showData();
 	$("#save").on("click",function(){
 		save();
+		window.location.href="/obat/index";
 	})
 	
 	$("#loadData").on("click",function(){
@@ -28,6 +29,7 @@ $(document).ready(function(){
 		var conf = confirm("Yakin mau dihapus?");
 		if(conf == true){
 			doDelete(this);	
+			window.location.href="/obat/index";
 		}
 		
 	});
@@ -40,6 +42,7 @@ $(document).ready(function(){
 			type : 'GET',
 			success : function(data){
 				updateColumn(data);
+				
 			}
 		});
 	});
@@ -48,6 +51,7 @@ $(document).ready(function(){
 		update();
 		showData();
 		clearForm();
+		window.location.href="/obat/index";
 	});
 })
 </script>
@@ -73,6 +77,8 @@ $(document).ready(function(){
 						<option value="${listSupplier.id }">${listSupplier.supplier}</option>
 					</c:forEach>
 				</select>
+				<input type="hidden" id="idSupplier">
+				<input type="text" readonly id="updSupplier" style="display:none" class="form-control" >
 			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
@@ -110,7 +116,7 @@ function save(){
 				id : supplier
 		}
 	}
-	
+	       
 	$.ajax({
 		url : '/obat/save',
 		type : 'POST',
@@ -119,7 +125,10 @@ function save(){
 		data : JSON.stringify(tableObat),
 		success : function(data,x,xhr){
 			clearForm();
-		}
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) { 
+	       alert("data ada yang sama"); 
+	    }
 	});
 }
 
@@ -136,8 +145,7 @@ function updateColumn(data){
 	$('#obat').val(data.obat);
 	$('#harga').val(data.harga);
 	$('#jenisObat').val(data.jenisObat);
-	$('#supplier').select(data.suplier.supplier);
-	
+	$('#supplier').val(data.supplier.id);
 }
 
 function doDelete(del){

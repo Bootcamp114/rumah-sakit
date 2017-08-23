@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,18 +9,31 @@
 <title>Form Supplier</title>
 </head>
 <link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
-<link rel="stylesheet"
-	href="/resources/assets/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
+	
 <script type="text/javascript"
 	src="/resources/assets/jquery-3.2.1.min.js"></script>
+	
+	  <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
+	
+	
 <script type="text/javascript">
 	$(document).ready(function() {
-		showData();
+		$('#tableSupplier').DataTable();
 		$("#save").on("click",function(){	
 			save();
-			showData();
 			clearForm();
 			alert("Data Tersimpan..");
+			window.location.href="/supplier/index";
 		});
 		
 		$("#loadData").on("click",function(){
@@ -28,7 +43,8 @@
 		$(document).on("click",".delete",function(){
 			var conf = confirm("Yakin mau dihapus?");
 			if(conf == true){
-				doDelete(this);	
+				doDelete(this);
+				window.location.href="/supplier/index";
 			}
 			
 		});
@@ -41,15 +57,16 @@
 				type : 'GET',
 				success : function(data){
 					updateColumn(data);
+					
 				}
 			});
 		});
 		
 		$("#update").on("click",function(){
 			update();
-			showData();
 			clearForm();
 			alert("Data Terupdate");
+			window.location.href="/supplier/index";
 		});
 	});
 </script>
@@ -68,25 +85,32 @@
 					class="form-control" name="alamat" id="alamat" placeholder="Alamat">
 			</div>
 			<div class="form-group">
-				<label>Masukan Telpon : </label> <input type="text"
-					class="form-control" name="telpon" id="telpon" placeholder="Telpon">
+				<label>Masukan Telpon : </label> <input type="number"
+					class="form-control" name="telpon" onkeypress="return hanyaAngka(event)" id="telpon" placeholder="Telpon">
 			</div>
 			<div class="form-group" align="right">
 				<button class="btn btn-info" id="save">SIMPAN</button>
 				<button class="btn btn-default" id="update">UPDATE</button>
 			</div>
 		</div>
-		<table class="table table-bordered" id="tableSupplier">
+		<table id="tableSupplier">
 				<thead>
 					<tr class="info">
 						<th>SUPPLIER</th>
 						<th>ALAMAT</th>
 						<th>TELPON</th>
-						<th colspan="2">AKSI</th>
+						<th>AKSI</th>
 					</tr>
 				</thead>
 				<tbody>
-					
+				<c:forEach var = "listSupplier" items = "${listSupplier }">
+					<tr>
+						<td>${listSupplier.supplier }</td>
+						<td>${listSupplier.alamat }</td>
+						<td>${listSupplier.telpon }</td>
+						<td><a href='#' class='delete' id_delete='" + listSupplier.id + "'>DELETE</a> | <a href='#' class='update' id_update='" + listSupplier.id + "'>EDIT</a></td>
+					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -202,4 +226,6 @@
 			$('#telpon').val("");
 		}
 	</script>
+<script type="text/javascript" src="/resources/assets/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
+	
 </html>

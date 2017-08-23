@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import rumahsakit.model.Apoteker;
 import rumahsakit.model.DetailObat;
 import rumahsakit.model.Obat;
 import rumahsakit.model.PembelianObat;
@@ -36,6 +37,9 @@ public class PembelianController {
 		List<Obat> list = dataMasterPembelian.getAllObat(); 
 		model.addAttribute("listObat", list);
 		model.addAttribute("noFaktur",appUtils.getNoFaktur());
+		
+		List<Apoteker> listApoteker = dataMasterPembelian.getAllApoteker();
+		model.addAttribute("listApoteker", listApoteker);
 		return "pembelian";
 	}
 	
