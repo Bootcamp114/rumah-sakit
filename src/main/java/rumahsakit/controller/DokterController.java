@@ -1,6 +1,10 @@
 package rumahsakit.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,11 +39,12 @@ public class DokterController {
 
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void save(@RequestBody Dokter dokter){
+	public void save(@RequestBody Dokter dokter , HttpServletResponse response) throws IOException{
+		PrintWriter printWriter = response.getWriter();
 		try{
 			service.saveDokter(dokter);
 		}catch(Exception e){
-			
+			printWriter.println("<script>alert('NIP Sudah Ada');document.location.href=dokter</script>");
 		}
 	}
 	
