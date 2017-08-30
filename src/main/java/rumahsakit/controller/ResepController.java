@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import rumahsakit.model.DetailResep;
 import rumahsakit.model.Dokter;
 import rumahsakit.model.Obat;
 import rumahsakit.model.Pendaftaran;
@@ -47,13 +49,19 @@ public class ResepController {
 		List<Dokter> listDokter = servicePeriksa.getAllDokter();
 		model.addAttribute("listDokter", listDokter);
 		model.addAttribute("noResep", appUtils.getNoResep());
+		model.addAttribute("listResep", serviceResep.getAllResep());
 		return "resep";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void save(@RequestBody Resep resep){
-		serviceResep.saveResep(resep);
+	public ResponseEntity<Resep> save(@RequestBody Resep resep){
+		try {
+			serviceResep.saveResep(resep);	
+		} catch (Exception e) {
+			return new ResponseEntity<Resep>(resep, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Resep>(resep, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
@@ -94,5 +102,12 @@ public class ResepController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public Pendaftaran getDaftarById(@PathVariable int id){
 		return serviceDaftar.getById(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getDetailById/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<DetailResep> getDetailById(@PathVariable int id){
+		return serviceResep.listDetail(id);
 	}
 }

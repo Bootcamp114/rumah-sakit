@@ -10,9 +10,12 @@
 </head>
 
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/resources/assets/parsley.css" />
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
 	<link rel="stylesheet" href="/resources/assets/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
 	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/jquery.js"></script>
+	<script type="text/javascript" src="/resources/assets/parsley.min.js"></script>
 	  <script>
 		function hanyaAngka(evt) {
 		  var charCode = (evt.which) ? evt.which : event.keyCode
@@ -27,11 +30,12 @@
 		$(document).ready(function(){
 			
 			$("#tableDokter").DataTable();
+			$("#update").hide();
 			
 			$("#save").on("click",function(){	
-				save();	
-				clearForm();
-				window.location.href = "./dokter";
+				if($("#formDokter").parsley().validate()){
+					save();	
+				}
 			});
 			
 			$("#loadData").on("click",function(){
@@ -58,6 +62,8 @@
 					type : 'GET',
 					success : function(data){
 						updateColumn(data);
+						$("#update").fadeIn();
+						$("#save").hide();
 					}
 				});
 			});
@@ -71,31 +77,29 @@
 					success : function(data){
 						pilihPoli(data);
 						console.log("terpiih");
+						$("#formDokter").parsley().reset();
 					}
 				});
 			});
 			
 			$("#update").on("click",function(){
 				update();
-				clearForm();
-				window.location.href = "dokter";
-				window.location.href = "dokter";
-				alert("Terupdate");
 			});
 		});
 	</script>
 
 <body>
+<form onSubmit="return false" data-parsley-validate id="formDokter">
 	<div class="container">
 		<h1>Form Dokter</h1>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<input type="hidden" name="id" id="id" class="form-control" autofocus placeholder="noPemeriksaan" required>	
+					<input type="hidden" name="id" id="id" class="form-control" autofocus placeholder="noPemeriksaan">	
 				</div>
 				<div class="form-group">
 					<label>NIP</label>
-					<input type="number" name="nip" id="nip" class="form-control" autofocus placeholder="Masukan NIP" required >	
+					<input type="text" name="nip" id="nip" class="form-control" autofocus placeholder="Masukan NIP" required onkeypress="return hanyaAngka(event)" readonly>	
 				</div>
 				<div class="form-group">
 					<label>Nama</label>
@@ -107,12 +111,12 @@
 				</div>
 				<div class="form-group">
 					<label>No HP</label>
-					<input type="number" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" onkeypress="return hanyaAngka(event)" required maxlength="13">	
+					<input type="text" name="noHp" id="noHp" class="form-control" autofocus placeholder="Masukan No HP" onkeypress="return hanyaAngka(event)" required maxlength="13" data-parsley-maxlength="13" minlength="11" data-parsley-minlength="11">	
 				</div>
 				<div class="form-group">
 					<label>Jenis Kelamin</label>
 					<br/>
-					<select id="jk" class="form-control" >
+					<select id="jk" class="form-control" required>
 						<option >Jenis Kelamin</option>
 						<option value="L">L</option>
 						<option value="P">P</option>
@@ -127,8 +131,9 @@
 	  					Pilih Poli
 					</button>
 				</div>
+				<hr>
 				<div class="form-group">
-					<button type="button" class="btn btn-primary" id="save">Save Changes</button>
+					<button type="button" class="btn btn-primary" id="save">Tambah Dokter</button>
 	        		<button type="button" class="btn btn-default" id="update">Update</button></div>
 				</div>
 			<div class="col-md-8">
@@ -157,7 +162,7 @@
 								<td>${listDokter.poli.poli}</td>
 								<td>
 									<a href='#' class='delete' id_delete='${listDokter.id}'>delete</a>
-									<a href='#' class='update' id_update='${listDokter.id}'>update</a>
+									<a href='#' class='update' id_update='${listDokter.id}'>edit</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -166,6 +171,7 @@
 			</div>
 		</div>
 	</div>
+</form>
 <!-- modal periksa  -->
 	<div class="modal fade" id="modalPoli" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   		<div class="modal-dialog" role="document">
@@ -205,6 +211,18 @@
 <!-- end modal periksa  -->
 </body>
 	<script type="text/javascript">
+	var d = new Date();
+	var hari = d.getDate();
+	var bulan = d.getMonth() + 1;
+	var tahun = d.getFullYear();
+	
+	if(${nip} <= 9){
+		$("#nip").val(tahun  +""+ bulan +""+ hari +"00"+${nip});
+	}else if(${nip} > 9){
+		$("#nip").val(tahun  +""+ bulan +""+ hari +"0"+${nip});	
+	}else{
+		$("#nip").val(tahun  +""+ bulan +""+ hari +""+${nip});
+	}
 		function save(){
 			var nip = $('#nip').val();
 			var nama = $('#nama').val();
@@ -232,10 +250,7 @@
 				data: JSON.stringify(dokter), 
 				success: function(data,x,xhr){
 					clearForm();
-					console.log(xhr.status);
-					if(xhr.status == 201){
-						window.location = "/dokter";	
-					}		
+					window.location = "/dokter";		
 				}
 			});
 		}
@@ -247,7 +262,7 @@
 				type : "DELETE",
 				success : function(data){
 					console.log(data);
-					showData();
+					window.location = "/dokter";
 				}
 			});
 		}
@@ -337,12 +352,14 @@
 			 	dataType : 'json',
 				data: JSON.stringify(dokter), 
 				success: function(data ,a , xhr){
-					if( xhr.status == 201){
-						showData();	
-					}
 					clearForm();
+					window.location = "/dokter";
+					$("#update").hide();
+					$("#save").fadeIn();
+				},
+				error : function(data){
+					alert("data tidak terupdate");
 				}
-				
 			});
 			
 		}

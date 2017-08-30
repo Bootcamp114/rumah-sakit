@@ -43,5 +43,9 @@ public class DataMasterResep {
 	public List<Resep> getAllResep(){
 		return resepDao.getAllResepByNoDaftar();
 	}
+	
+	public List<DetailResep> listDetail(int id){
+		return resepDao.getAllResepByIdResep(id);
+	}
 }
 

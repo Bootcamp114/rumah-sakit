@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import rumahsakit.model.Dokter;
 import rumahsakit.model.JenisPemeriksaan;
 import rumahsakit.model.Poli;
 import rumahsakit.service.DataMasterPemeriksaan;
+import rumahsakit.utils.AppUtils;
 
 @Controller
 @RequestMapping("/dokter")
@@ -28,30 +30,38 @@ public class DokterController {
 
 	@Autowired
 	private DataMasterPemeriksaan service;
+	@Autowired
+	private AppUtils appUtils;
 	
 	@RequestMapping
 	public String index(Model model){
 		List<Poli> listPoli = service.getAllPoli();
 		model.addAttribute("listPoli", listPoli);
 		model.addAttribute("listDokter", service.getAllDokter());
+		model.addAttribute("nip", appUtils.getNip());
 		return "dokter";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void save(@RequestBody Dokter dokter , HttpServletResponse response) throws IOException{
-		PrintWriter printWriter = response.getWriter();
+	public ResponseEntity<Dokter> save(@RequestBody Dokter dokter) throws Exception{
 		try{
 			service.saveDokter(dokter);
 		}catch(Exception e){
-			printWriter.println("<script>alert('NIP Sudah Ada');document.location.href=dokter</script>");
+			return new ResponseEntity<Dokter>(dokter, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<Dokter>(dokter, HttpStatus.OK);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void update(@RequestBody Dokter dokter){
-		service.updateDokter(dokter);
+	public ResponseEntity<Dokter> update(@RequestBody Dokter dokter) throws Exception{
+		try {
+			service.updateDokter(dokter);
+		} catch (Exception e) {
+			return new ResponseEntity<Dokter>(dokter, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Dokter>(dokter, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)

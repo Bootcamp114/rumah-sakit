@@ -2,11 +2,13 @@ package rumahsakit.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import rumahsakit.model.DetailResep;
 import rumahsakit.model.Resep;
 
 @Repository
@@ -55,6 +57,16 @@ public class ResepDaoImpl implements ResepDao{
 		Session session = sessionFactory.getCurrentSession();
 		List<Resep> listResep = session.createCriteria(Resep.class).list();
 		return listResep;
+	}
+
+	@Override
+	public List<DetailResep> getAllResepByIdResep(int idResep) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from DetailResep detail where detail.resep.id = :param1");
+		query.setInteger("param1", idResep);
+		List<DetailResep> listDetail = query.list();
+		return listDetail;
 	}
 
 }

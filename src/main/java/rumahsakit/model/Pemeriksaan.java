@@ -41,7 +41,7 @@ public class Pemeriksaan {
 	public Pemeriksaan() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public Pemeriksaan(int id, String noPemeriksaan, Pendaftaran pendaftaran, JenisPemeriksaan jenisPemeriksaan,
 			Dokter dokter, List<Diagnosa> diagnosa, String tindakan, int beratBadan, int tensiDiastolik,
 			int tensiSistolik) {

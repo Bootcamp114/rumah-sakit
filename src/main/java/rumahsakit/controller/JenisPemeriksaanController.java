@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,17 +29,26 @@ public class JenisPemeriksaanController {
 		model.addAttribute("listJenis",service.getAllJenisPemeriksaan());
 		return "jenispemeriksaan";
 	}
-	
+	@ResponseBody
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void save(@RequestBody JenisPemeriksaan jenisPemeriksaan){
-		service.saveJenisPemeriksaan(jenisPemeriksaan);
+	public ResponseEntity<JenisPemeriksaan> save(@RequestBody JenisPemeriksaan jenisPemeriksaan) throws Exception{
+		try {
+			service.saveJenisPemeriksaan(jenisPemeriksaan);
+		} catch (Exception e) {
+			return new ResponseEntity<JenisPemeriksaan>(jenisPemeriksaan, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<JenisPemeriksaan>(jenisPemeriksaan, HttpStatus.OK);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void update(@RequestBody JenisPemeriksaan jenisPemeriksaan){
-		service.updateJenisPemeriksaan(jenisPemeriksaan);
+	public ResponseEntity<JenisPemeriksaan> update(@RequestBody JenisPemeriksaan jenisPemeriksaan) throws Exception{
+		try {
+			service.updateJenisPemeriksaan(jenisPemeriksaan);
+		} catch (Exception e) {
+			return new ResponseEntity<JenisPemeriksaan>(jenisPemeriksaan, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<JenisPemeriksaan>(jenisPemeriksaan, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/delete/{id}" , method = RequestMethod.DELETE)

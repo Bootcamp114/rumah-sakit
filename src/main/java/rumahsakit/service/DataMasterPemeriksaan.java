@@ -18,6 +18,7 @@ import rumahsakit.model.JenisPemeriksaan;
 import rumahsakit.model.Pemeriksaan;
 import rumahsakit.model.Poli;
 import rumahsakit.model.Resep;
+import rumahsakit.utils.AppUtils;
 
 @Service
 @Transactional
@@ -35,6 +36,8 @@ public class DataMasterPemeriksaan {
 	private ResepDao resepDao;
 	@Autowired
 	private PemeriksaanDao pemeriksaanDao;
+	@Autowired
+	private AppUtils appUtil;
 	
 	//jenis pemeriksaan service
 	public void saveJenisPemeriksaan(JenisPemeriksaan jenisPemeriksaan){
@@ -111,6 +114,10 @@ public class DataMasterPemeriksaan {
 	
 	public Diagnosa getDiagnosaById(int id){
 		return diagnosaDao.getDiagnosaById(id);
+	}
+	
+	public List<Diagnosa> listDiagnosaByIdPeriksa(int idPeriksa) throws Exception{
+		return diagnosaDao.listDiagnosaByIdPeriksa(idPeriksa);
 	}
 	//end diagnosa
 	

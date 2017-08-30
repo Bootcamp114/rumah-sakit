@@ -2,6 +2,7 @@ package rumahsakit.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,6 @@ public class DiagnosaDaoImpl implements DiagnosaDao{
 
 	@Override
 	public List<Diagnosa> getAllDiagnosaByNoDiagnosa() {
-		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Diagnosa> listDiagnosa = session.createCriteria(Diagnosa.class).list();
 		return listDiagnosa;
@@ -51,10 +51,19 @@ public class DiagnosaDaoImpl implements DiagnosaDao{
 
 	@Override
 	public Diagnosa getDiagnosaById(int id) {
-		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		Diagnosa diagnosa = session.get(Diagnosa.class, id);
 		return diagnosa;
+	}
+
+	@Override
+	public List<Diagnosa> listDiagnosaByIdPeriksa(int idPeriksa) throws Exception{
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Diagnosa diagnosa where diagnosa.pemeriksaan.id = :param1");
+		query.setInteger("param1", idPeriksa);
+		List<Diagnosa> listDiagnosa = query.list();
+		return listDiagnosa;
 	}
 
 }

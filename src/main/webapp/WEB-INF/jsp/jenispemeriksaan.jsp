@@ -9,17 +9,18 @@
 <title>Form Jenis Pemeriksaan</title>
 </head>
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/resources/assets/parsley.css" />
 	<link rel="stylesheet" href="/resources/assets/css/bootstrap-theme.min.css" />
 	<script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/parsley.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$("#update").hide();
 			
 			$("#save").on("click",function(){	
-				save();
-				clearForm();
-				window.location.href="./jenispemeriksaan";
-				window.location.href="./jenispemeriksaan";
-				document.location.location = "jenispemeriksaan";
+				if($("#formJenisPeriksa").parsley().validate()){
+					save();	
+				}
 			});
 			
 			$("#loadData").on("click",function(){
@@ -29,9 +30,7 @@
 			$(document).on("click",".delete",function(){
 				var conf = confirm("Apakah yakin menghapus data ini ?");
 				if(conf == true){
-					doDelete(this);	
-					window.location.href = "./jenispemeriksaan";
-					window.location.href="./jenispemeriksaan";
+					doDelete(this);
 				}
 			});
 			
@@ -43,6 +42,8 @@
 					type : 'GET',
 					success : function(data){
 						updateColumn(data);
+						$("#update").fadeIn();
+						$("#save").hide();
 					}
 				});
 			});
@@ -50,20 +51,19 @@
 			$("#update").on("click",function(){
 				update();	
 				clearForm();
-				window.location.href = "./jenispemeriksaan";
-				window.location.href = "./jenispemeriksaan";
 				alert("Terupdate");
 			});
 			
 		});
 	</script>
 <body>
+<form action="" onSubmit="return false" id="formJenisPeriksa">
 	<div class="container">
 		<h1>Form Jenis Pemeriksaan</h1>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<input type="hidden" name="id" id="id" class="form-control" autofocus placeholder="noPemeriksaan" required>	
+					<input type="hidden" name="id" id="id" class="form-control" autofocus placeholder="noPemeriksaan" >	
 				</div>
 				<div class="form-group">
 					<label>Jenis Pemeriksaan</label>
@@ -86,7 +86,7 @@
 							<tr>
 								<td>${listJenis.jenisPemeriksaan}</td>
 								<td><a href='#' class='delete' id_delete='${listJenis.id}'>delete</a></td>
-								<td><a href='#' class='update' id_update='${listJenis.id}'>update</a></td>
+								<td><a href='#' class='update' id_update='${listJenis.id}'>edit</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -94,6 +94,7 @@
 			</div>
 		</div>
 	</div>
+</form>
 </body>
 	<script type="text/javascript">
 		function save(){
@@ -111,9 +112,7 @@
 				data: JSON.stringify(tableJenisPemeriksaan), 
 				success: function(data,x,xhr){
 					clearForm();
-					if(xhr.status == 201){
-						window.location = "./jenispemeriksaan";
-					}
+					window.location = "./jenispemeriksaan";
 				}
 			
 			});
@@ -175,10 +174,14 @@
 			 	dataType : 'json',
 				data: JSON.stringify(tableJenisPemeriksaan), 
 				success: function(data ,a , xhr){
-					
+					window.location = "/jenispemeriksaan";
 					clearForm();
+					$("#update").hide();
+					$("#save").fadeIn();
+				},
+				error : function(data){
+					alert("server error");
 				}
-				
 			});
 			
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,13 +43,19 @@ public class PemeriksaanController {
 		modelNoDaftar.addAttribute("listDaftar", listDaftar);
 		model.addAttribute("noPeriksa", appUtil.getNoPeriksa());
 		model.addAttribute("noDiagnosa", appUtil.getNoDiagnosa());
+		model.addAttribute("listPemeriksaan", service.getAllPemriksaan());
 		return "pemeriksaan";
 	}
 	 
+	@ResponseBody
 	@RequestMapping(value = "/savePemeriksaan" , method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void savePemeriksaan(@RequestBody Pemeriksaan pemeriksaan){
-		service.savePemeriksaan(pemeriksaan);
+	public ResponseEntity<Pemeriksaan> savePemeriksaan(@RequestBody Pemeriksaan pemeriksaan)throws Exception{
+		try {
+			service.savePemeriksaan(pemeriksaan);	
+		} catch (Exception e) {
+			return new ResponseEntity<Pemeriksaan>(pemeriksaan, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Pemeriksaan>(pemeriksaan, HttpStatus.OK);
 	}
 	
 	@ResponseBody
@@ -72,5 +79,13 @@ public class PemeriksaanController {
 	public Pendaftaran getPendaftaranById(@PathVariable int id){
 		return serviceDaftar.getById(id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getdiagnosaByIdPeriksa/{id}" , method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<Diagnosa> getDiagnosaByIdPeriksa(@PathVariable int id) throws Exception{
+		return service.listDiagnosaByIdPeriksa(id);
+	}
+	
 	//end pendaftraan
 }

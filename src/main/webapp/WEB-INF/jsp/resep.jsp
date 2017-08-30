@@ -15,6 +15,8 @@
 	<script type="text/javascript">
 		var resep;
 		$(document).ready(function(){
+			$("#update").hide();
+			
 			var setDetailResep;
 			var dataTable = $("#tableResep");
 			var elementId = $("#idObat");
@@ -39,7 +41,7 @@
 				trString += "<td>" + obat + "</td>";
 				trString += "<td>" + dosis	+ "</td>";
 				trString += "<td>" + jumlah	+ "</td>";
-				trString += "<td><a href='#' class='delete'>delete</a></td>";
+				trString += "<td><a href='#' class='delete'>delete</a>  |  <a href='#' class='edit'>edit</a></td>";
 				trString += "</tr>";
 				tbody.append(trString);		
 				elementId.val("");
@@ -51,6 +53,35 @@
 			$(document).on("click",".delete",function(){
 				var tr = $(this).closest('tr');
 		        tr.remove();
+			});
+			
+			$(document).on("click",".edit",function(){
+				oTr = $(this).closest('tr');
+				var td0 = oTr.find('td').eq(0).text();
+				var td1 = oTr.find('td').eq(1).text();
+				var td2 = oTr.find('td').eq(2).text();
+				var td3 = oTr.find('td').eq(3).text();
+
+				$("#idObat").val(td0);
+				$("#obat").val(td1);
+				$("#dosis").val(td2);
+				$("#jumlah").val(td3);
+				
+				$("#update").fadeIn();
+				$("#add").hide();
+			});
+			
+			$('#update').on("click",function(){
+				oTr.find('td').eq(0).text($('#idObat').val());
+				oTr.find('td').eq(1).text($('#obat').val());
+				oTr.find('td').eq(2).text($('#dosis').val());
+				oTr.find('td').eq(3).text($('#jumlah').val());
+				elementId.val("");
+				elementObat.val("");
+				elementDosis.val("");
+				elementJumlah.val("");
+				$("#update").hide();
+				$("#add").fadeIn();
 			});
 			
 			
@@ -78,6 +109,17 @@
 				});
 			});
 			
+			$(document).on("click",".detailObat",function(){
+				$("#modalDetailObat").modal();
+				 var id = $(this).attr("idDetailObat");
+				$.ajax({
+					url : '/resep/getDetailById/'+id,
+					type : 'GET',
+					success : function(data){
+						detailObat(data);
+					}
+				}); 
+			});
 			
 		});
 	</script>
@@ -135,8 +177,10 @@
 					<input type="number" id="jumlah" class="form-control" autofocus placeholder="Masukan Jumlah"  required >	
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-info" id="add">Add</button></div>
+					<button type="button" class="btn btn-info" id="add">Add</button>
+					<button type="button" class="btn" id="update">Update</button>		
 				</div>
+			</div>
 			<div class="col-md-8">
 				<table class="table" id="tableResep">
 					<thead>
@@ -153,6 +197,28 @@
 					</tbody>
 				</table>
 				<button type="button" class="btn btn-primary" id="save">Save Changes</button>
+			</div>
+			<div class="col-md-8">
+				<table class="table" id="tableResep">
+					<thead>
+						<tr>
+							<th>NoResep</th>
+							<th>Dokter</th>
+							<th>Pasien</th>
+							<th>Obat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="listResep" items="${listResep}">
+							<tr>
+								<td>${listResep.noResep}</td>
+								<td>${listResep.dokter.nama}</td>
+								<td>${listResep.pendaftaran.pasien.nama}</td>
+								<td><a href="#" class="detailObat" idDetailObat="${listResep.id}">detail</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -230,6 +296,32 @@
   		</div>
 	</div>
 <!-- end modal periksa  -->
+<!-- start modal barang detail-->
+	<div class="modal fade" id="modalDetailObat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  		<div class="modal-dialog" role="document">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        			<h4 class="modal-title" id="myModalLabel">Data Obat</h4>
+      			</div>
+      			<div class="modal-body">
+		        	<table id="tableDetail" class="table">
+						<thead>
+							<tr>
+								<th>Obat</th>
+								<th>Jumlah</th>
+								<th>Dosis</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	<!-- end modal barang detail -->
 </body>
 	<script type="text/javascript">
 		function save(){
@@ -279,6 +371,7 @@
 				data: JSON.stringify(resep), 
 				success: function(data,x,xhr){
 					console.log()
+					window.location = "/resep";
 				}
 			
 			});
@@ -314,6 +407,20 @@
 			$('#dosis').val("");
 			$('#jumlah').val("");
 			$('#id').val(data.id);
+		}
+		
+		function detailObat(data){
+			var dt = $("#tableDetail");
+			var tbody = dt.find("tbody");
+			tbody.find("tr").remove();
+			$.each(data, function(index , listDetail){
+				var trString = "<tr>";
+						trString += "<td>" + listDetail.obat + "</td>";
+						trString += "<td>" + listDetail.jumlah + "</td>";
+						trString += "<td>" + listDetail.dosis + "</td>";
+					trString +="</tr>";
+				tbody.append(trString);
+			});
 		}
 	</script>
 	<script type="text/javascript" src="/resources/assets/js/bootstrap.min.js"></script>

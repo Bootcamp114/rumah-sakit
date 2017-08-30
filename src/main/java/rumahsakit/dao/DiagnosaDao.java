@@ -11,5 +11,6 @@ public interface DiagnosaDao {
 	public void update(Diagnosa diagnosa);
 	public List<Diagnosa> getAllDiagnosaByNoDiagnosa();
 	public Diagnosa getDiagnosaById(int id);
+	public List<Diagnosa> listDiagnosaByIdPeriksa(int idPeriksa) throws Exception;
 
 }
