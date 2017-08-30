@@ -29,7 +29,7 @@ import rumahsakit.utils.AppUtils;
 public class DokterController {
 
 	@Autowired
-	private DataMasterPemeriksaan service;
+	private DataMasterPemeriksaan service; 
 	@Autowired
 	private AppUtils appUtils;
 	
